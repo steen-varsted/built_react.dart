@@ -1,0 +1,204 @@
+[
+    {
+        "names": [
+            "onCopy",
+            "onCut",
+            "onPaste"
+        ],
+        "props": {
+            "clipboardData": "DOMDataTransfer"
+        }
+    },
+    {
+        "names": [
+            "onCompositionEnd",
+            "onCompositionStart",
+            "onCompositionUpdate"
+        ],
+        "props": {
+            "data": "string"
+        }
+    },
+    {
+        "names": [
+            "onKeyDown",
+            "onKeyPress",
+            "onKeyUp"
+        ],
+        "props": {
+            "altKey": "boolean",
+            "charCode": "number",
+            "ctrlKey": "boolean",
+            "getModifierState(key)": "boolean",
+            "key": "string",
+            "keyCode": "number",
+            "locale": "string",
+            "location": "number",
+            "metaKey": "boolean",
+            "repeat": "boolean",
+            "shiftKey": "boolean",
+            "which": "number"
+        }
+    },
+    {
+        "names": [
+            "onFocus",
+            "onBlur"
+        ],
+        "props": {}
+    },
+    {
+        "names": [
+            "onChange",
+            "onInput",
+            "onInvalid",
+            "onSubmit"
+        ],
+        "props": {}
+    },
+    {
+        "names": [
+            "onClick",
+            "onContextMenu",
+            "onDoubleClick",
+            "onDrag",
+            "onDragEnd",
+            "onDragEnter",
+            "onDragExit",
+            "onDragLeave",
+            "onDragOver",
+            "onDragStart",
+            "onDrop",
+            "onMouseDown",
+            "onMouseEnter",
+            "onMouseLeave",
+            "onMouseMove",
+            "onMouseOut",
+            "onMouseOver",
+            "onMouseUp"
+        ],
+        "props": {}
+    },
+    {
+        "names": [
+            "onPointerDown",
+            "onPointerMove",
+            "onPointerUp",
+            "onPointerCancel",
+            "onGotPointerCapture",
+            "onLostPointerCapture",
+            "onPointerEnter",
+            "onPointerLeave",
+            "onPointerOver",
+            "onPointerOut"
+        ],
+        "props": {}
+    },
+    {
+        "names": [
+            "onSelect"
+        ],
+        "props": {}
+    },
+    {
+        "names": [
+            "onTouchCancel",
+            "onTouchEnd",
+            "onTouchMove",
+            "onTouchStart"
+        ],
+        "props": {
+            "altKey": "boolean",
+            "changedTouches": "DOMTouchList",
+            "ctrlKey": "boolean",
+            "getModifierState(key)": "boolean",
+            "metaKey": "boolean",
+            "shiftKey": "boolean",
+            "targetTouches": "DOMTouchList",
+            "touches": "DOMTouchList"
+        }
+    },
+    {
+        "names": [
+            "onScroll"
+        ],
+        "props": {
+            "detail": "number",
+            "view": "DOMAbstractView"
+        }
+    },
+    {
+        "names": [
+            "onWheel"
+        ],
+        "props": {
+            "deltaMode": "number",
+            "deltaX": "number",
+            "deltaY": "number",
+            "deltaZ": "number"
+        }
+    },
+    {
+        "names": [
+            "onAbort",
+            "onCanPlay",
+            "onCanPlayThrough",
+            "onDurationChange",
+            "onEmptied",
+            "onEncrypted",
+            "onEnded",
+            "onError",
+            "onLoadedData",
+            "onLoadedMetadata",
+            "onLoadStart",
+            "onPause",
+            "onPlay",
+            "onPlaying",
+            "onProgress",
+            "onRateChange",
+            "onSeeked",
+            "onSeeking",
+            "onStalled",
+            "onSuspend",
+            "onTimeUpdate",
+            "onVolumeChange",
+            "onWaiting"
+        ],
+        "props": {}
+    },
+    {
+        "names": [
+            "onLoad",
+            "onError"
+        ],
+        "props": {}
+    },
+    {
+        "names": [
+            "onAnimationStart",
+            "onAnimationEnd",
+            "onAnimationIteration"
+        ],
+        "props": {
+            "animationName": "string",
+            "pseudoElement": "string",
+            "elapsedTime": "float"
+        }
+    },
+    {
+        "names": [
+            "onTransitionEnd"
+        ],
+        "props": {
+            "propertyName": "string",
+            "pseudoElement": "string",
+            "elapsedTime": "float"
+        }
+    },
+    {
+        "names": [
+            "onToggle"
+        ],
+        "props": {}
+    }
+]

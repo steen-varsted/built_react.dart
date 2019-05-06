@@ -1,0 +1,514 @@
+{
+  "globalAttributes": [
+    {
+      "name": "class",
+      "description": "Css classes"
+    },
+    {
+      "name": "style",
+      "description": "Css styles"
+    },
+    {
+      "name": "id",
+      "description": "Id"
+    },
+    {
+      "name": "lang",
+      "description": "Language"
+    },
+    {
+      "name": "data-*",
+      "description": "Custom attributes"
+    },
+    {
+      "name": "tabindex",
+      "description": "Tab index"
+    }
+  ],
+  "tags": {
+    "a": [
+      {
+        "name": "href",
+        "description": "This attribute contains the URL or URL fragment that the hyperlink points to."
+      },
+      {
+        "name": "hreflang",
+        "description": "This attribute contains the URL or URL fragment that the hyperlink points to."
+      },
+      {
+        "name": "target",
+        "description": "This attribute specifies where to display the linked URL."
+      },
+      {
+        "name": "type",
+        "description": "This attribute specifies the media type in the form of a MIME type for the linked URL."
+      }
+    ],
+    "altGlyph": [],
+    "altGlyphDef": [],
+    "altGlyphItem": [],
+    "animate": [],
+    "animateColor": [],
+    "animateMotion": [],
+    "animateTransform": [],
+    "circle": [
+      {
+        "name": "cx",
+        "description": "This attribute defines the x-axis coordinate of the center of the element."
+      },
+      {
+        "name": "cy",
+        "description": "This attribute defines the y-axis coordinate of the center of the element."
+      },
+      {
+        "name": "r",
+        "description": "This attribute defines the radius of the element."
+      },
+      {
+        "name": "pathLength",
+        "description": "This attribute lets specify the total length for the path, in user units."
+      }
+    ],
+    "clipPath": [
+      {
+        "name": "clipPathUnits",
+        "description": "This attribute defines the coordinate system for the contents of the <clipPath> element."
+      }
+    ],
+    "color-profile": [],
+    "cursor": [],
+    "defs": [],
+    "desc": [],
+    "discard": [],
+    "ellipse": [
+      {
+        "name": "cx",
+        "description": "The x position of the ellipse."
+      },
+      {
+        "name": "cy",
+        "description": "The y position of the ellipse."
+      },
+      {
+        "name": "rx",
+        "description": "The radius of the ellipse on the x axis."
+      },
+      {
+        "name": "ry",
+        "description": "The radius of the ellipse on the y axis."
+      },
+      {
+        "name": "pathLength",
+        "description": "This attribute lets specify the total length for the path, in user units."
+      }
+    ],
+    "feBlend": [],
+    "feColorMatrix": [],
+    "feComponentTransfer": [],
+    "feComposite": [],
+    "feConvolveMatrix": [],
+    "feDiffuseLighting": [],
+    "feDisplacementMap": [],
+    "feDistantLight": [],
+    "feDropShadow": [],
+    "feFlood": [],
+    "feFuncA": [],
+    "feFuncB": [],
+    "feFuncG": [],
+    "feFuncR": [],
+    "feGaussianBlur": [],
+    "feImage": [],
+    "feMerge": [],
+    "feMergeNode": [],
+    "feMorphology": [],
+    "feOffset": [],
+    "fePointLight": [],
+    "feSpecularLighting": [],
+    "feSpotLight": [],
+    "feTile": [],
+    "feTurbulence": [],
+    "filter": [],
+    "font": [],
+    "font-face": [],
+    "font-face-format": [],
+    "font-face-name": [],
+    "font-face-src": [],
+    "font-face-uri": [],
+    "foreignObject": [
+      {
+        "name": "height",
+        "description": "This attribute determines the height of the rect."
+      },
+      {
+        "name": "width",
+        "description": "This attribute determines the width of the rect."
+      },
+      {
+        "name": "x",
+        "description": "This attribute determines the x coordinate of the svg container. It has no effect on outermost svg elements."
+      },
+      {
+        "name": "y",
+        "description": "This attribute determines the y coordinate of the svg container. It has no effect on outermost svg elements."
+      }
+    ],
+    "g": [],
+    "glyph": [],
+    "glyphRef": [],
+    "hatch": [],
+    "hatchpath": [],
+    "hkern": [],
+    "image": [],
+    "line": [
+      {
+        "name": "x1",
+        "description": "Defines the x-axis coordinate of the line starting point."
+      },
+      {
+        "name": "x2",
+        "description": "Defines the x-axis coordinate of the line ending point."
+      },
+      {
+        "name": "y1",
+        "description": "Defines the y-axis coordinate of the line starting point."
+      },
+      {
+        "name": "y2",
+        "description": "Defines the y-axis coordinate of the line ending point."
+      },
+      {
+        "name": "pathLength",
+        "description": "Defines the total path length in user units."
+      }
+    ],
+    "linearGradient": [],
+    "marker": [
+      {
+        "name": "markerHeight",
+        "description": "This attribute defines the height of the marker viewport."
+      },
+      {
+        "name": "markerUnits",
+        "description": "This attribute defines the coordinate system for the attributes markerWidth, markerHeight and the contents of the <marker>."
+      },
+      {
+        "name": "markerWidth",
+        "description": "This attribute defines the width of the marker viewport."
+      },
+      {
+        "name": "orient",
+        "description": "This attribute defines the orientation of the marker relative to the shape it is attached to."
+      },
+      {
+        "name": "preserveAspectRatio",
+        "description": "This attribute defines how the svg fragment must be deformed if it is embedded in a container with a different aspect ratio."
+      },
+      {
+        "name": "refX",
+        "description": "This attribute defines the x coordinate for the reference point of the marker."
+      },
+      {
+        "name": "refY",
+        "description": "This attribute defines the y coordinate for the reference point of the marker."
+      },
+      {
+        "name": "viewBox",
+        "description": "This attribute defines the bound of the SVG viewport for the current SVG fragment."
+      }
+    ],
+    "mask": [
+      {
+        "name": "height",
+        "description": "This attribute defines the height of the masking area."
+      },
+      {
+        "name": "maskContentUnits",
+        "description": "This attribute defines the coordinate system for the contents of the <mask>."
+      },
+      {
+        "name": "maskUnits",
+        "description": "This attribute defines defines the coordinate system for attributes x, y, width and height on the <mask>."
+      },
+      {
+        "name": "x",
+        "description": "This attribute defines the x-axis coordinate of the top-left corner of the masking area."
+      },
+      {
+        "name": "y",
+        "description": "This attribute defines the y-axis coordinate of the top-left corner of the masking area."
+      },
+      {
+        "name": "width",
+        "description": "This attribute defines the width of the masking area."
+      }
+    ],
+    "mesh": [],
+    "meshgradient": [],
+    "meshpatch": [],
+    "meshrow": [],
+    "metadata": [],
+    "missing-glyph": [],
+    "mpath": [],
+    "path": [
+      {
+        "name": "d",
+        "description": "This attribute defines the shape of the path."
+      },
+      {
+        "name": "pathLength",
+        "description": "This attribute lets authors specify the total length for the path, in user units."
+      }
+    ],
+    "pattern": [
+      {
+        "name": "height",
+        "description": "This attribute determines the height of the pattern tile."
+      },
+      {
+        "name": "href",
+        "description": "This attribute reference a template pattern that provides default values for the <pattern> attributes."
+      },
+      {
+        "name": "patternContentUnits",
+        "description": "This attribute defines the coordinate system for the contents of the <pattern>."
+      },
+      {
+        "name": "patternTransform",
+        "description": "This attribute contains the definition of an optional additional transformation from the pattern coordinate system onto the target coordinate system."
+      },
+      {
+        "name": "patternUnits",
+        "description": "This attribute defines the coordinate system for attributes x, y, width and height."
+      },
+      {
+        "name": "preserveAspectRatio",
+        "description": "This attribute defines how the svg fragment must be deformed if it is embedded in a container with a different aspect ratio."
+      },
+      {
+        "name": "viewBox",
+        "description": "This attribute defines the bound of the SVG viewport for the pattern fragment."
+      },
+      {
+        "name": "width",
+        "description": "This attribute determines the width of the pattern tile."
+      },
+      {
+        "name": "x",
+        "description": "This attribute determines the x coordinate shift of the pattern tile."
+      },
+      {
+        "name": "y",
+        "description": "This attribute determines the y coordinate shift of the pattern tile."
+      }
+    ],
+    "polygon": [
+      {
+        "name": "points",
+        "description": "This attribute defines the list of points (pairs of x,y absolute coordinates) required to draw the polygon."
+      },
+      {
+        "name": "pathLength",
+        "description": "This attribute lets specify the total length for the path, in user units."
+      }
+    ],
+    "polyline": [
+      {
+        "name": "points",
+        "description": "This attribute defines the list of points (pairs of x,y absolute coordinates) required to draw the polyline"
+      },
+      {
+        "name": "pathLength",
+        "description": "This attribute lets specify the total length for the path, in user units."
+      }
+    ],
+    "radialGradient": [],
+    "rect": [
+      {
+        "name": "x",
+        "description": "This attribute determines the x coordinate of the rect."
+      },
+      {
+        "name": "y",
+        "description": "This attribute determines the y coordinate of the rect."
+      },
+      {
+        "name": "width",
+        "description": "This attribute determines the width of the rect."
+      },
+      {
+        "name": "height",
+        "description": "This attribute determines the height of the rect."
+      },
+      {
+        "name": "rx",
+        "description": "This attribute determines the horizontal corner radius of the rect."
+      },
+      {
+        "name": "ry",
+        "description": "This attribute determines the vertical corner radius of the rect."
+      },
+      {
+        "name": "pathLength",
+        "description": "This attribute lets specify the total length for the path, in user units."
+      }
+    ],
+    "script": [],
+    "set": [],
+    "solidcolor": [],
+    "stop": [],
+    "style": [],
+    "svg": [
+      {
+        "name": "height",
+        "description": "This attribute determines the height of the rect."
+      },
+      {
+        "name": "preserveAspectRatio",
+        "description": "This attribute defines how the svg fragment must be deformed if it is embedded in a container with a different aspect ratio."
+      },
+      {
+        "name": "viewBox",
+        "description": "This attribute defines the bound of the SVG viewport for the current SVG fragment."
+      },
+      {
+        "name": "width",
+        "description": "This attribute determines the width of the rect."
+      },
+      {
+        "name": "x",
+        "description": "This attribute determines the x coordinate of the svg container. It has no effect on outermost svg elements."
+      },
+      {
+        "name": "y",
+        "description": "This attribute determines the y coordinate of the svg container. It has no effect on outermost svg elements."
+      }
+    ],
+    "switch": [],
+    "symbol": [
+      {
+        "name": "height",
+        "description": "This attribute determines the height of the symbol."
+      },
+      {
+        "name": "preserveAspectRatio",
+        "description": "This attribute defines how the svg fragment must be deformed if it is embedded in a container with a different aspect ratio."
+      },
+      {
+        "name": "refX",
+        "description": "This attribute determines the x coordinate of the reference point of the symbol."
+      },
+      {
+        "name": "refY",
+        "description": "This attribute determines the y coordinate of the reference point of the symbol."
+      },
+      {
+        "name": "viewBox",
+        "description": "This attribute defines the bound of the SVG viewport for the current symbol."
+      },
+      {
+        "name": "width",
+        "description": "This attribute determines the width of the symbol."
+      },
+      {
+        "name": "x",
+        "description": "This attribute determines the x coordinate of the symbol."
+      },
+      {
+        "name": "y",
+        "description": "This attribute determines the y coordinate of the symbol."
+      }
+    ],
+    "text": [
+      {
+        "name": "x",
+        "description": "This attribute determines the x coordinate of the starting point of the text baseline."
+      },
+      {
+        "name": "y",
+        "description": "This attribute determines the y coordinate of the starting point of the text baseline."
+      },
+      {
+        "name": "dx",
+        "description": "This attribute allows to shift the text position horizontally."
+      },
+      {
+        "name": "dy",
+        "description": "This attribute allows to shift the text position vertically."
+      },
+      {
+        "name": "rotate",
+        "description": "This attribute set the orientation of each individual glyph."
+      },
+      {
+        "name": "lengthAdjust",
+        "description": "This attribute determines how the text is stretched or compressed to fit the width define by the textLength attribute."
+      },
+      {
+        "name": "textLength",
+        "description": "This attribute lets specify the width into which the text will be drawn."
+      }
+    ],
+    "textPath": [
+      {
+        "name": "href",
+        "description": "This attribute defines the URL to the path or basic shape on which the text must be rendered. If the path attribute is also set, href as no effect."
+      },
+      {
+        "name": "lengthAdjust",
+        "description": "This attribute indicates where length adjustement should be happening on text."
+      },
+      {
+        "name": "method",
+        "description": "This attribute defines which method must be used to render individual glyphes along the path."
+      },
+      {
+        "name": "path",
+        "description": "This attribute defines the path on which the text must be rendered."
+      },
+      {
+        "name": "side",
+        "description": "This attribute indicates on which side of the path the text should be rendered."
+      },
+      {
+        "name": "spacing",
+        "description": "This attribute lets specify how space between glyphes should be handled."
+      },
+      {
+        "name": "startOffset",
+        "description": "This attribute lets specify how much the begining of the text should be offset from the begining of the path."
+      },
+      {
+        "name": "textLength",
+        "description": "This attribute lets specify the width of the space into which the text will render."
+      }
+    ],
+    "title": [],
+    "tref": [],
+    "tspan": [],
+    "unknown": [],
+    "use": [
+      {
+        "name": "href",
+        "description": "This attribute defines the URL to element/fragment that needs to be duplicated."
+      },
+      {
+        "name": "x",
+        "description": "This attribute defines the x coordinate of the use element."
+      },
+      {
+        "name": "y",
+        "description": "This attribute defines the y coordinate of the use element."
+      },
+      {
+        "name": "width",
+        "description": "This attribute determines the width of the use element."
+      },
+      {
+        "name": "height",
+        "description": "This attribute determines the height of the use element."
+      }
+    ],
+    "view": [],
+    "vkern": []
+  }
+}

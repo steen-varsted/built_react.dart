@@ -1,0 +1,24 @@
+name: built_react
+version: 0.1.0
+description: >
+  Simple typesafe dart react
+authors:
+- Steen Varsted <steen@varsted.dk>
+homepage: https://github.com/google/built_value.dart
+
+environment:
+  sdk: '>=2.0.0-dev <3.0.0'
+
+dependencies:
+  meta: ^1.0.4
+  react: ^4.5.0
+  built_collection: ^4.0.0
+  recase: any
+  source_gen:
+
+dev_dependencies:
+  test:
+  build_runner: ^1.0.0
+  build_test:
+  collection:
+  build_web_compilers: any

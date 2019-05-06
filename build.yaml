@@ -1,0 +1,51 @@
+targets:
+  $default:
+    builders:
+      built_react|element_builder:
+        generate_for:
+          include: ["lib/src/element.dart"]
+        enabled: true
+      built_react|built_react_builder:
+        generate_for:
+          include: ["web/main.dart", "test/*_test.dart"]
+        enabled: true
+      built_react|built_simple_builder:
+        enabled: true
+      build_web_compilers|entrypoint:
+        generate_for:
+          include: ["test/*.browser_test.dart"]
+        options:
+          compiler: dart2js
+          dart2js_args:
+            - --fast-startup
+builders:
+  element_builder:
+    target: ':built_react'
+    import: "package:built_react/builder.dart"
+    builder_factories: ["elementBuilder"]
+    build_extensions: {".dart": [".built.dart"]}
+    runs_before: ["built_react|built_simple_builder"]
+    auto_apply: none
+    build_to: source
+  built_simple_builder:
+    target: ':built_react'
+    import: "package:built_react/builder.dart"
+    builder_factories: ["builtSimpleBuilder"]
+    build_extensions: {".dart": [".built_simple.g.part"]}
+    auto_apply: all_packages
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+  built_react_builder:
+    target: ':built_react'
+    import: "package:built_react/builder.dart"
+    builder_factories: ["builtReactBuilder"]
+    build_extensions: {".dart": [".built_react.g.part"]}
+    auto_apply: all_packages
+    build_to: source
+    defaults:
+      generate_for:
+        exclude:
+          - lib/**.dart
+        include:
+          - test/**.dart
+          - web/**.dart
