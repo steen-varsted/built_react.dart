@@ -1,6 +1,6 @@
 # built-react
 
-A type safe interface to React.
+Simple typesafe dart react.
 
 ## Usage
 
