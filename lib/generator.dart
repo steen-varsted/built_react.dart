@@ -16,6 +16,8 @@ import 'package:collection/collection.dart';
 const collectionEquality = DeepCollectionEquality();
 
 const prefix = '''
+import 'dart:async';
+import 'dart:html';
 import 'element.dart';
 import 'component.dart';
 import 'built_simple.dart';
@@ -244,6 +246,14 @@ class ElementGenerator extends Generator {
     var properties = getPropertyMethods(globalAttributes);
     var globalClass = Class((c) => builtSimple(c, globalAttributesClass)
       ..implements.add(Reference('ElementProps'))
+      ..methods.add(Method((m) => m
+        ..name = 'subscribeAll'
+        ..lambda = true
+        ..returns = Reference('Iterable<StreamSubscription>')
+        ..requiredParameters.add((Parameter((p) => p
+          ..name = 'e'
+          ..type = Reference('Element'))))
+        ..body = Code('onDart?.subscribeAll(e)')))
       ..methods.addAll(properties)
       ..methods.add(Method((m) => m
         ..name = 'bs'
@@ -274,6 +284,14 @@ class ElementGenerator extends Generator {
     var properties = getPropertyMethods(globalAttributes, svg: true);
     var globalClass = Class((c) => builtSimple(c, svgAttributesClass)
       ..implements.add(Reference('ElementProps'))
+      ..methods.add(Method((m) => m
+        ..name = 'subscribeAll'
+        ..lambda = true
+        ..returns = Reference('Iterable<StreamSubscription>')
+        ..requiredParameters.add((Parameter((p) => p
+          ..name = 'e'
+          ..type = Reference('Element'))))
+        ..body = Code('onDart?.subscribeAll(e)')))
       ..methods.addAll(properties)
       ..methods.add(Method((m) => m
         ..name = 'on'
@@ -369,6 +387,153 @@ class ElementGenerator extends Generator {
   }
 }
 
+const ionicPrefix = '''
+import 'element.dart';
+import 'built_simple.dart';
+import 'props.dart';
+import 'package:built_collection/built_collection.dart';
+import 'dart:html';
+
+part 'ionic.built.g.dart';
+    
+''';
+
+class IonicGenerator extends Generator {
+  List<Class> generatedClasses = [];
+
+  List<Code> lines = [];
+
+  Map<String, Reference> enumTypes = <String, Reference>{};
+
+  @override
+  FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
+    var file = File('generate/ionic.json');
+    var json = jsonDecode(file.readAsStringSync());
+    await generateClasses(json);
+    var emitter = DartEmitter();
+    var typedefs = lines.map((c) => c.accept(emitter).toString()).join('\n');
+    var classes = generatedClasses.map((c) => c.accept(emitter).toString()).join('\n\n');
+    var source = ionicPrefix + typedefs + classes;
+    return source;
+  }
+
+  generateClasses(Map<String, dynamic> json) async {
+    json.keys.forEach((key) {
+      var element = json[key];
+      generatePropClass(element);
+      if (element['events'].length > 0) {
+        generateEventClass(element);
+      }
+    });
+  }
+
+  typeReference(String elementName, String propName, String type) {
+    if (type == null) {
+      print('Null type $elementName $propName');
+      return Reference('String');
+    }
+    if (type.startsWith('null | ')) {
+      type = type.substring(7);
+    }
+    if (type.endsWith(' | undefined')) {
+      type = type.substring(0, type.length - 12);
+    }
+    if (type.endsWith(' | null')) {
+      type = type.substring(0, type.length - 7);
+    }
+    if (type.startsWith('"')) {
+      if (!enumTypes.containsKey(type)) {
+        var typeName = '${ReCase(propName).pascalCase}Value';
+        if (['side', 'size', 'position', 'type'].contains(propName)) {
+          typeName = ReCase(elementName).pascalCase + typeName;
+        }
+        var values = type
+            .substring(1, type.length - 1)
+            .split(RegExp('" \\| "'))
+            .where((s) => s != '')
+            .map((v) => v.replaceAll('-', '_'))
+            .map((s) => s == 'default' ? 'default_value' : s);
+        lines.add(Code('enum $typeName { ${values.join(',')} }'));
+        enumTypes[type] = Reference(typeName);
+      }
+      return enumTypes[type];
+    }
+    if (type == 'string') {
+      return Reference('String');
+    }
+    if (type == 'string[]' || type == 'string | string[]') {
+      return Reference('BuiltList<String>');
+    }
+    if (type == 'boolean') {
+      return Reference('bool');
+    }
+    if (type == 'number') {
+      return Reference('num');
+    }
+    if (type == 'number[]' || type == 'number | number[]') {
+      return Reference('BuiltList<num>');
+    }
+    print('Unknown $type $elementName $propName');
+    return Reference('String');
+  }
+
+  generatePropClass(Map<String, dynamic> element) {
+    var name = ReCase(element['tag'].substring(4)).pascalCase + 'Props';
+    var eventPropsName = ReCase(element['tag'].substring(4)).pascalCase + 'EventProps';
+    List<dynamic> props = element['props'];
+    generatedClasses.add(Class((c) => c
+      ..name = name
+      ..implements.add(Reference('Props'))
+      ..implements.add(Reference('BuiltSimple'))
+      ..abstract = true
+      ..methods.addAll(props
+          .where((p) => p != null)
+          .map<Method>((prop) => Method((m) => m
+            ..name = prop['name']
+            ..type = MethodType.getter
+            ..returns = typeReference(name, prop['name'], prop['type'])))
+          .toList())
+      ..methods.addAll(element['events'].length > 0
+          ? [
+              Method((m) => m
+                ..name = 'on'
+                ..type = MethodType.getter
+                ..returns = Reference(eventPropsName))
+            ]
+          : [])
+      ..constructors.add(Constructor((c) => c
+        ..factory = true
+        ..lambda = true
+        ..optionalParameters.add(Parameter((p) => p
+          ..name = 'updates'
+          ..type = Reference('BuilderFunc<' + name + 'Builder>')))
+        ..body = Code('_' + name + '(updates)')))));
+  }
+
+  generateEventClass(Map<String, dynamic> element) {
+    var name = ReCase(element['tag'].substring(4)).pascalCase + 'EventProps';
+    List<dynamic> events = element['events'];
+    generatedClasses.add(Class((c) => c
+      ..name = name
+      ..implements.add(Reference('BuiltSimple'))
+      ..abstract = true
+      ..methods.addAll(events
+          .where((p) => p != null)
+          .map<Method>((event) => Method((m) => m
+            ..name = event['event']
+            ..type = MethodType.getter
+            ..returns = Reference('DartHandler<CustomEvent>')))
+          .toList())
+      ..constructors.add(Constructor((c) => c
+        ..factory = true
+        ..lambda = true
+        ..optionalParameters.add(Parameter((p) => p
+          ..name = 'updates'
+          ..type = Reference('BuilderFunc<' + name + 'Builder>')))
+        ..body = Code('_' + name + '(updates)')))));
+  }
+}
+
 class BuiltSimpleGenerator extends Generator {
   @override
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) {
@@ -400,7 +565,8 @@ class BuiltSimpleGenerator extends Generator {
     }
   }
 
-  bool isBuiltSimpleClass(ClassElement e) => e.name == 'BuiltSimple' && e.library.name == '';
+  bool isBuiltSimpleClass(ClassElement e) =>
+      e.name == 'BuiltSimple' && e.library.name == ''; //e.source.fullName.startsWith('built_value|lib/');
 
   bool isBuiltSimple(Element e) =>
       e is ClassElement && (isBuiltSimpleClass(e) || e.interfaces.any((i) => isBuiltSimple(i.element)));
@@ -411,7 +577,8 @@ class BuiltSimpleGenerator extends Generator {
   bool isBuiltValue(Element e) =>
       e is ClassElement && (isBuiltValueClass(e) || e.interfaces.any((i) => isBuiltValue(i.element)));
 
-  bool isBuiltSimpleField(ClassElement e) => e.name == 'BuiltSimpleField' && e.library.name == '';
+  bool isBuiltSimpleField(ClassElement e) =>
+      e.name == 'BuiltSimpleField' && e.library.name == ''; // e.source.fullName.startsWith('built_value|lib/');
 
   bool isEnum(DartType type) => type.element is ClassElement && (type.element as ClassElement).isEnum == true;
 

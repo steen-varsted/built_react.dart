@@ -5,6 +5,10 @@ targets:
         generate_for:
           include: ["lib/src/element.dart"]
         enabled: true
+      built_react|ionic_builder:
+        generate_for:
+          include: ["lib/src/ionic.dart"]
+        enabled: true
       built_react|built_react_builder:
         generate_for:
           include: ["web/main.dart", "test/*_test.dart"]
@@ -23,6 +27,14 @@ builders:
     target: ':built_react'
     import: "package:built_react/builder.dart"
     builder_factories: ["elementBuilder"]
+    build_extensions: {".dart": [".built.dart"]}
+    runs_before: ["built_react|built_simple_builder"]
+    auto_apply: none
+    build_to: source
+  ionic_builder:
+    target: ':built_react'
+    import: "package:built_react/builder.dart"
+    builder_factories: ["ionicBuilder"]
     build_extensions: {".dart": [".built.dart"]}
     runs_before: ["built_react|built_simple_builder"]
     auto_apply: none

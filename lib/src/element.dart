@@ -47,9 +47,9 @@ class Size {
 var _untypedComponentFactories = Map<Type, UntypedReact.ReactComponentFactoryProxy>();
 
 abstract class HtmlElementBase implements RenderResult {
-  ElementProps _props;
+  Props _props;
   List<RenderResult> _children;
-  ElementProps get props => _props;
+  Props get props => _props;
   List<RenderResult> get children => _children;
   _UntypedElementBase _untypedComponent;
   _HtmlElementBase _htmlElementBase;
@@ -122,13 +122,19 @@ class _UntypedElementBase extends UntypedReact.Component {
   @override
   void componentDidMount() {
     component._hasDom = true;
-    _subscriptions = component.props.onDart?._subscribeAll(component.dom);
+    if(component.props is Subscribable) {
+      var subscribable = component.props as Subscribable;
+      _subscriptions = subscribable.subscribeAll(component.dom);
+    }
   }
 
   @override
   void componentDidUpdate(Map prevProps, Map prevState) {
     _subscriptions?.forEach((s) => s.cancel());
-    _subscriptions = component.props.onDart?._subscribeAll(component.dom);
+    if(component.props is Subscribable) {
+      var subscribable = component.props as Subscribable;
+      _subscriptions = subscribable.subscribeAll(component.dom);
+    }
   }
 
   @override
@@ -172,13 +178,19 @@ class _HtmlElementBase implements RenderResult {
   Element get dom => _dom;
 }
 
-abstract class ElementProps implements Props {
+abstract class ElementProps implements Props, Subscribable {
   /// onDart
   @BuiltSimpleField(json: 'value?.fillJson(null)')
   DartEvents get onDart;
+
+  Iterable<StreamSubscription> subscribeAll(Element e) => onDart?.subscribeAll(e);
 }
 
 typedef dynamic DartHandler<ET extends Event>(ET event);
+
+abstract class Subscribable {
+  Iterable<StreamSubscription> subscribeAll(Element e);
+}
 
 abstract class DartEvents implements BuiltSimple {
   factory DartEvents([BuilderFunc<DartEventsBuilder> b]) => _DartEvents(b);
@@ -200,7 +212,7 @@ abstract class DartEvents implements BuiltSimple {
   StreamSubscription<ET> _subscribe<ET extends Event>(ElementStream<ET> stream, DartHandler<ET> handler) =>
       handler == null ? null : stream.listen((e) => handler(e));
 
-  Iterable<StreamSubscription> _subscribeAll(Element e) {
+  Iterable<StreamSubscription> subscribeAll(Element e) {
     return <StreamSubscription>[
       _subscribe<MouseEvent>(e.onClick, click),
       _subscribe<MouseEvent>(e.onMouseDown, mouseDown),

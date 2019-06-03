@@ -7,6 +7,11 @@ Builder elementBuilder(BuilderOptions _) {
   return builder;
 }
 
+Builder ionicBuilder(BuilderOptions _) {
+  var builder = LibraryBuilder(IonicGenerator(), generatedExtension: '.built.dart');
+  return builder;
+}
+
 Builder builtReactBuilder(BuilderOptions _) {
   var builder = LibraryBuilder(BuiltReactGenerator(), generatedExtension: '.built_react.dart');
   return builder;
