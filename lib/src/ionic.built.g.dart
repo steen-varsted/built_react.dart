@@ -6,10 +6,89 @@ part of 'ionic.built.dart';
 // BuiltSimpleGenerator
 // **************************************************************************
 
-class _ActionSheetProps extends BuiltSimpleImpl
+class _IonProps extends BuiltSimpleImpl with IonProps implements IonProps {
+  _IonProps._() : super();
+
+  factory _IonProps(BuilderFunc<IonPropsBuilder> builder) =>
+      IonPropsBuilder.create(builder);
+
+  BuiltList<String> className;
+
+  BuiltMap<String, CustomValue> custom;
+
+  String key;
+
+  fillJson(Map<String, dynamic> json) {
+    _classNameJson(json, className);
+    _customJson(json, custom);
+    json["key"] = key;
+  }
+
+  IonProps rebuild<T>(BuilderFunc<T> builderFuncT) {
+    var builderFunc = builderFuncT as BuilderFunc<IonPropsBuilder>;
+    var builder = toBuilder();
+    builderFunc(builder);
+    return builder.build();
+  }
+
+  IonPropsBuilder toBuilder() => IonPropsBuilder(this);
+}
+
+class IonPropsBuilder extends BuiltSimpleBuilder<IonProps> {
+  IonPropsBuilder._(_IonProps b) : v = b;
+
+  factory IonPropsBuilder([_IonProps b]) {
+    var v = _IonProps._();
+    if (b != null) {
+      v.className = b.className;
+      v.custom = b.custom;
+      v.key = b.key;
+    }
+    return IonPropsBuilder._(v);
+  }
+
+  ListBuilder<String> _className;
+
+  MapBuilder<String, CustomValue> _custom;
+
+  _IonProps v;
+
+  /// Css classes
+  ListBuilder<String> get className {
+    if (_className == null) {
+      _className = ListBuilder<String>(v.className ?? const <String>[]);
+    }
+    return _className;
+  }
+
+  /// Custom attributes
+  MapBuilder<String, CustomValue> get custom {
+    if (_custom == null) {
+      _custom = MapBuilder<String, CustomValue>(
+          v.custom ?? const <String, CustomValue>{});
+    }
+    return _custom;
+  }
+
+  ///
+  set key(String value) => v.key = value;
+  IonProps build() {
+    v.className = _className?.build();
+    v.custom = _custom?.build();
+    return v;
+  }
+
+  static _IonProps create(BuilderFunc<IonPropsBuilder> builderFunc) {
+    var builder = new IonPropsBuilder._(_IonProps._());
+    if (builderFunc != null) builderFunc(builder);
+    return builder.build();
+  }
+}
+
+class _ActionSheetProps extends _IonProps
     with ActionSheetProps
     implements ActionSheetProps {
-  _ActionSheetProps._() : super();
+  _ActionSheetProps._() : super._();
 
   factory _ActionSheetProps(BuilderFunc<ActionSheetPropsBuilder> builder) =>
       ActionSheetPropsBuilder.create(builder);
@@ -38,9 +117,8 @@ class _ActionSheetProps extends BuiltSimpleImpl
 
   ActionSheetEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["backdropDismiss"] = backdropDismiss;
     json["buttons"] = buttons;
@@ -49,11 +127,9 @@ class _ActionSheetProps extends BuiltSimpleImpl
     json["header"] = header;
     json["keyboardClose"] = keyboardClose;
     json["leaveAnimation"] = leaveAnimation;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["subHeader"] = subHeader;
     json["translucent"] = translucent;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ActionSheetProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -66,8 +142,8 @@ class _ActionSheetProps extends BuiltSimpleImpl
   ActionSheetPropsBuilder toBuilder() => ActionSheetPropsBuilder(this);
 }
 
-class ActionSheetPropsBuilder extends BuiltSimpleBuilder<ActionSheetProps> {
-  ActionSheetPropsBuilder._(_ActionSheetProps b) : v = b;
+class ActionSheetPropsBuilder extends IonPropsBuilder {
+  ActionSheetPropsBuilder._(_ActionSheetProps b) : super._(b);
 
   factory ActionSheetPropsBuilder([_ActionSheetProps b]) {
     var v = _ActionSheetProps._();
@@ -84,7 +160,6 @@ class ActionSheetPropsBuilder extends BuiltSimpleBuilder<ActionSheetProps> {
       v.subHeader = b.subHeader;
       v.translucent = b.translucent;
       v.on = b.on;
-      v.key = b.key;
     }
     return ActionSheetPropsBuilder._(v);
   }
@@ -93,18 +168,17 @@ class ActionSheetPropsBuilder extends BuiltSimpleBuilder<ActionSheetProps> {
 
   ActionSheetEventPropsBuilder _on;
 
-  _ActionSheetProps v;
-
-  ///
+  /// <p>If <code>true</code>, the action sheet will animate.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>If <code>true</code>, the action sheet will be dismissed when the backdrop is clicked.</p>
   set backdropDismiss(bool value) => v.backdropDismiss = value;
 
-  ///
+  /// <p>An array of buttons for the action sheet.</p>
   set buttons(String value) => v.buttons = value;
 
-  ///
+  /// <p>Additional classes to apply for custom CSS. If multiple classes are
+  /// provided they should be separated by spaces.</p>
   ListBuilder<String> get cssClass {
     if (_cssClass == null) {
       _cssClass = ListBuilder<String>(v.cssClass ?? const <String>[]);
@@ -112,25 +186,25 @@ class ActionSheetPropsBuilder extends BuiltSimpleBuilder<ActionSheetProps> {
     return _cssClass;
   }
 
-  ///
+  /// <p>Animation to use when the action sheet is presented.</p>
   set enterAnimation(String value) => v.enterAnimation = value;
 
-  ///
+  /// <p>Title for the action sheet.</p>
   set header(String value) => v.header = value;
 
-  ///
+  /// <p>If <code>true</code>, the keyboard will be automatically dismissed when the overlay is presented.</p>
   set keyboardClose(bool value) => v.keyboardClose = value;
 
-  ///
+  /// <p>Animation to use when the action sheet is dismissed.</p>
   set leaveAnimation(String value) => v.leaveAnimation = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>Subtitle for the action sheet.</p>
   set subHeader(String value) => v.subHeader = value;
 
-  ///
+  /// <p>If <code>true</code>, the action sheet will be translucent. Only applies when the mode is <code>&quot;ios&quot;</code> and the device supports backdrop-filter.</p>
   set translucent(bool value) => v.translucent = value;
 
   ///
@@ -141,9 +215,9 @@ class ActionSheetPropsBuilder extends BuiltSimpleBuilder<ActionSheetProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ActionSheetProps get v => super.v;
   ActionSheetProps build() {
+    super.build();
     v.cssClass = _cssClass?.build();
     v.on = _on?.build();
     return v;
@@ -209,19 +283,19 @@ class ActionSheetEventPropsBuilder
 
   _ActionSheetEventProps v;
 
-  ///
+  /// Emitted after the alert has dismissed.
   set ionActionSheetDidDismiss(DartHandler<CustomEvent> value) =>
       v.ionActionSheetDidDismiss = value;
 
-  ///
+  /// Emitted after the alert has presented.
   set ionActionSheetDidPresent(DartHandler<CustomEvent> value) =>
       v.ionActionSheetDidPresent = value;
 
-  ///
+  /// Emitted before the alert has dismissed.
   set ionActionSheetWillDismiss(DartHandler<CustomEvent> value) =>
       v.ionActionSheetWillDismiss = value;
 
-  ///
+  /// Emitted before the alert has presented.
   set ionActionSheetWillPresent(DartHandler<CustomEvent> value) =>
       v.ionActionSheetWillPresent = value;
   ActionSheetEventProps build() {
@@ -237,19 +311,17 @@ class ActionSheetEventPropsBuilder
   }
 }
 
-class _ActionSheetControllerProps extends BuiltSimpleImpl
+class _ActionSheetControllerProps extends _IonProps
     with ActionSheetControllerProps
     implements ActionSheetControllerProps {
-  _ActionSheetControllerProps._() : super();
+  _ActionSheetControllerProps._() : super._();
 
   factory _ActionSheetControllerProps(
           BuilderFunc<ActionSheetControllerPropsBuilder> builder) =>
       ActionSheetControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   ActionSheetControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -264,23 +336,19 @@ class _ActionSheetControllerProps extends BuiltSimpleImpl
       ActionSheetControllerPropsBuilder(this);
 }
 
-class ActionSheetControllerPropsBuilder
-    extends BuiltSimpleBuilder<ActionSheetControllerProps> {
-  ActionSheetControllerPropsBuilder._(_ActionSheetControllerProps b) : v = b;
+class ActionSheetControllerPropsBuilder extends IonPropsBuilder {
+  ActionSheetControllerPropsBuilder._(_ActionSheetControllerProps b)
+      : super._(b);
 
   factory ActionSheetControllerPropsBuilder([_ActionSheetControllerProps b]) {
     var v = _ActionSheetControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return ActionSheetControllerPropsBuilder._(v);
   }
 
-  _ActionSheetControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _ActionSheetControllerProps get v => super.v;
   ActionSheetControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -293,10 +361,8 @@ class ActionSheetControllerPropsBuilder
   }
 }
 
-class _AlertProps extends BuiltSimpleImpl
-    with AlertProps
-    implements AlertProps {
-  _AlertProps._() : super();
+class _AlertProps extends _IonProps with AlertProps implements AlertProps {
+  _AlertProps._() : super._();
 
   factory _AlertProps(BuilderFunc<AlertPropsBuilder> builder) =>
       AlertPropsBuilder.create(builder);
@@ -329,9 +395,8 @@ class _AlertProps extends BuiltSimpleImpl
 
   AlertEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["backdropDismiss"] = backdropDismiss;
     json["buttons"] = buttons;
@@ -342,11 +407,9 @@ class _AlertProps extends BuiltSimpleImpl
     json["keyboardClose"] = keyboardClose;
     json["leaveAnimation"] = leaveAnimation;
     json["message"] = message;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["subHeader"] = subHeader;
     json["translucent"] = translucent;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   AlertProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -359,8 +422,8 @@ class _AlertProps extends BuiltSimpleImpl
   AlertPropsBuilder toBuilder() => AlertPropsBuilder(this);
 }
 
-class AlertPropsBuilder extends BuiltSimpleBuilder<AlertProps> {
-  AlertPropsBuilder._(_AlertProps b) : v = b;
+class AlertPropsBuilder extends IonPropsBuilder {
+  AlertPropsBuilder._(_AlertProps b) : super._(b);
 
   factory AlertPropsBuilder([_AlertProps b]) {
     var v = _AlertProps._();
@@ -379,7 +442,6 @@ class AlertPropsBuilder extends BuiltSimpleBuilder<AlertProps> {
       v.subHeader = b.subHeader;
       v.translucent = b.translucent;
       v.on = b.on;
-      v.key = b.key;
     }
     return AlertPropsBuilder._(v);
   }
@@ -388,18 +450,17 @@ class AlertPropsBuilder extends BuiltSimpleBuilder<AlertProps> {
 
   AlertEventPropsBuilder _on;
 
-  _AlertProps v;
-
-  ///
+  /// <p>If <code>true</code>, the alert will animate.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>If <code>true</code>, the alert will be dismissed when the backdrop is clicked.</p>
   set backdropDismiss(bool value) => v.backdropDismiss = value;
 
-  ///
+  /// <p>Array of buttons to be added to the alert.</p>
   set buttons(String value) => v.buttons = value;
 
-  ///
+  /// <p>Additional classes to apply for custom CSS. If multiple classes are
+  /// provided they should be separated by spaces.</p>
   ListBuilder<String> get cssClass {
     if (_cssClass == null) {
       _cssClass = ListBuilder<String>(v.cssClass ?? const <String>[]);
@@ -407,31 +468,36 @@ class AlertPropsBuilder extends BuiltSimpleBuilder<AlertProps> {
     return _cssClass;
   }
 
-  ///
+  /// <p>Animation to use when the alert is presented.</p>
   set enterAnimation(String value) => v.enterAnimation = value;
 
-  ///
+  /// <p>The main title in the heading of the alert.</p>
   set header(String value) => v.header = value;
 
-  ///
+  /// <p>Array of input to show in the alert.</p>
   set inputs(String value) => v.inputs = value;
 
-  ///
+  /// <p>If <code>true</code>, the keyboard will be automatically dismissed when the overlay is presented.</p>
   set keyboardClose(bool value) => v.keyboardClose = value;
 
-  ///
+  /// <p>Animation to use when the alert is dismissed.</p>
   set leaveAnimation(String value) => v.leaveAnimation = value;
 
-  ///
+  /// <p>The main message to be displayed in the alert.
+  /// <code>message</code> can accept either plaintext or HTML as a string.
+  /// To display characters normally reserved for HTML, they
+  /// must be escaped. For example <code>&lt;Ionic&gt;</code> would become
+  /// <code>&amp;lt;Ionic&amp;gt;</code></p>
+  /// <p>For more information: <a href=https://ionicframework.com/docs/faq/security >Security Documentation</a></p>
   set message(String value) => v.message = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The subtitle in the heading of the alert. Displayed under the title.</p>
   set subHeader(String value) => v.subHeader = value;
 
-  ///
+  /// <p>If <code>true</code>, the alert will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
 
   ///
@@ -442,9 +508,9 @@ class AlertPropsBuilder extends BuiltSimpleBuilder<AlertProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _AlertProps get v => super.v;
   AlertProps build() {
+    super.build();
     v.cssClass = _cssClass?.build();
     v.on = _on?.build();
     return v;
@@ -506,19 +572,19 @@ class AlertEventPropsBuilder extends BuiltSimpleBuilder<AlertEventProps> {
 
   _AlertEventProps v;
 
-  ///
+  /// Emitted after the alert has dismissed.
   set ionAlertDidDismiss(DartHandler<CustomEvent> value) =>
       v.ionAlertDidDismiss = value;
 
-  ///
+  /// Emitted after the alert has presented.
   set ionAlertDidPresent(DartHandler<CustomEvent> value) =>
       v.ionAlertDidPresent = value;
 
-  ///
+  /// Emitted before the alert has dismissed.
   set ionAlertWillDismiss(DartHandler<CustomEvent> value) =>
       v.ionAlertWillDismiss = value;
 
-  ///
+  /// Emitted before the alert has presented.
   set ionAlertWillPresent(DartHandler<CustomEvent> value) =>
       v.ionAlertWillPresent = value;
   AlertEventProps build() {
@@ -533,19 +599,17 @@ class AlertEventPropsBuilder extends BuiltSimpleBuilder<AlertEventProps> {
   }
 }
 
-class _AlertControllerProps extends BuiltSimpleImpl
+class _AlertControllerProps extends _IonProps
     with AlertControllerProps
     implements AlertControllerProps {
-  _AlertControllerProps._() : super();
+  _AlertControllerProps._() : super._();
 
   factory _AlertControllerProps(
           BuilderFunc<AlertControllerPropsBuilder> builder) =>
       AlertControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   AlertControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -558,23 +622,18 @@ class _AlertControllerProps extends BuiltSimpleImpl
   AlertControllerPropsBuilder toBuilder() => AlertControllerPropsBuilder(this);
 }
 
-class AlertControllerPropsBuilder
-    extends BuiltSimpleBuilder<AlertControllerProps> {
-  AlertControllerPropsBuilder._(_AlertControllerProps b) : v = b;
+class AlertControllerPropsBuilder extends IonPropsBuilder {
+  AlertControllerPropsBuilder._(_AlertControllerProps b) : super._(b);
 
   factory AlertControllerPropsBuilder([_AlertControllerProps b]) {
     var v = _AlertControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return AlertControllerPropsBuilder._(v);
   }
 
-  _AlertControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _AlertControllerProps get v => super.v;
   AlertControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -586,10 +645,8 @@ class AlertControllerPropsBuilder
   }
 }
 
-class _BadgeProps extends BuiltSimpleImpl
-    with BadgeProps
-    implements BadgeProps {
-  _BadgeProps._() : super();
+class _BadgeProps extends _IonProps with BadgeProps implements BadgeProps {
+  _BadgeProps._() : super._();
 
   factory _BadgeProps(BuilderFunc<BadgePropsBuilder> builder) =>
       BadgePropsBuilder.create(builder);
@@ -598,12 +655,10 @@ class _BadgeProps extends BuiltSimpleImpl
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   BadgeProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -616,30 +671,28 @@ class _BadgeProps extends BuiltSimpleImpl
   BadgePropsBuilder toBuilder() => BadgePropsBuilder(this);
 }
 
-class BadgePropsBuilder extends BuiltSimpleBuilder<BadgeProps> {
-  BadgePropsBuilder._(_BadgeProps b) : v = b;
+class BadgePropsBuilder extends IonPropsBuilder {
+  BadgePropsBuilder._(_BadgeProps b) : super._(b);
 
   factory BadgePropsBuilder([_BadgeProps b]) {
     var v = _BadgeProps._();
     if (b != null) {
       v.color = b.color;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return BadgePropsBuilder._(v);
   }
 
-  _BadgeProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _BadgeProps get v => super.v;
   BadgeProps build() {
+    super.build();
     return v;
   }
 
@@ -650,10 +703,8 @@ class BadgePropsBuilder extends BuiltSimpleBuilder<BadgeProps> {
   }
 }
 
-class _ButtonProps extends BuiltSimpleImpl
-    with ButtonProps
-    implements ButtonProps {
-  _ButtonProps._() : super();
+class _ButtonProps extends _IonProps with ButtonProps implements ButtonProps {
+  _ButtonProps._() : super._();
 
   factory _ButtonProps(BuilderFunc<ButtonPropsBuilder> builder) =>
       ButtonPropsBuilder.create(builder);
@@ -684,23 +735,20 @@ class _ButtonProps extends BuiltSimpleImpl
 
   ButtonEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["buttonType"] = buttonType;
     json["color"] = color;
     json["disabled"] = disabled;
-    json["expand"] = expand;
-    json["fill"] = fill;
+    json["expand"] = _enumToString(expand);
+    json["fill"] = _enumToString(fill);
     json["href"] = href;
-    json["mode"] = mode;
-    json["routerDirection"] = routerDirection;
-    json["shape"] = shape;
-    json["size"] = size;
+    json["mode"] = _enumToString(mode);
+    json["routerDirection"] = _enumToString(routerDirection);
+    json["shape"] = _enumToString(shape);
+    json["size"] = _enumToString(size);
     json["strong"] = strong;
-    json["type"] = type;
-    json["on"] = on;
-    json["key"] = key;
+    json["type"] = _enumToString(type);
   }
 
   ButtonProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -713,8 +761,8 @@ class _ButtonProps extends BuiltSimpleImpl
   ButtonPropsBuilder toBuilder() => ButtonPropsBuilder(this);
 }
 
-class ButtonPropsBuilder extends BuiltSimpleBuilder<ButtonProps> {
-  ButtonPropsBuilder._(_ButtonProps b) : v = b;
+class ButtonPropsBuilder extends IonPropsBuilder {
+  ButtonPropsBuilder._(_ButtonProps b) : super._(b);
 
   factory ButtonPropsBuilder([_ButtonProps b]) {
     var v = _ButtonProps._();
@@ -732,49 +780,53 @@ class ButtonPropsBuilder extends BuiltSimpleBuilder<ButtonProps> {
       v.strong = b.strong;
       v.type = b.type;
       v.on = b.on;
-      v.key = b.key;
     }
     return ButtonPropsBuilder._(v);
   }
 
   ButtonEventPropsBuilder _on;
 
-  _ButtonProps v;
-
-  ///
+  /// <p>The type of button.</p>
   set buttonType(String value) => v.buttonType = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the button.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>Set to <code>&quot;block&quot;</code> for a full-width button or to <code>&quot;full&quot;</code> for a full-width button
+  /// without left and right borders.</p>
   set expand(ExpandValue value) => v.expand = value;
 
-  ///
+  /// <p>Set to <code>&quot;clear&quot;</code> for a transparent button, to <code>&quot;outline&quot;</code> for a transparent
+  /// button with a border, or to <code>&quot;solid&quot;</code>. The default style is <code>&quot;solid&quot;</code> except inside of
+  /// a toolbar, where the default is <code>&quot;clear&quot;</code>.</p>
   set fill(FillValue value) => v.fill = value;
 
-  ///
+  /// <p>Contains a URL or a URL fragment that the hyperlink points to.
+  /// If this property is set, an anchor tag will be rendered.</p>
   set href(String value) => v.href = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>When using a router, it specifies the transition direction when navigating to
+  /// another page using <code>href</code>.</p>
   set routerDirection(RouterDirectionValue value) => v.routerDirection = value;
 
-  ///
+  /// <p>The button shape.</p>
   set shape(ShapeValue value) => v.shape = value;
 
-  ///
+  /// <p>The button size.</p>
   set size(ButtonPropsSizeValue value) => v.size = value;
 
-  ///
+  /// <p>If <code>true</code>, activates a button with a heavier font weight.</p>
   set strong(bool value) => v.strong = value;
 
-  ///
+  /// <p>The type of the button.</p>
   set type(ButtonPropsTypeValue value) => v.type = value;
 
   ///
@@ -785,9 +837,9 @@ class ButtonPropsBuilder extends BuiltSimpleBuilder<ButtonProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ButtonProps get v => super.v;
   ButtonProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -840,10 +892,10 @@ class ButtonEventPropsBuilder extends BuiltSimpleBuilder<ButtonEventProps> {
 
   _ButtonEventProps v;
 
-  ///
+  /// Emitted when the button loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the button has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
   ButtonEventProps build() {
     return v;
@@ -857,21 +909,19 @@ class ButtonEventPropsBuilder extends BuiltSimpleBuilder<ButtonEventProps> {
   }
 }
 
-class _RippleEffectProps extends BuiltSimpleImpl
+class _RippleEffectProps extends _IonProps
     with RippleEffectProps
     implements RippleEffectProps {
-  _RippleEffectProps._() : super();
+  _RippleEffectProps._() : super._();
 
   factory _RippleEffectProps(BuilderFunc<RippleEffectPropsBuilder> builder) =>
       RippleEffectPropsBuilder.create(builder);
 
   RippleEffectPropsTypeValue type;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["type"] = type;
-    json["key"] = key;
+    super.fillJson(json);
+    json["type"] = _enumToString(type);
   }
 
   RippleEffectProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -884,26 +934,28 @@ class _RippleEffectProps extends BuiltSimpleImpl
   RippleEffectPropsBuilder toBuilder() => RippleEffectPropsBuilder(this);
 }
 
-class RippleEffectPropsBuilder extends BuiltSimpleBuilder<RippleEffectProps> {
-  RippleEffectPropsBuilder._(_RippleEffectProps b) : v = b;
+class RippleEffectPropsBuilder extends IonPropsBuilder {
+  RippleEffectPropsBuilder._(_RippleEffectProps b) : super._(b);
 
   factory RippleEffectPropsBuilder([_RippleEffectProps b]) {
     var v = _RippleEffectProps._();
     if (b != null) {
       v.type = b.type;
-      v.key = b.key;
     }
     return RippleEffectPropsBuilder._(v);
   }
 
-  _RippleEffectProps v;
-
-  ///
+  /// <p>Sets the type of ripple-effect:</p>
+  /// <ul>
+  /// <li><code>bounded</code>: the ripple effect expands from the user&#39;s click position</li>
+  /// <li><code>unbounded</code>: the ripple effect expands from the center of the button and overflows the container.</li>
+  /// </ul>
+  /// <p>NOTE: Surfaces for bounded ripples should have the overflow property set to hidden,
+  /// while surfaces for unbounded ripples should have it set to visible.</p>
   set type(RippleEffectPropsTypeValue value) => v.type = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _RippleEffectProps get v => super.v;
   RippleEffectProps build() {
+    super.build();
     return v;
   }
 
@@ -915,8 +967,8 @@ class RippleEffectPropsBuilder extends BuiltSimpleBuilder<RippleEffectProps> {
   }
 }
 
-class _CardProps extends BuiltSimpleImpl with CardProps implements CardProps {
-  _CardProps._() : super();
+class _CardProps extends _IonProps with CardProps implements CardProps {
+  _CardProps._() : super._();
 
   factory _CardProps(BuilderFunc<CardPropsBuilder> builder) =>
       CardPropsBuilder.create(builder);
@@ -935,17 +987,15 @@ class _CardProps extends BuiltSimpleImpl with CardProps implements CardProps {
 
   ButtonPropsTypeValue type;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["button"] = button;
     json["color"] = color;
     json["disabled"] = disabled;
     json["href"] = href;
-    json["mode"] = mode;
-    json["routerDirection"] = routerDirection;
-    json["type"] = type;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
+    json["routerDirection"] = _enumToString(routerDirection);
+    json["type"] = _enumToString(type);
   }
 
   CardProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -958,8 +1008,8 @@ class _CardProps extends BuiltSimpleImpl with CardProps implements CardProps {
   CardPropsBuilder toBuilder() => CardPropsBuilder(this);
 }
 
-class CardPropsBuilder extends BuiltSimpleBuilder<CardProps> {
-  CardPropsBuilder._(_CardProps b) : v = b;
+class CardPropsBuilder extends IonPropsBuilder {
+  CardPropsBuilder._(_CardProps b) : super._(b);
 
   factory CardPropsBuilder([_CardProps b]) {
     var v = _CardProps._();
@@ -971,37 +1021,37 @@ class CardPropsBuilder extends BuiltSimpleBuilder<CardProps> {
       v.mode = b.mode;
       v.routerDirection = b.routerDirection;
       v.type = b.type;
-      v.key = b.key;
     }
     return CardPropsBuilder._(v);
   }
 
-  _CardProps v;
-
-  ///
+  /// <p>If <code>true</code>, a button tag will be rendered and the card will be tappable.</p>
   set button(bool value) => v.button = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the card.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>Contains a URL or a URL fragment that the hyperlink points to.
+  /// If this property is set, an anchor tag will be rendered.</p>
   set href(String value) => v.href = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>When using a router, it specifies the transition direction when navigating to
+  /// another page using <code>href</code>.</p>
   set routerDirection(RouterDirectionValue value) => v.routerDirection = value;
 
-  ///
+  /// <p>The type of the button. Only used when an <code>onclick</code> or <code>button</code> property is present.</p>
   set type(ButtonPropsTypeValue value) => v.type = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _CardProps get v => super.v;
   CardProps build() {
+    super.build();
     return v;
   }
 
@@ -1012,21 +1062,19 @@ class CardPropsBuilder extends BuiltSimpleBuilder<CardProps> {
   }
 }
 
-class _CardContentProps extends BuiltSimpleImpl
+class _CardContentProps extends _IonProps
     with CardContentProps
     implements CardContentProps {
-  _CardContentProps._() : super();
+  _CardContentProps._() : super._();
 
   factory _CardContentProps(BuilderFunc<CardContentPropsBuilder> builder) =>
       CardContentPropsBuilder.create(builder);
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["mode"] = mode;
-    json["key"] = key;
+    super.fillJson(json);
+    json["mode"] = _enumToString(mode);
   }
 
   CardContentProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1039,26 +1087,22 @@ class _CardContentProps extends BuiltSimpleImpl
   CardContentPropsBuilder toBuilder() => CardContentPropsBuilder(this);
 }
 
-class CardContentPropsBuilder extends BuiltSimpleBuilder<CardContentProps> {
-  CardContentPropsBuilder._(_CardContentProps b) : v = b;
+class CardContentPropsBuilder extends IonPropsBuilder {
+  CardContentPropsBuilder._(_CardContentProps b) : super._(b);
 
   factory CardContentPropsBuilder([_CardContentProps b]) {
     var v = _CardContentProps._();
     if (b != null) {
       v.mode = b.mode;
-      v.key = b.key;
     }
     return CardContentPropsBuilder._(v);
   }
 
-  _CardContentProps v;
-
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _CardContentProps get v => super.v;
   CardContentProps build() {
+    super.build();
     return v;
   }
 
@@ -1070,10 +1114,10 @@ class CardContentPropsBuilder extends BuiltSimpleBuilder<CardContentProps> {
   }
 }
 
-class _CardHeaderProps extends BuiltSimpleImpl
+class _CardHeaderProps extends _IonProps
     with CardHeaderProps
     implements CardHeaderProps {
-  _CardHeaderProps._() : super();
+  _CardHeaderProps._() : super._();
 
   factory _CardHeaderProps(BuilderFunc<CardHeaderPropsBuilder> builder) =>
       CardHeaderPropsBuilder.create(builder);
@@ -1084,13 +1128,11 @@ class _CardHeaderProps extends BuiltSimpleImpl
 
   bool translucent;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["translucent"] = translucent;
-    json["key"] = key;
   }
 
   CardHeaderProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1103,8 +1145,8 @@ class _CardHeaderProps extends BuiltSimpleImpl
   CardHeaderPropsBuilder toBuilder() => CardHeaderPropsBuilder(this);
 }
 
-class CardHeaderPropsBuilder extends BuiltSimpleBuilder<CardHeaderProps> {
-  CardHeaderPropsBuilder._(_CardHeaderProps b) : v = b;
+class CardHeaderPropsBuilder extends IonPropsBuilder {
+  CardHeaderPropsBuilder._(_CardHeaderProps b) : super._(b);
 
   factory CardHeaderPropsBuilder([_CardHeaderProps b]) {
     var v = _CardHeaderProps._();
@@ -1112,25 +1154,23 @@ class CardHeaderPropsBuilder extends BuiltSimpleBuilder<CardHeaderProps> {
       v.color = b.color;
       v.mode = b.mode;
       v.translucent = b.translucent;
-      v.key = b.key;
     }
     return CardHeaderPropsBuilder._(v);
   }
 
-  _CardHeaderProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, the card header will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _CardHeaderProps get v => super.v;
   CardHeaderProps build() {
+    super.build();
     return v;
   }
 
@@ -1142,10 +1182,10 @@ class CardHeaderPropsBuilder extends BuiltSimpleBuilder<CardHeaderProps> {
   }
 }
 
-class _CardSubtitleProps extends BuiltSimpleImpl
+class _CardSubtitleProps extends _IonProps
     with CardSubtitleProps
     implements CardSubtitleProps {
-  _CardSubtitleProps._() : super();
+  _CardSubtitleProps._() : super._();
 
   factory _CardSubtitleProps(BuilderFunc<CardSubtitlePropsBuilder> builder) =>
       CardSubtitlePropsBuilder.create(builder);
@@ -1154,12 +1194,10 @@ class _CardSubtitleProps extends BuiltSimpleImpl
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   CardSubtitleProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1172,30 +1210,28 @@ class _CardSubtitleProps extends BuiltSimpleImpl
   CardSubtitlePropsBuilder toBuilder() => CardSubtitlePropsBuilder(this);
 }
 
-class CardSubtitlePropsBuilder extends BuiltSimpleBuilder<CardSubtitleProps> {
-  CardSubtitlePropsBuilder._(_CardSubtitleProps b) : v = b;
+class CardSubtitlePropsBuilder extends IonPropsBuilder {
+  CardSubtitlePropsBuilder._(_CardSubtitleProps b) : super._(b);
 
   factory CardSubtitlePropsBuilder([_CardSubtitleProps b]) {
     var v = _CardSubtitleProps._();
     if (b != null) {
       v.color = b.color;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return CardSubtitlePropsBuilder._(v);
   }
 
-  _CardSubtitleProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _CardSubtitleProps get v => super.v;
   CardSubtitleProps build() {
+    super.build();
     return v;
   }
 
@@ -1207,10 +1243,10 @@ class CardSubtitlePropsBuilder extends BuiltSimpleBuilder<CardSubtitleProps> {
   }
 }
 
-class _CardTitleProps extends BuiltSimpleImpl
+class _CardTitleProps extends _IonProps
     with CardTitleProps
     implements CardTitleProps {
-  _CardTitleProps._() : super();
+  _CardTitleProps._() : super._();
 
   factory _CardTitleProps(BuilderFunc<CardTitlePropsBuilder> builder) =>
       CardTitlePropsBuilder.create(builder);
@@ -1219,12 +1255,10 @@ class _CardTitleProps extends BuiltSimpleImpl
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   CardTitleProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1237,30 +1271,28 @@ class _CardTitleProps extends BuiltSimpleImpl
   CardTitlePropsBuilder toBuilder() => CardTitlePropsBuilder(this);
 }
 
-class CardTitlePropsBuilder extends BuiltSimpleBuilder<CardTitleProps> {
-  CardTitlePropsBuilder._(_CardTitleProps b) : v = b;
+class CardTitlePropsBuilder extends IonPropsBuilder {
+  CardTitlePropsBuilder._(_CardTitleProps b) : super._(b);
 
   factory CardTitlePropsBuilder([_CardTitleProps b]) {
     var v = _CardTitleProps._();
     if (b != null) {
       v.color = b.color;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return CardTitlePropsBuilder._(v);
   }
 
-  _CardTitleProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _CardTitleProps get v => super.v;
   CardTitleProps build() {
+    super.build();
     return v;
   }
 
@@ -1272,10 +1304,10 @@ class CardTitlePropsBuilder extends BuiltSimpleBuilder<CardTitleProps> {
   }
 }
 
-class _CheckboxProps extends BuiltSimpleImpl
+class _CheckboxProps extends _IonProps
     with CheckboxProps
     implements CheckboxProps {
-  _CheckboxProps._() : super();
+  _CheckboxProps._() : super._();
 
   factory _CheckboxProps(BuilderFunc<CheckboxPropsBuilder> builder) =>
       CheckboxPropsBuilder.create(builder);
@@ -1296,18 +1328,15 @@ class _CheckboxProps extends BuiltSimpleImpl
 
   CheckboxEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["checked"] = checked;
     json["color"] = color;
     json["disabled"] = disabled;
     json["indeterminate"] = indeterminate;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["name"] = name;
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   CheckboxProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1320,8 +1349,8 @@ class _CheckboxProps extends BuiltSimpleImpl
   CheckboxPropsBuilder toBuilder() => CheckboxPropsBuilder(this);
 }
 
-class CheckboxPropsBuilder extends BuiltSimpleBuilder<CheckboxProps> {
-  CheckboxPropsBuilder._(_CheckboxProps b) : v = b;
+class CheckboxPropsBuilder extends IonPropsBuilder {
+  CheckboxPropsBuilder._(_CheckboxProps b) : super._(b);
 
   factory CheckboxPropsBuilder([_CheckboxProps b]) {
     var v = _CheckboxProps._();
@@ -1334,34 +1363,36 @@ class CheckboxPropsBuilder extends BuiltSimpleBuilder<CheckboxProps> {
       v.name = b.name;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return CheckboxPropsBuilder._(v);
   }
 
   CheckboxEventPropsBuilder _on;
 
-  _CheckboxProps v;
-
-  ///
+  /// <p>If <code>true</code>, the checkbox is selected.</p>
   set checked(bool value) => v.checked = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the checkbox.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>If <code>true</code>, the checkbox will visually appear as indeterminate.</p>
   set indeterminate(bool value) => v.indeterminate = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>The value of the toggle does not mean if it&#39;s checked or not, use the <code>checked</code>
+  /// property for that.</p>
+  /// <p>The value of a toggle is analogous to the value of a <code>&lt;input type=&quot;checkbox&quot;&gt;</code>,
+  /// it&#39;s only used when the toggle participates in a native <code>&lt;form&gt;</code>.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -1372,9 +1403,9 @@ class CheckboxPropsBuilder extends BuiltSimpleBuilder<CheckboxProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _CheckboxProps get v => super.v;
   CheckboxProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -1431,13 +1462,13 @@ class CheckboxEventPropsBuilder extends BuiltSimpleBuilder<CheckboxEventProps> {
 
   _CheckboxEventProps v;
 
-  ///
+  /// Emitted when the toggle loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the checked property has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the toggle has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
   CheckboxEventProps build() {
     return v;
@@ -1451,8 +1482,8 @@ class CheckboxEventPropsBuilder extends BuiltSimpleBuilder<CheckboxEventProps> {
   }
 }
 
-class _ChipProps extends BuiltSimpleImpl with ChipProps implements ChipProps {
-  _ChipProps._() : super();
+class _ChipProps extends _IonProps with ChipProps implements ChipProps {
+  _ChipProps._() : super._();
 
   factory _ChipProps(BuilderFunc<ChipPropsBuilder> builder) =>
       ChipPropsBuilder.create(builder);
@@ -1463,13 +1494,11 @@ class _ChipProps extends BuiltSimpleImpl with ChipProps implements ChipProps {
 
   bool outline;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["outline"] = outline;
-    json["key"] = key;
   }
 
   ChipProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1482,8 +1511,8 @@ class _ChipProps extends BuiltSimpleImpl with ChipProps implements ChipProps {
   ChipPropsBuilder toBuilder() => ChipPropsBuilder(this);
 }
 
-class ChipPropsBuilder extends BuiltSimpleBuilder<ChipProps> {
-  ChipPropsBuilder._(_ChipProps b) : v = b;
+class ChipPropsBuilder extends IonPropsBuilder {
+  ChipPropsBuilder._(_ChipProps b) : super._(b);
 
   factory ChipPropsBuilder([_ChipProps b]) {
     var v = _ChipProps._();
@@ -1491,25 +1520,23 @@ class ChipPropsBuilder extends BuiltSimpleBuilder<ChipProps> {
       v.color = b.color;
       v.mode = b.mode;
       v.outline = b.outline;
-      v.key = b.key;
     }
     return ChipPropsBuilder._(v);
   }
 
-  _ChipProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>Display an outline style button.</p>
   set outline(bool value) => v.outline = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ChipProps get v => super.v;
   ChipProps build() {
+    super.build();
     return v;
   }
 
@@ -1520,16 +1547,14 @@ class ChipPropsBuilder extends BuiltSimpleBuilder<ChipProps> {
   }
 }
 
-class _AppProps extends BuiltSimpleImpl with AppProps implements AppProps {
-  _AppProps._() : super();
+class _AppProps extends _IonProps with AppProps implements AppProps {
+  _AppProps._() : super._();
 
   factory _AppProps(BuilderFunc<AppPropsBuilder> builder) =>
       AppPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   AppProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1542,22 +1567,18 @@ class _AppProps extends BuiltSimpleImpl with AppProps implements AppProps {
   AppPropsBuilder toBuilder() => AppPropsBuilder(this);
 }
 
-class AppPropsBuilder extends BuiltSimpleBuilder<AppProps> {
-  AppPropsBuilder._(_AppProps b) : v = b;
+class AppPropsBuilder extends IonPropsBuilder {
+  AppPropsBuilder._(_AppProps b) : super._(b);
 
   factory AppPropsBuilder([_AppProps b]) {
     var v = _AppProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return AppPropsBuilder._(v);
   }
 
-  _AppProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _AppProps get v => super.v;
   AppProps build() {
+    super.build();
     return v;
   }
 
@@ -1568,10 +1589,10 @@ class AppPropsBuilder extends BuiltSimpleBuilder<AppProps> {
   }
 }
 
-class _ContentProps extends BuiltSimpleImpl
+class _ContentProps extends _IonProps
     with ContentProps
     implements ContentProps {
-  _ContentProps._() : super();
+  _ContentProps._() : super._();
 
   factory _ContentProps(BuilderFunc<ContentPropsBuilder> builder) =>
       ContentPropsBuilder.create(builder);
@@ -1590,17 +1611,14 @@ class _ContentProps extends BuiltSimpleImpl
 
   ContentEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
     json["forceOverscroll"] = forceOverscroll;
     json["fullscreen"] = fullscreen;
     json["scrollEvents"] = scrollEvents;
     json["scrollX"] = scrollX;
     json["scrollY"] = scrollY;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ContentProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1613,8 +1631,8 @@ class _ContentProps extends BuiltSimpleImpl
   ContentPropsBuilder toBuilder() => ContentPropsBuilder(this);
 }
 
-class ContentPropsBuilder extends BuiltSimpleBuilder<ContentProps> {
-  ContentPropsBuilder._(_ContentProps b) : v = b;
+class ContentPropsBuilder extends IonPropsBuilder {
+  ContentPropsBuilder._(_ContentProps b) : super._(b);
 
   factory ContentPropsBuilder([_ContentProps b]) {
     var v = _ContentProps._();
@@ -1626,31 +1644,35 @@ class ContentPropsBuilder extends BuiltSimpleBuilder<ContentProps> {
       v.scrollX = b.scrollX;
       v.scrollY = b.scrollY;
       v.on = b.on;
-      v.key = b.key;
     }
     return ContentPropsBuilder._(v);
   }
 
   ContentEventPropsBuilder _on;
 
-  _ContentProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code> and the content does not cause an overflow scroll, the scroll interaction will cause a bounce.
+  /// If the content exceeds the bounds of ionContent, nothing will change.
+  /// Note, the does not disable the system bounce on iOS. That is an OS level setting.</p>
   set forceOverscroll(bool value) => v.forceOverscroll = value;
 
-  ///
+  /// <p>If <code>true</code>, the content will scroll behind the headers
+  /// and footers. This effect can easily be seen by setting the toolbar
+  /// to transparent.</p>
   set fullscreen(bool value) => v.fullscreen = value;
 
-  ///
+  /// <p>Because of performance reasons, ionScroll events are disabled by default, in order to enable them
+  /// and start listening from (ionScroll), set this property to <code>true</code>.</p>
   set scrollEvents(bool value) => v.scrollEvents = value;
 
-  ///
+  /// <p>If you want to enable the content scrolling in the X axis, set this property to <code>true</code>.</p>
   set scrollX(bool value) => v.scrollX = value;
 
-  ///
+  /// <p>If you want to disable the content scrolling in the Y axis, set this property to <code>false</code>.</p>
   set scrollY(bool value) => v.scrollY = value;
 
   ///
@@ -1661,9 +1683,9 @@ class ContentPropsBuilder extends BuiltSimpleBuilder<ContentProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ContentProps get v => super.v;
   ContentProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -1720,13 +1742,14 @@ class ContentEventPropsBuilder extends BuiltSimpleBuilder<ContentEventProps> {
 
   _ContentEventProps v;
 
-  ///
+  /// Emitted while scrolling. This event is disabled by default.
+  /// Look at the property: `scrollEvents`
   set ionScroll(DartHandler<CustomEvent> value) => v.ionScroll = value;
 
-  ///
+  /// Emitted when the scroll has ended.
   set ionScrollEnd(DartHandler<CustomEvent> value) => v.ionScrollEnd = value;
 
-  ///
+  /// Emitted when the scroll has started.
   set ionScrollStart(DartHandler<CustomEvent> value) =>
       v.ionScrollStart = value;
   ContentEventProps build() {
@@ -1741,10 +1764,10 @@ class ContentEventPropsBuilder extends BuiltSimpleBuilder<ContentEventProps> {
   }
 }
 
-class _DatetimeProps extends BuiltSimpleImpl
+class _DatetimeProps extends _IonProps
     with DatetimeProps
     implements DatetimeProps {
-  _DatetimeProps._() : super();
+  _DatetimeProps._() : super._();
 
   factory _DatetimeProps(BuilderFunc<DatetimePropsBuilder> builder) =>
       DatetimePropsBuilder.create(builder);
@@ -1795,9 +1818,8 @@ class _DatetimeProps extends BuiltSimpleImpl
 
   DatetimeEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["cancelText"] = cancelText;
     json["dayNames"] = dayNames;
     json["dayShortNames"] = dayShortNames;
@@ -1809,19 +1831,17 @@ class _DatetimeProps extends BuiltSimpleImpl
     json["max"] = max;
     json["min"] = min;
     json["minuteValues"] = minuteValues;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["monthNames"] = monthNames;
     json["monthShortNames"] = monthShortNames;
     json["monthValues"] = monthValues;
     json["name"] = name;
     json["pickerFormat"] = pickerFormat;
-    json["pickerOptions"] = pickerOptions;
+    json["pickerOptions"] = _enumToString(pickerOptions);
     json["placeholder"] = placeholder;
     json["readonly"] = readonly;
     json["value"] = value;
     json["yearValues"] = yearValues;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   DatetimeProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -1834,8 +1854,8 @@ class _DatetimeProps extends BuiltSimpleImpl
   DatetimePropsBuilder toBuilder() => DatetimePropsBuilder(this);
 }
 
-class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
-  DatetimePropsBuilder._(_DatetimeProps b) : v = b;
+class DatetimePropsBuilder extends IonPropsBuilder {
+  DatetimePropsBuilder._(_DatetimeProps b) : super._(b);
 
   factory DatetimePropsBuilder([_DatetimeProps b]) {
     var v = _DatetimeProps._();
@@ -1863,7 +1883,6 @@ class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
       v.value = b.value;
       v.yearValues = b.yearValues;
       v.on = b.on;
-      v.key = b.key;
     }
     return DatetimePropsBuilder._(v);
   }
@@ -1878,12 +1897,11 @@ class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
 
   DatetimeEventPropsBuilder _on;
 
-  _DatetimeProps v;
-
-  ///
+  /// <p>The text to display on the picker&#39;s cancel button.</p>
   set cancelText(String value) => v.cancelText = value;
 
-  ///
+  /// <p>Full day of the week names. This can be used to provide
+  /// locale names for each day in the week. Defaults to English.</p>
   ListBuilder<String> get dayNames {
     if (_dayNames == null) {
       _dayNames = ListBuilder<String>(v.dayNames ?? const <String>[]);
@@ -1891,7 +1909,8 @@ class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
     return _dayNames;
   }
 
-  ///
+  /// <p>Short abbreviated day of the week names. This can be used to provide
+  /// locale names for each day in the week. Defaults to English.</p>
   ListBuilder<String> get dayShortNames {
     if (_dayShortNames == null) {
       _dayShortNames = ListBuilder<String>(v.dayShortNames ?? const <String>[]);
@@ -1899,34 +1918,61 @@ class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
     return _dayShortNames;
   }
 
-  ///
+  /// <p>Values used to create the list of selectable days. By default
+  /// every day is shown for the given month. However, to control exactly which days of
+  /// the month to display, the <code>dayValues</code> input can take a number, an array of numbers, or
+  /// a string of comma separated numbers. Note that even if the array days have an invalid
+  /// number for the selected month, like <code>31</code> in February, it will correctly not show
+  /// days which are not valid for the selected month.</p>
   set dayValues(String value) => v.dayValues = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the datetime.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The display format of the date and time as text that shows
+  /// within the item. When the <code>pickerFormat</code> input is not used, then the
+  /// <code>displayFormat</code> is used for both display the formatted text, and determining
+  /// the datetime picker&#39;s columns. See the <code>pickerFormat</code> input description for
+  /// more info. Defaults to <code>MMM D, YYYY</code>.</p>
   set displayFormat(String value) => v.displayFormat = value;
 
-  ///
+  /// <p>The text to display on the picker&#39;s &quot;Done&quot; button.</p>
   set doneText(String value) => v.doneText = value;
 
-  ///
+  /// <p>Values used to create the list of selectable hours. By default
+  /// the hour values range from <code>0</code> to <code>23</code> for 24-hour, or <code>1</code> to <code>12</code> for 12-hour. However,
+  /// to control exactly which hours to display, the <code>hourValues</code> input can take a number, an
+  /// array of numbers, or a string of comma separated numbers.</p>
   set hourValues(String value) => v.hourValues = value;
 
-  ///
+  /// <p>The maximum datetime allowed. Value must be a date string
+  /// following the
+  /// <a href=https://www.w3.org/TR/NOTE-datetime >ISO 8601 datetime format standard</a>,
+  /// <code>1996-12-19</code>. The format does not have to be specific to an exact
+  /// datetime. For example, the maximum could just be the year, such as <code>1994</code>.
+  /// Defaults to the end of this year.</p>
   set max(String value) => v.max = value;
 
-  ///
+  /// <p>The minimum datetime allowed. Value must be a date string
+  /// following the
+  /// <a href=https://www.w3.org/TR/NOTE-datetime >ISO 8601 datetime format standard</a>,
+  /// such as <code>1996-12-19</code>. The format does not have to be specific to an exact
+  /// datetime. For example, the minimum could just be the year, such as <code>1994</code>.
+  /// Defaults to the beginning of the year, 100 years ago from today.</p>
   set min(String value) => v.min = value;
 
-  ///
+  /// <p>Values used to create the list of selectable minutes. By default
+  /// the minutes range from <code>0</code> to <code>59</code>. However, to control exactly which minutes to display,
+  /// the <code>minuteValues</code> input can take a number, an array of numbers, or a string of comma
+  /// separated numbers. For example, if the minute selections should only be every 15 minutes,
+  /// then this input value would be <code>minuteValues=&quot;0,15,30,45&quot;</code>.</p>
   set minuteValues(String value) => v.minuteValues = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>Full names for each month name. This can be used to provide
+  /// locale month names. Defaults to English.</p>
   ListBuilder<String> get monthNames {
     if (_monthNames == null) {
       _monthNames = ListBuilder<String>(v.monthNames ?? const <String>[]);
@@ -1934,7 +1980,8 @@ class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
     return _monthNames;
   }
 
-  ///
+  /// <p>Short abbreviated names for each month name. This can be used to provide
+  /// locale month names. Defaults to English.</p>
   ListBuilder<String> get monthShortNames {
     if (_monthShortNames == null) {
       _monthShortNames =
@@ -1943,28 +1990,44 @@ class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
     return _monthShortNames;
   }
 
-  ///
+  /// <p>Values used to create the list of selectable months. By default
+  /// the month values range from <code>1</code> to <code>12</code>. However, to control exactly which months to
+  /// display, the <code>monthValues</code> input can take a number, an array of numbers, or a string of
+  /// comma separated numbers. For example, if only summer months should be shown, then this
+  /// input value would be <code>monthValues=&quot;6,7,8&quot;</code>. Note that month numbers do <em>not</em> have a
+  /// zero-based index, meaning January&#39;s value is <code>1</code>, and December&#39;s is <code>12</code>.</p>
   set monthValues(String value) => v.monthValues = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>The format of the date and time picker columns the user selects.
+  /// A datetime input can have one or many datetime parts, each getting their
+  /// own column which allow individual selection of that particular datetime part. For
+  /// example, year and month columns are two individually selectable columns which help
+  /// choose an exact date from the datetime picker. Each column follows the string
+  /// parse format. Defaults to use <code>displayFormat</code>.</p>
   set pickerFormat(String value) => v.pickerFormat = value;
 
-  ///
+  /// <p>Any additional options that the picker interface can accept.
+  /// See the <stencil-route-link url=/docs/api/picker >Picker API docs</stencil-route-link> for the picker options.</p>
   set pickerOptions(String value) => v.pickerOptions = value;
 
-  ///
+  /// <p>The text to display when there&#39;s no date selected yet.
+  /// Using lowercase to match the input attribute</p>
   set placeholder(String value) => v.placeholder = value;
 
-  ///
+  /// <p>If <code>true</code>, the datetime appears normal but is not interactive.</p>
   set readonly(bool value) => v.readonly = value;
 
-  ///
+  /// <p>The value of the datetime as a valid ISO 8601 datetime string.</p>
   set value(String value) => v.value = value;
 
-  ///
+  /// <p>Values used to create the list of selectable years. By default
+  /// the year values range between the <code>min</code> and <code>max</code> datetime inputs. However, to
+  /// control exactly which years to display, the <code>yearValues</code> input can take a number, an array
+  /// of numbers, or string of comma separated numbers. For example, to show upcoming and
+  /// recent leap years, then this input&#39;s value would be <code>yearValues=&quot;2024,2020,2016,2012,2008&quot;</code>.</p>
   set yearValues(String value) => v.yearValues = value;
 
   ///
@@ -1975,9 +2038,9 @@ class DatetimePropsBuilder extends BuiltSimpleBuilder<DatetimeProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _DatetimeProps get v => super.v;
   DatetimeProps build() {
+    super.build();
     v.dayNames = _dayNames?.build();
     v.dayShortNames = _dayShortNames?.build();
     v.monthNames = _monthNames?.build();
@@ -2042,16 +2105,16 @@ class DatetimeEventPropsBuilder extends BuiltSimpleBuilder<DatetimeEventProps> {
 
   _DatetimeEventProps v;
 
-  ///
+  /// Emitted when the datetime loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the datetime selection was cancelled.
   set ionCancel(DartHandler<CustomEvent> value) => v.ionCancel = value;
 
-  ///
+  /// Emitted when the value (selected date) has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the datetime has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
   DatetimeEventProps build() {
     return v;
@@ -2065,10 +2128,8 @@ class DatetimeEventPropsBuilder extends BuiltSimpleBuilder<DatetimeEventProps> {
   }
 }
 
-class _PickerProps extends BuiltSimpleImpl
-    with PickerProps
-    implements PickerProps {
-  _PickerProps._() : super();
+class _PickerProps extends _IonProps with PickerProps implements PickerProps {
+  _PickerProps._() : super._();
 
   factory _PickerProps(BuilderFunc<PickerPropsBuilder> builder) =>
       PickerPropsBuilder.create(builder);
@@ -2097,9 +2158,8 @@ class _PickerProps extends BuiltSimpleImpl
 
   PickerEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["backdropDismiss"] = backdropDismiss;
     json["buttons"] = buttons;
@@ -2109,10 +2169,8 @@ class _PickerProps extends BuiltSimpleImpl
     json["enterAnimation"] = enterAnimation;
     json["keyboardClose"] = keyboardClose;
     json["leaveAnimation"] = leaveAnimation;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["showBackdrop"] = showBackdrop;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   PickerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2125,8 +2183,8 @@ class _PickerProps extends BuiltSimpleImpl
   PickerPropsBuilder toBuilder() => PickerPropsBuilder(this);
 }
 
-class PickerPropsBuilder extends BuiltSimpleBuilder<PickerProps> {
-  PickerPropsBuilder._(_PickerProps b) : v = b;
+class PickerPropsBuilder extends IonPropsBuilder {
+  PickerPropsBuilder._(_PickerProps b) : super._(b);
 
   factory PickerPropsBuilder([_PickerProps b]) {
     var v = _PickerProps._();
@@ -2143,7 +2201,6 @@ class PickerPropsBuilder extends BuiltSimpleBuilder<PickerProps> {
       v.mode = b.mode;
       v.showBackdrop = b.showBackdrop;
       v.on = b.on;
-      v.key = b.key;
     }
     return PickerPropsBuilder._(v);
   }
@@ -2152,21 +2209,20 @@ class PickerPropsBuilder extends BuiltSimpleBuilder<PickerProps> {
 
   PickerEventPropsBuilder _on;
 
-  _PickerProps v;
-
-  ///
+  /// <p>If <code>true</code>, the picker will animate.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>If <code>true</code>, the picker will be dismissed when the backdrop is clicked.</p>
   set backdropDismiss(bool value) => v.backdropDismiss = value;
 
-  ///
+  /// <p>Array of buttons to be displayed at the top of the picker.</p>
   set buttons(String value) => v.buttons = value;
 
-  ///
+  /// <p>Array of columns to be displayed in the picker.</p>
   set columns(String value) => v.columns = value;
 
-  ///
+  /// <p>Additional classes to apply for custom CSS. If multiple classes are
+  /// provided they should be separated by spaces.</p>
   ListBuilder<String> get cssClass {
     if (_cssClass == null) {
       _cssClass = ListBuilder<String>(v.cssClass ?? const <String>[]);
@@ -2174,22 +2230,22 @@ class PickerPropsBuilder extends BuiltSimpleBuilder<PickerProps> {
     return _cssClass;
   }
 
-  ///
+  /// <p>Number of milliseconds to wait before dismissing the picker.</p>
   set duration(num value) => v.duration = value;
 
-  ///
+  /// <p>Animation to use when the picker is presented.</p>
   set enterAnimation(String value) => v.enterAnimation = value;
 
-  ///
+  /// <p>If <code>true</code>, the keyboard will be automatically dismissed when the overlay is presented.</p>
   set keyboardClose(bool value) => v.keyboardClose = value;
 
-  ///
+  /// <p>Animation to use when the picker is dismissed.</p>
   set leaveAnimation(String value) => v.leaveAnimation = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, a backdrop will be displayed behind the picker.</p>
   set showBackdrop(bool value) => v.showBackdrop = value;
 
   ///
@@ -2200,9 +2256,9 @@ class PickerPropsBuilder extends BuiltSimpleBuilder<PickerProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _PickerProps get v => super.v;
   PickerProps build() {
+    super.build();
     v.cssClass = _cssClass?.build();
     v.on = _on?.build();
     return v;
@@ -2264,19 +2320,19 @@ class PickerEventPropsBuilder extends BuiltSimpleBuilder<PickerEventProps> {
 
   _PickerEventProps v;
 
-  ///
+  /// Emitted after the picker has dismissed.
   set ionPickerDidDismiss(DartHandler<CustomEvent> value) =>
       v.ionPickerDidDismiss = value;
 
-  ///
+  /// Emitted after the picker has presented.
   set ionPickerDidPresent(DartHandler<CustomEvent> value) =>
       v.ionPickerDidPresent = value;
 
-  ///
+  /// Emitted before the picker has dismissed.
   set ionPickerWillDismiss(DartHandler<CustomEvent> value) =>
       v.ionPickerWillDismiss = value;
 
-  ///
+  /// Emitted before the picker has presented.
   set ionPickerWillPresent(DartHandler<CustomEvent> value) =>
       v.ionPickerWillPresent = value;
   PickerEventProps build() {
@@ -2291,19 +2347,17 @@ class PickerEventPropsBuilder extends BuiltSimpleBuilder<PickerEventProps> {
   }
 }
 
-class _PickerControllerProps extends BuiltSimpleImpl
+class _PickerControllerProps extends _IonProps
     with PickerControllerProps
     implements PickerControllerProps {
-  _PickerControllerProps._() : super();
+  _PickerControllerProps._() : super._();
 
   factory _PickerControllerProps(
           BuilderFunc<PickerControllerPropsBuilder> builder) =>
       PickerControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   PickerControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2317,23 +2371,18 @@ class _PickerControllerProps extends BuiltSimpleImpl
       PickerControllerPropsBuilder(this);
 }
 
-class PickerControllerPropsBuilder
-    extends BuiltSimpleBuilder<PickerControllerProps> {
-  PickerControllerPropsBuilder._(_PickerControllerProps b) : v = b;
+class PickerControllerPropsBuilder extends IonPropsBuilder {
+  PickerControllerPropsBuilder._(_PickerControllerProps b) : super._(b);
 
   factory PickerControllerPropsBuilder([_PickerControllerProps b]) {
     var v = _PickerControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return PickerControllerPropsBuilder._(v);
   }
 
-  _PickerControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _PickerControllerProps get v => super.v;
   PickerControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -2346,8 +2395,8 @@ class PickerControllerPropsBuilder
   }
 }
 
-class _FabProps extends BuiltSimpleImpl with FabProps implements FabProps {
-  _FabProps._() : super();
+class _FabProps extends _IonProps with FabProps implements FabProps {
+  _FabProps._() : super._();
 
   factory _FabProps(BuilderFunc<FabPropsBuilder> builder) =>
       FabPropsBuilder.create(builder);
@@ -2360,14 +2409,12 @@ class _FabProps extends BuiltSimpleImpl with FabProps implements FabProps {
 
   VerticalValue vertical;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["activated"] = activated;
     json["edge"] = edge;
-    json["horizontal"] = horizontal;
-    json["vertical"] = vertical;
-    json["key"] = key;
+    json["horizontal"] = _enumToString(horizontal);
+    json["vertical"] = _enumToString(vertical);
   }
 
   FabProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2380,8 +2427,8 @@ class _FabProps extends BuiltSimpleImpl with FabProps implements FabProps {
   FabPropsBuilder toBuilder() => FabPropsBuilder(this);
 }
 
-class FabPropsBuilder extends BuiltSimpleBuilder<FabProps> {
-  FabPropsBuilder._(_FabProps b) : v = b;
+class FabPropsBuilder extends IonPropsBuilder {
+  FabPropsBuilder._(_FabProps b) : super._(b);
 
   factory FabPropsBuilder([_FabProps b]) {
     var v = _FabProps._();
@@ -2390,28 +2437,27 @@ class FabPropsBuilder extends BuiltSimpleBuilder<FabProps> {
       v.edge = b.edge;
       v.horizontal = b.horizontal;
       v.vertical = b.vertical;
-      v.key = b.key;
     }
     return FabPropsBuilder._(v);
   }
 
-  _FabProps v;
-
-  ///
+  /// <p>If <code>true</code>, both the <code>ion-fab-button</code> and all <code>ion-fab-list</code> inside <code>ion-fab</code> will become active.
+  /// That means <code>ion-fab-button</code> will become a <code>close</code> icon and <code>ion-fab-list</code> will become visible.</p>
   set activated(bool value) => v.activated = value;
 
-  ///
+  /// <p>If <code>true</code>, the fab will display on the edge of the header if
+  /// <code>vertical</code> is <code>&quot;top&quot;</code>, and on the edge of the footer if
+  /// it is <code>&quot;bottom&quot;</code>. Should be used with a <code>fixed</code> slot.</p>
   set edge(bool value) => v.edge = value;
 
-  ///
+  /// <p>Where to align the fab horizontally in the viewport.</p>
   set horizontal(HorizontalValue value) => v.horizontal = value;
 
-  ///
+  /// <p>Where to align the fab vertically in the viewport.</p>
   set vertical(VerticalValue value) => v.vertical = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _FabProps get v => super.v;
   FabProps build() {
+    super.build();
     return v;
   }
 
@@ -2422,10 +2468,10 @@ class FabPropsBuilder extends BuiltSimpleBuilder<FabProps> {
   }
 }
 
-class _FabButtonProps extends BuiltSimpleImpl
+class _FabButtonProps extends _IonProps
     with FabButtonProps
     implements FabButtonProps {
-  _FabButtonProps._() : super();
+  _FabButtonProps._() : super._();
 
   factory _FabButtonProps(BuilderFunc<FabButtonPropsBuilder> builder) =>
       FabButtonPropsBuilder.create(builder);
@@ -2452,21 +2498,18 @@ class _FabButtonProps extends BuiltSimpleImpl
 
   FabButtonEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["activated"] = activated;
     json["color"] = color;
     json["disabled"] = disabled;
     json["href"] = href;
-    json["mode"] = mode;
-    json["routerDirection"] = routerDirection;
+    json["mode"] = _enumToString(mode);
+    json["routerDirection"] = _enumToString(routerDirection);
     json["show"] = show;
-    json["size"] = size;
+    json["size"] = _enumToString(size);
     json["translucent"] = translucent;
-    json["type"] = type;
-    json["on"] = on;
-    json["key"] = key;
+    json["type"] = _enumToString(type);
   }
 
   FabButtonProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2479,8 +2522,8 @@ class _FabButtonProps extends BuiltSimpleImpl
   FabButtonPropsBuilder toBuilder() => FabButtonPropsBuilder(this);
 }
 
-class FabButtonPropsBuilder extends BuiltSimpleBuilder<FabButtonProps> {
-  FabButtonPropsBuilder._(_FabButtonProps b) : v = b;
+class FabButtonPropsBuilder extends IonPropsBuilder {
+  FabButtonPropsBuilder._(_FabButtonProps b) : super._(b);
 
   factory FabButtonPropsBuilder([_FabButtonProps b]) {
     var v = _FabButtonProps._();
@@ -2496,43 +2539,44 @@ class FabButtonPropsBuilder extends BuiltSimpleBuilder<FabButtonProps> {
       v.translucent = b.translucent;
       v.type = b.type;
       v.on = b.on;
-      v.key = b.key;
     }
     return FabButtonPropsBuilder._(v);
   }
 
   FabButtonEventPropsBuilder _on;
 
-  _FabButtonProps v;
-
-  ///
+  /// <p>If <code>true</code>, the fab button will be show a close icon.</p>
   set activated(bool value) => v.activated = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the fab button.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>Contains a URL or a URL fragment that the hyperlink points to.
+  /// If this property is set, an anchor tag will be rendered.</p>
   set href(String value) => v.href = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>When using a router, it specifies the transition direction when navigating to
+  /// another page using <code>href</code>.</p>
   set routerDirection(RouterDirectionValue value) => v.routerDirection = value;
 
-  ///
+  /// <p>If <code>true</code>, the fab button will show when in a fab-list.</p>
   set show(bool value) => v.show = value;
 
-  ///
+  /// <p>The size of the button. Set this to <code>small</code> in order to have a mini fab.</p>
   set size(FabButtonPropsSizeValue value) => v.size = value;
 
-  ///
+  /// <p>If <code>true</code>, the fab button will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
 
-  ///
+  /// <p>The type of the button.</p>
   set type(ButtonPropsTypeValue value) => v.type = value;
 
   ///
@@ -2543,9 +2587,9 @@ class FabButtonPropsBuilder extends BuiltSimpleBuilder<FabButtonProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _FabButtonProps get v => super.v;
   FabButtonProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -2601,10 +2645,10 @@ class FabButtonEventPropsBuilder
 
   _FabButtonEventProps v;
 
-  ///
+  /// Emitted when the button loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the button has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
   FabButtonEventProps build() {
     return v;
@@ -2618,10 +2662,10 @@ class FabButtonEventPropsBuilder
   }
 }
 
-class _FabListProps extends BuiltSimpleImpl
+class _FabListProps extends _IonProps
     with FabListProps
     implements FabListProps {
-  _FabListProps._() : super();
+  _FabListProps._() : super._();
 
   factory _FabListProps(BuilderFunc<FabListPropsBuilder> builder) =>
       FabListPropsBuilder.create(builder);
@@ -2630,12 +2674,10 @@ class _FabListProps extends BuiltSimpleImpl
 
   FabListPropsSideValue side;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["activated"] = activated;
-    json["side"] = side;
-    json["key"] = key;
+    json["side"] = _enumToString(side);
   }
 
   FabListProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2648,30 +2690,26 @@ class _FabListProps extends BuiltSimpleImpl
   FabListPropsBuilder toBuilder() => FabListPropsBuilder(this);
 }
 
-class FabListPropsBuilder extends BuiltSimpleBuilder<FabListProps> {
-  FabListPropsBuilder._(_FabListProps b) : v = b;
+class FabListPropsBuilder extends IonPropsBuilder {
+  FabListPropsBuilder._(_FabListProps b) : super._(b);
 
   factory FabListPropsBuilder([_FabListProps b]) {
     var v = _FabListProps._();
     if (b != null) {
       v.activated = b.activated;
       v.side = b.side;
-      v.key = b.key;
     }
     return FabListPropsBuilder._(v);
   }
 
-  _FabListProps v;
-
-  ///
+  /// <p>If <code>true</code>, the fab list will show all fab buttons in the list.</p>
   set activated(bool value) => v.activated = value;
 
-  ///
+  /// <p>The side the fab list will show on relative to the main fab button.</p>
   set side(FabListPropsSideValue value) => v.side = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _FabListProps get v => super.v;
   FabListProps build() {
+    super.build();
     return v;
   }
 
@@ -2682,19 +2720,17 @@ class FabListPropsBuilder extends BuiltSimpleBuilder<FabListProps> {
   }
 }
 
-class _GridProps extends BuiltSimpleImpl with GridProps implements GridProps {
-  _GridProps._() : super();
+class _GridProps extends _IonProps with GridProps implements GridProps {
+  _GridProps._() : super._();
 
   factory _GridProps(BuilderFunc<GridPropsBuilder> builder) =>
       GridPropsBuilder.create(builder);
 
   bool fixed;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["fixed"] = fixed;
-    json["key"] = key;
   }
 
   GridProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2707,26 +2743,22 @@ class _GridProps extends BuiltSimpleImpl with GridProps implements GridProps {
   GridPropsBuilder toBuilder() => GridPropsBuilder(this);
 }
 
-class GridPropsBuilder extends BuiltSimpleBuilder<GridProps> {
-  GridPropsBuilder._(_GridProps b) : v = b;
+class GridPropsBuilder extends IonPropsBuilder {
+  GridPropsBuilder._(_GridProps b) : super._(b);
 
   factory GridPropsBuilder([_GridProps b]) {
     var v = _GridProps._();
     if (b != null) {
       v.fixed = b.fixed;
-      v.key = b.key;
     }
     return GridPropsBuilder._(v);
   }
 
-  _GridProps v;
-
-  ///
+  /// <p>If <code>true</code>, the grid will have a fixed width based on the screen size.</p>
   set fixed(bool value) => v.fixed = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _GridProps get v => super.v;
   GridProps build() {
+    super.build();
     return v;
   }
 
@@ -2737,8 +2769,8 @@ class GridPropsBuilder extends BuiltSimpleBuilder<GridProps> {
   }
 }
 
-class _ColProps extends BuiltSimpleImpl with ColProps implements ColProps {
-  _ColProps._() : super();
+class _ColProps extends _IonProps with ColProps implements ColProps {
+  _ColProps._() : super._();
 
   factory _ColProps(BuilderFunc<ColPropsBuilder> builder) =>
       ColPropsBuilder.create(builder);
@@ -2791,9 +2823,8 @@ class _ColProps extends BuiltSimpleImpl with ColProps implements ColProps {
 
   String sizeXs;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["offset"] = offset;
     json["offsetLg"] = offsetLg;
     json["offsetMd"] = offsetMd;
@@ -2818,7 +2849,6 @@ class _ColProps extends BuiltSimpleImpl with ColProps implements ColProps {
     json["sizeSm"] = sizeSm;
     json["sizeXl"] = sizeXl;
     json["sizeXs"] = sizeXs;
-    json["key"] = key;
   }
 
   ColProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2831,8 +2861,8 @@ class _ColProps extends BuiltSimpleImpl with ColProps implements ColProps {
   ColPropsBuilder toBuilder() => ColPropsBuilder(this);
 }
 
-class ColPropsBuilder extends BuiltSimpleBuilder<ColProps> {
-  ColPropsBuilder._(_ColProps b) : v = b;
+class ColPropsBuilder extends IonPropsBuilder {
+  ColPropsBuilder._(_ColProps b) : super._(b);
 
   factory ColPropsBuilder([_ColProps b]) {
     var v = _ColProps._();
@@ -2861,88 +2891,108 @@ class ColPropsBuilder extends BuiltSimpleBuilder<ColProps> {
       v.sizeSm = b.sizeSm;
       v.sizeXl = b.sizeXl;
       v.sizeXs = b.sizeXs;
-      v.key = b.key;
     }
     return ColPropsBuilder._(v);
   }
 
-  _ColProps v;
-
-  ///
+  /// <p>The amount to offset the column, in terms of how many columns it should shift to the end
+  /// of the total available.</p>
   set offset(String value) => v.offset = value;
 
-  ///
+  /// <p>The amount to offset the column for lg screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set offsetLg(String value) => v.offsetLg = value;
 
-  ///
+  /// <p>The amount to offset the column for md screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set offsetMd(String value) => v.offsetMd = value;
 
-  ///
+  /// <p>The amount to offset the column for sm screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set offsetSm(String value) => v.offsetSm = value;
 
-  ///
+  /// <p>The amount to offset the column for xl screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set offsetXl(String value) => v.offsetXl = value;
 
-  ///
+  /// <p>The amount to offset the column for xs screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set offsetXs(String value) => v.offsetXs = value;
 
-  ///
+  /// <p>The amount to pull the column, in terms of how many columns it should shift to the start of
+  /// the total available.</p>
   set pull(String value) => v.pull = value;
 
-  ///
+  /// <p>The amount to pull the column for lg screens, in terms of how many columns it should shift
+  /// to the start of the total available.</p>
   set pullLg(String value) => v.pullLg = value;
 
-  ///
+  /// <p>The amount to pull the column for md screens, in terms of how many columns it should shift
+  /// to the start of the total available.</p>
   set pullMd(String value) => v.pullMd = value;
 
-  ///
+  /// <p>The amount to pull the column for sm screens, in terms of how many columns it should shift
+  /// to the start of the total available.</p>
   set pullSm(String value) => v.pullSm = value;
 
-  ///
+  /// <p>The amount to pull the column for xl screens, in terms of how many columns it should shift
+  /// to the start of the total available.</p>
   set pullXl(String value) => v.pullXl = value;
 
-  ///
+  /// <p>The amount to pull the column for xs screens, in terms of how many columns it should shift
+  /// to the start of the total available.</p>
   set pullXs(String value) => v.pullXs = value;
 
-  ///
+  /// <p>The amount to push the column, in terms of how many columns it should shift to the end
+  /// of the total available.</p>
   set push(String value) => v.push = value;
 
-  ///
+  /// <p>The amount to push the column for lg screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set pushLg(String value) => v.pushLg = value;
 
-  ///
+  /// <p>The amount to push the column for md screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set pushMd(String value) => v.pushMd = value;
 
-  ///
+  /// <p>The amount to push the column for sm screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set pushSm(String value) => v.pushSm = value;
 
-  ///
+  /// <p>The amount to push the column for xl screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set pushXl(String value) => v.pushXl = value;
 
-  ///
+  /// <p>The amount to push the column for xs screens, in terms of how many columns it should shift
+  /// to the end of the total available.</p>
   set pushXs(String value) => v.pushXs = value;
 
-  ///
+  /// <p>The size of the column, in terms of how many columns it should take up out of the total
+  /// available. If <code>&quot;auto&quot;</code> is passed, the column will be the size of its content.</p>
   set size(String value) => v.size = value;
 
-  ///
+  /// <p>The size of the column for lg screens, in terms of how many columns it should take up out
+  /// of the total available. If <code>&quot;auto&quot;</code> is passed, the column will be the size of its content.</p>
   set sizeLg(String value) => v.sizeLg = value;
 
-  ///
+  /// <p>The size of the column for md screens, in terms of how many columns it should take up out
+  /// of the total available. If <code>&quot;auto&quot;</code> is passed, the column will be the size of its content.</p>
   set sizeMd(String value) => v.sizeMd = value;
 
-  ///
+  /// <p>The size of the column for sm screens, in terms of how many columns it should take up out
+  /// of the total available. If <code>&quot;auto&quot;</code> is passed, the column will be the size of its content.</p>
   set sizeSm(String value) => v.sizeSm = value;
 
-  ///
+  /// <p>The size of the column for xl screens, in terms of how many columns it should take up out
+  /// of the total available. If <code>&quot;auto&quot;</code> is passed, the column will be the size of its content.</p>
   set sizeXl(String value) => v.sizeXl = value;
 
-  ///
+  /// <p>The size of the column for xs screens, in terms of how many columns it should take up out
+  /// of the total available. If <code>&quot;auto&quot;</code> is passed, the column will be the size of its content.</p>
   set sizeXs(String value) => v.sizeXs = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ColProps get v => super.v;
   ColProps build() {
+    super.build();
     return v;
   }
 
@@ -2953,16 +3003,14 @@ class ColPropsBuilder extends BuiltSimpleBuilder<ColProps> {
   }
 }
 
-class _RowProps extends BuiltSimpleImpl with RowProps implements RowProps {
-  _RowProps._() : super();
+class _RowProps extends _IonProps with RowProps implements RowProps {
+  _RowProps._() : super._();
 
   factory _RowProps(BuilderFunc<RowPropsBuilder> builder) =>
       RowPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   RowProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -2975,22 +3023,18 @@ class _RowProps extends BuiltSimpleImpl with RowProps implements RowProps {
   RowPropsBuilder toBuilder() => RowPropsBuilder(this);
 }
 
-class RowPropsBuilder extends BuiltSimpleBuilder<RowProps> {
-  RowPropsBuilder._(_RowProps b) : v = b;
+class RowPropsBuilder extends IonPropsBuilder {
+  RowPropsBuilder._(_RowProps b) : super._(b);
 
   factory RowPropsBuilder([_RowProps b]) {
     var v = _RowProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return RowPropsBuilder._(v);
   }
 
-  _RowProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _RowProps get v => super.v;
   RowProps build() {
+    super.build();
     return v;
   }
 
@@ -3001,10 +3045,10 @@ class RowPropsBuilder extends BuiltSimpleBuilder<RowProps> {
   }
 }
 
-class _InfiniteScrollProps extends BuiltSimpleImpl
+class _InfiniteScrollProps extends _IonProps
     with InfiniteScrollProps
     implements InfiniteScrollProps {
-  _InfiniteScrollProps._() : super();
+  _InfiniteScrollProps._() : super._();
 
   factory _InfiniteScrollProps(
           BuilderFunc<InfiniteScrollPropsBuilder> builder) =>
@@ -3018,14 +3062,11 @@ class _InfiniteScrollProps extends BuiltSimpleImpl
 
   InfiniteScrollEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["disabled"] = disabled;
-    json["position"] = position;
+    json["position"] = _enumToString(position);
     json["threshold"] = threshold;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   InfiniteScrollProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -3038,9 +3079,8 @@ class _InfiniteScrollProps extends BuiltSimpleImpl
   InfiniteScrollPropsBuilder toBuilder() => InfiniteScrollPropsBuilder(this);
 }
 
-class InfiniteScrollPropsBuilder
-    extends BuiltSimpleBuilder<InfiniteScrollProps> {
-  InfiniteScrollPropsBuilder._(_InfiniteScrollProps b) : v = b;
+class InfiniteScrollPropsBuilder extends IonPropsBuilder {
+  InfiniteScrollPropsBuilder._(_InfiniteScrollProps b) : super._(b);
 
   factory InfiniteScrollPropsBuilder([_InfiniteScrollProps b]) {
     var v = _InfiniteScrollProps._();
@@ -3049,22 +3089,31 @@ class InfiniteScrollPropsBuilder
       v.position = b.position;
       v.threshold = b.threshold;
       v.on = b.on;
-      v.key = b.key;
     }
     return InfiniteScrollPropsBuilder._(v);
   }
 
   InfiniteScrollEventPropsBuilder _on;
 
-  _InfiniteScrollProps v;
-
-  ///
+  /// <p>If <code>true</code>, the infinite scroll will be hidden and scroll event listeners
+  /// will be removed.</p>
+  /// <p>Set this to true to disable the infinite scroll from actively
+  /// trying to receive new data while scrolling. This is useful
+  /// when it is known that there is no more data that can be added, and
+  /// the infinite scroll is no longer needed.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The position of the infinite scroll element.
+  /// The value can be either <code>top</code> or <code>bottom</code>.</p>
   set position(InfiniteScrollPropsPositionValue value) => v.position = value;
 
-  ///
+  /// <p>The threshold distance from the bottom
+  /// of the content to call the <code>infinite</code> output event when scrolled.
+  /// The threshold value can be either a percent, or
+  /// in pixels. For example, use the value of <code>10%</code> for the <code>infinite</code>
+  /// output event to get called when the user has scrolled 10%
+  /// from the bottom of the page. Use the value <code>100px</code> when the
+  /// scroll is within 100 pixels from the bottom of the page.</p>
   set threshold(String value) => v.threshold = value;
 
   ///
@@ -3075,9 +3124,9 @@ class InfiniteScrollPropsBuilder
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _InfiniteScrollProps get v => super.v;
   InfiniteScrollProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -3131,7 +3180,10 @@ class InfiniteScrollEventPropsBuilder
 
   _InfiniteScrollEventProps v;
 
-  ///
+  /// Emitted when the scroll reaches
+  /// the threshold distance. From within your infinite handler,
+  /// you must call the infinite scroll's `complete()` method when
+  /// your async operation has completed.
   set ionInfinite(DartHandler<CustomEvent> value) => v.ionInfinite = value;
   InfiniteScrollEventProps build() {
     return v;
@@ -3146,10 +3198,10 @@ class InfiniteScrollEventPropsBuilder
   }
 }
 
-class _InfiniteScrollContentProps extends BuiltSimpleImpl
+class _InfiniteScrollContentProps extends _IonProps
     with InfiniteScrollContentProps
     implements InfiniteScrollContentProps {
-  _InfiniteScrollContentProps._() : super();
+  _InfiniteScrollContentProps._() : super._();
 
   factory _InfiniteScrollContentProps(
           BuilderFunc<InfiniteScrollContentPropsBuilder> builder) =>
@@ -3159,12 +3211,10 @@ class _InfiniteScrollContentProps extends BuiltSimpleImpl
 
   String loadingText;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["loadingSpinner"] = loadingSpinner;
+    super.fillJson(json);
+    json["loadingSpinner"] = _enumToString(loadingSpinner);
     json["loadingText"] = loadingText;
-    json["key"] = key;
   }
 
   InfiniteScrollContentProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -3179,31 +3229,32 @@ class _InfiniteScrollContentProps extends BuiltSimpleImpl
       InfiniteScrollContentPropsBuilder(this);
 }
 
-class InfiniteScrollContentPropsBuilder
-    extends BuiltSimpleBuilder<InfiniteScrollContentProps> {
-  InfiniteScrollContentPropsBuilder._(_InfiniteScrollContentProps b) : v = b;
+class InfiniteScrollContentPropsBuilder extends IonPropsBuilder {
+  InfiniteScrollContentPropsBuilder._(_InfiniteScrollContentProps b)
+      : super._(b);
 
   factory InfiniteScrollContentPropsBuilder([_InfiniteScrollContentProps b]) {
     var v = _InfiniteScrollContentProps._();
     if (b != null) {
       v.loadingSpinner = b.loadingSpinner;
       v.loadingText = b.loadingText;
-      v.key = b.key;
     }
     return InfiniteScrollContentPropsBuilder._(v);
   }
 
-  _InfiniteScrollContentProps v;
-
-  ///
+  /// <p>An animated SVG spinner that shows while loading.</p>
   set loadingSpinner(LoadingSpinnerValue value) => v.loadingSpinner = value;
 
-  ///
+  /// <p>Optional text to display while loading.
+  /// <code>loadingText</code> can accept either plaintext or HTML as a string.
+  /// To display characters normally reserved for HTML, they
+  /// must be escaped. For example <code>&lt;Ionic&gt;</code> would become
+  /// <code>&amp;lt;Ionic&amp;gt;</code></p>
+  /// <p>For more information: <a href=https://ionicframework.com/docs/faq/security >Security Documentation</a></p>
   set loadingText(String value) => v.loadingText = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _InfiniteScrollContentProps get v => super.v;
   InfiniteScrollContentProps build() {
+    super.build();
     return v;
   }
 
@@ -3216,10 +3267,8 @@ class InfiniteScrollContentPropsBuilder
   }
 }
 
-class _InputProps extends BuiltSimpleImpl
-    with InputProps
-    implements InputProps {
-  _InputProps._() : super();
+class _InputProps extends _IonProps with InputProps implements InputProps {
+  _InputProps._() : super._();
 
   factory _InputProps(BuilderFunc<InputPropsBuilder> builder) =>
       InputPropsBuilder.create(builder);
@@ -3280,13 +3329,12 @@ class _InputProps extends BuiltSimpleImpl
 
   InputEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["accept"] = accept;
     json["autocapitalize"] = autocapitalize;
-    json["autocomplete"] = autocomplete;
-    json["autocorrect"] = autocorrect;
+    json["autocomplete"] = _enumToString(autocomplete);
+    json["autocorrect"] = _enumToString(autocorrect);
     json["autofocus"] = autofocus;
     json["clearInput"] = clearInput;
     json["clearOnEdit"] = clearOnEdit;
@@ -3298,7 +3346,7 @@ class _InputProps extends BuiltSimpleImpl
     json["maxlength"] = maxlength;
     json["min"] = min;
     json["minlength"] = minlength;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["multiple"] = multiple;
     json["name"] = name;
     json["pattern"] = pattern;
@@ -3308,10 +3356,8 @@ class _InputProps extends BuiltSimpleImpl
     json["size"] = size;
     json["spellcheck"] = spellcheck;
     json["step"] = step;
-    json["type"] = type;
+    json["type"] = _enumToString(type);
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   InputProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -3324,8 +3370,8 @@ class _InputProps extends BuiltSimpleImpl
   InputPropsBuilder toBuilder() => InputPropsBuilder(this);
 }
 
-class InputPropsBuilder extends BuiltSimpleBuilder<InputProps> {
-  InputPropsBuilder._(_InputProps b) : v = b;
+class InputPropsBuilder extends IonPropsBuilder {
+  InputPropsBuilder._(_InputProps b) : super._(b);
 
   factory InputPropsBuilder([_InputProps b]) {
     var v = _InputProps._();
@@ -3358,94 +3404,95 @@ class InputPropsBuilder extends BuiltSimpleBuilder<InputProps> {
       v.type = b.type;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return InputPropsBuilder._(v);
   }
 
   InputEventPropsBuilder _on;
 
-  _InputProps v;
-
-  ///
+  /// <p>If the value of the type attribute is <code>&quot;file&quot;</code>, then this attribute will indicate the types of files that the server accepts, otherwise it will be ignored. The value must be a comma-separated list of unique content type specifiers.</p>
   set accept(String value) => v.accept = value;
 
-  ///
+  /// <p>Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.</p>
   set autocapitalize(String value) => v.autocapitalize = value;
 
-  ///
+  /// <p>Indicates whether the value of the control can be automatically completed by the browser.</p>
   set autocomplete(AutocompleteValue value) => v.autocomplete = value;
 
-  ///
+  /// <p>Whether auto correction should be enabled when the user is entering/editing the text value.</p>
   set autocorrect(AutocompleteValue value) => v.autocorrect = value;
 
-  ///
+  /// <p>This Boolean attribute lets you specify that a form control should have input focus when the page loads.</p>
   set autofocus(bool value) => v.autofocus = value;
 
-  ///
+  /// <p>If <code>true</code>, a clear icon will appear in the input when there is a value. Clicking it clears the input.</p>
   set clearInput(bool value) => v.clearInput = value;
 
-  ///
+  /// <p>If <code>true</code>, the value will be cleared after focus upon edit. Defaults to <code>true</code> when <code>type</code> is <code>&quot;password&quot;</code>, <code>false</code> for all other types.</p>
   set clearOnEdit(bool value) => v.clearOnEdit = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>Set the amount of time, in milliseconds, to wait to trigger the <code>ionChange</code> event after each keystroke.</p>
   set debounce(num value) => v.debounce = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the input.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>A hint to the browser for which keyboard to display.
+  /// This attribute applies when the value of the type attribute is <code>&quot;text&quot;</code>, <code>&quot;password&quot;</code>, <code>&quot;email&quot;</code>, or <code>&quot;url&quot;</code>. Possible values are: <code>&quot;verbatim&quot;</code>, <code>&quot;latin&quot;</code>, <code>&quot;latin-name&quot;</code>, <code>&quot;latin-prose&quot;</code>, <code>&quot;full-width-latin&quot;</code>, <code>&quot;kana&quot;</code>, <code>&quot;katakana&quot;</code>, <code>&quot;numeric&quot;</code>, <code>&quot;tel&quot;</code>, <code>&quot;email&quot;</code>, <code>&quot;url&quot;</code>.</p>
   set inputmode(String value) => v.inputmode = value;
 
-  ///
+  /// <p>The maximum value, which must not be less than its minimum (min attribute) value.</p>
   set max(String value) => v.max = value;
 
-  ///
+  /// <p>If the value of the type attribute is <code>text</code>, <code>email</code>, <code>search</code>, <code>password</code>, <code>tel</code>, or <code>url</code>, this attribute specifies the maximum number of characters that the user can enter.</p>
   set maxlength(num value) => v.maxlength = value;
 
-  ///
+  /// <p>The minimum value, which must not be greater than its maximum (max attribute) value.</p>
   set min(String value) => v.min = value;
 
-  ///
+  /// <p>If the value of the type attribute is <code>text</code>, <code>email</code>, <code>search</code>, <code>password</code>, <code>tel</code>, or <code>url</code>, this attribute specifies the minimum number of characters that the user can enter.</p>
   set minlength(num value) => v.minlength = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, the user can enter more than one value. This attribute applies when the type attribute is set to <code>&quot;email&quot;</code> or <code>&quot;file&quot;</code>, otherwise it is ignored.</p>
   set multiple(bool value) => v.multiple = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>A regular expression that the value is checked against. The pattern must match the entire value, not just some subset. Use the title attribute to describe the pattern to help the user. This attribute applies when the value of the type attribute is <code>&quot;text&quot;</code>, <code>&quot;search&quot;</code>, <code>&quot;tel&quot;</code>, <code>&quot;url&quot;</code>, <code>&quot;email&quot;</code>, or <code>&quot;password&quot;</code>, otherwise it is ignored.</p>
   set pattern(String value) => v.pattern = value;
 
-  ///
+  /// <p>Instructional text that shows before the input has a value.</p>
   set placeholder(String value) => v.placeholder = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot modify the value.</p>
   set readonly(bool value) => v.readonly = value;
 
-  ///
+  /// <p>If <code>true</code>, the user must fill in a value before submitting a form.</p>
   set required(bool value) => v.required = value;
 
-  ///
+  /// <p>The initial size of the control. This value is in pixels unless the value of the type attribute is <code>&quot;text&quot;</code> or <code>&quot;password&quot;</code>, in which case it is an integer number of characters. This attribute applies only when the <code>type</code> attribute is set to <code>&quot;text&quot;</code>, <code>&quot;search&quot;</code>, <code>&quot;tel&quot;</code>, <code>&quot;url&quot;</code>, <code>&quot;email&quot;</code>, or <code>&quot;password&quot;</code>, otherwise it is ignored.</p>
   set size(num value) => v.size = value;
 
-  ///
+  /// <p>If <code>true</code>, the element will have its spelling and grammar checked.</p>
   set spellcheck(bool value) => v.spellcheck = value;
 
-  ///
+  /// <p>Works with the min and max attributes to limit the increments at which a value can be set.
+  /// Possible values are: <code>&quot;any&quot;</code> or a positive floating point number.</p>
   set step(String value) => v.step = value;
 
-  ///
+  /// <p>The type of control to display. The default type is text.</p>
   set type(InputPropsTypeValue value) => v.type = value;
 
-  ///
+  /// <p>The value of the input.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -3456,9 +3503,9 @@ class InputPropsBuilder extends BuiltSimpleBuilder<InputProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _InputProps get v => super.v;
   InputProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -3519,16 +3566,16 @@ class InputEventPropsBuilder extends BuiltSimpleBuilder<InputEventProps> {
 
   _InputEventProps v;
 
-  ///
+  /// Emitted when the input loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the value has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the input has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
 
-  ///
+  /// Emitted when a keyboard input ocurred.
   set ionInput(DartHandler<CustomEvent> value) => v.ionInput = value;
   InputEventProps build() {
     return v;
@@ -3542,10 +3589,10 @@ class InputEventPropsBuilder extends BuiltSimpleBuilder<InputEventProps> {
   }
 }
 
-class _TextareaProps extends BuiltSimpleImpl
+class _TextareaProps extends _IonProps
     with TextareaProps
     implements TextareaProps {
-  _TextareaProps._() : super();
+  _TextareaProps._() : super._();
 
   factory _TextareaProps(BuilderFunc<TextareaPropsBuilder> builder) =>
       TextareaPropsBuilder.create(builder);
@@ -3590,9 +3637,8 @@ class _TextareaProps extends BuiltSimpleImpl
 
   TextareaEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["autoGrow"] = autoGrow;
     json["autocapitalize"] = autocapitalize;
     json["autofocus"] = autofocus;
@@ -3603,7 +3649,7 @@ class _TextareaProps extends BuiltSimpleImpl
     json["disabled"] = disabled;
     json["maxlength"] = maxlength;
     json["minlength"] = minlength;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["name"] = name;
     json["placeholder"] = placeholder;
     json["readonly"] = readonly;
@@ -3611,9 +3657,7 @@ class _TextareaProps extends BuiltSimpleImpl
     json["rows"] = rows;
     json["spellcheck"] = spellcheck;
     json["value"] = value;
-    json["wrap"] = wrap;
-    json["on"] = on;
-    json["key"] = key;
+    json["wrap"] = _enumToString(wrap);
   }
 
   TextareaProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -3626,8 +3670,8 @@ class _TextareaProps extends BuiltSimpleImpl
   TextareaPropsBuilder toBuilder() => TextareaPropsBuilder(this);
 }
 
-class TextareaPropsBuilder extends BuiltSimpleBuilder<TextareaProps> {
-  TextareaPropsBuilder._(_TextareaProps b) : v = b;
+class TextareaPropsBuilder extends IonPropsBuilder {
+  TextareaPropsBuilder._(_TextareaProps b) : super._(b);
 
   factory TextareaPropsBuilder([_TextareaProps b]) {
     var v = _TextareaProps._();
@@ -3652,70 +3696,69 @@ class TextareaPropsBuilder extends BuiltSimpleBuilder<TextareaProps> {
       v.value = b.value;
       v.wrap = b.wrap;
       v.on = b.on;
-      v.key = b.key;
     }
     return TextareaPropsBuilder._(v);
   }
 
   TextareaEventPropsBuilder _on;
 
-  _TextareaProps v;
-
-  ///
+  /// <p>If <code>true</code>, the element height will increase based on the value.</p>
   set autoGrow(bool value) => v.autoGrow = value;
 
-  ///
+  /// <p>Indicates whether and how the text value should be automatically capitalized as it is entered/edited by the user.</p>
   set autocapitalize(String value) => v.autocapitalize = value;
 
-  ///
+  /// <p>This Boolean attribute lets you specify that a form control should have input focus when the page loads.</p>
   set autofocus(bool value) => v.autofocus = value;
 
-  ///
+  /// <p>If <code>true</code>, the value will be cleared after focus upon edit. Defaults to <code>true</code> when <code>type</code> is <code>&quot;password&quot;</code>, <code>false</code> for all other types.</p>
   set clearOnEdit(bool value) => v.clearOnEdit = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The visible width of the text control, in average character widths. If it is specified, it must be a positive integer.</p>
   set cols(num value) => v.cols = value;
 
-  ///
+  /// <p>Set the amount of time, in milliseconds, to wait to trigger the <code>ionChange</code> event after each keystroke.</p>
   set debounce(num value) => v.debounce = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the textarea.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>If the value of the type attribute is <code>text</code>, <code>email</code>, <code>search</code>, <code>password</code>, <code>tel</code>, or <code>url</code>, this attribute specifies the maximum number of characters that the user can enter.</p>
   set maxlength(num value) => v.maxlength = value;
 
-  ///
+  /// <p>If the value of the type attribute is <code>text</code>, <code>email</code>, <code>search</code>, <code>password</code>, <code>tel</code>, or <code>url</code>, this attribute specifies the minimum number of characters that the user can enter.</p>
   set minlength(num value) => v.minlength = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>Instructional text that shows before the input has a value.</p>
   set placeholder(String value) => v.placeholder = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot modify the value.</p>
   set readonly(bool value) => v.readonly = value;
 
-  ///
+  /// <p>If <code>true</code>, the user must fill in a value before submitting a form.</p>
   set required(bool value) => v.required = value;
 
-  ///
+  /// <p>The number of visible text lines for the control.</p>
   set rows(num value) => v.rows = value;
 
-  ///
+  /// <p>If <code>true</code>, the element will have its spelling and grammar checked.</p>
   set spellcheck(bool value) => v.spellcheck = value;
 
-  ///
+  /// <p>The value of the textarea.</p>
   set value(String value) => v.value = value;
 
-  ///
+  /// <p>Indicates how the control wraps text.</p>
   set wrap(WrapValue value) => v.wrap = value;
 
   ///
@@ -3726,9 +3769,9 @@ class TextareaPropsBuilder extends BuiltSimpleBuilder<TextareaProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _TextareaProps get v => super.v;
   TextareaProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -3789,16 +3832,16 @@ class TextareaEventPropsBuilder extends BuiltSimpleBuilder<TextareaEventProps> {
 
   _TextareaEventProps v;
 
-  ///
+  /// Emitted when the input loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the input value has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the input has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
 
-  ///
+  /// Emitted when a keyboard input ocurred.
   set ionInput(DartHandler<CustomEvent> value) => v.ionInput = value;
   TextareaEventProps build() {
     return v;
@@ -3812,8 +3855,8 @@ class TextareaEventPropsBuilder extends BuiltSimpleBuilder<TextareaEventProps> {
   }
 }
 
-class _ItemProps extends BuiltSimpleImpl with ItemProps implements ItemProps {
-  _ItemProps._() : super();
+class _ItemProps extends _IonProps with ItemProps implements ItemProps {
+  _ItemProps._() : super._();
 
   factory _ItemProps(BuilderFunc<ItemPropsBuilder> builder) =>
       ItemPropsBuilder.create(builder);
@@ -3838,20 +3881,18 @@ class _ItemProps extends BuiltSimpleImpl with ItemProps implements ItemProps {
 
   ButtonPropsTypeValue type;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["button"] = button;
     json["color"] = color;
     json["detail"] = detail;
     json["detailIcon"] = detailIcon;
     json["disabled"] = disabled;
     json["href"] = href;
-    json["lines"] = lines;
-    json["mode"] = mode;
-    json["routerDirection"] = routerDirection;
-    json["type"] = type;
-    json["key"] = key;
+    json["lines"] = _enumToString(lines);
+    json["mode"] = _enumToString(mode);
+    json["routerDirection"] = _enumToString(routerDirection);
+    json["type"] = _enumToString(type);
   }
 
   ItemProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -3864,8 +3905,8 @@ class _ItemProps extends BuiltSimpleImpl with ItemProps implements ItemProps {
   ItemPropsBuilder toBuilder() => ItemPropsBuilder(this);
 }
 
-class ItemPropsBuilder extends BuiltSimpleBuilder<ItemProps> {
-  ItemPropsBuilder._(_ItemProps b) : v = b;
+class ItemPropsBuilder extends IonPropsBuilder {
+  ItemPropsBuilder._(_ItemProps b) : super._(b);
 
   factory ItemPropsBuilder([_ItemProps b]) {
     var v = _ItemProps._();
@@ -3880,46 +3921,47 @@ class ItemPropsBuilder extends BuiltSimpleBuilder<ItemProps> {
       v.mode = b.mode;
       v.routerDirection = b.routerDirection;
       v.type = b.type;
-      v.key = b.key;
     }
     return ItemPropsBuilder._(v);
   }
 
-  _ItemProps v;
-
-  ///
+  /// <p>If <code>true</code>, a button tag will be rendered and the item will be tappable.</p>
   set button(bool value) => v.button = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, a detail arrow will appear on the item. Defaults to <code>false</code> unless the <code>mode</code>
+  /// is <code>ios</code> and an <code>href</code> or <code>button</code> property is present.</p>
   set detail(bool value) => v.detail = value;
 
-  ///
+  /// <p>The icon to use when <code>detail</code> is set to <code>true</code>.</p>
   set detailIcon(String value) => v.detailIcon = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the item.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>Contains a URL or a URL fragment that the hyperlink points to.
+  /// If this property is set, an anchor tag will be rendered.</p>
   set href(String value) => v.href = value;
 
-  ///
+  /// <p>How the bottom border should be displayed on the item.</p>
   set lines(LinesValue value) => v.lines = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>When using a router, it specifies the transition direction when navigating to
+  /// another page using <code>href</code>.</p>
   set routerDirection(RouterDirectionValue value) => v.routerDirection = value;
 
-  ///
+  /// <p>The type of the button. Only used when an <code>onclick</code> or <code>button</code> property is present.</p>
   set type(ButtonPropsTypeValue value) => v.type = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ItemProps get v => super.v;
   ItemProps build() {
+    super.build();
     return v;
   }
 
@@ -3930,10 +3972,10 @@ class ItemPropsBuilder extends BuiltSimpleBuilder<ItemProps> {
   }
 }
 
-class _ItemDividerProps extends BuiltSimpleImpl
+class _ItemDividerProps extends _IonProps
     with ItemDividerProps
     implements ItemDividerProps {
-  _ItemDividerProps._() : super();
+  _ItemDividerProps._() : super._();
 
   factory _ItemDividerProps(BuilderFunc<ItemDividerPropsBuilder> builder) =>
       ItemDividerPropsBuilder.create(builder);
@@ -3944,13 +3986,11 @@ class _ItemDividerProps extends BuiltSimpleImpl
 
   bool sticky;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["sticky"] = sticky;
-    json["key"] = key;
   }
 
   ItemDividerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -3963,8 +4003,8 @@ class _ItemDividerProps extends BuiltSimpleImpl
   ItemDividerPropsBuilder toBuilder() => ItemDividerPropsBuilder(this);
 }
 
-class ItemDividerPropsBuilder extends BuiltSimpleBuilder<ItemDividerProps> {
-  ItemDividerPropsBuilder._(_ItemDividerProps b) : v = b;
+class ItemDividerPropsBuilder extends IonPropsBuilder {
+  ItemDividerPropsBuilder._(_ItemDividerProps b) : super._(b);
 
   factory ItemDividerPropsBuilder([_ItemDividerProps b]) {
     var v = _ItemDividerProps._();
@@ -3972,25 +4012,26 @@ class ItemDividerPropsBuilder extends BuiltSimpleBuilder<ItemDividerProps> {
       v.color = b.color;
       v.mode = b.mode;
       v.sticky = b.sticky;
-      v.key = b.key;
     }
     return ItemDividerPropsBuilder._(v);
   }
 
-  _ItemDividerProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>When it&#39;s set to <code>true</code>, the item-divider will stay visible when it reaches the top
+  /// of the viewport until the next <code>ion-item-divider</code> replaces it.</p>
+  /// <p>This feature relies in <code>position:sticky</code>:
+  /// <a href=https://caniuse.com/#feat=css-sticky >https://caniuse.com/#feat=css-sticky</a></p>
   set sticky(bool value) => v.sticky = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ItemDividerProps get v => super.v;
   ItemDividerProps build() {
+    super.build();
     return v;
   }
 
@@ -4002,18 +4043,16 @@ class ItemDividerPropsBuilder extends BuiltSimpleBuilder<ItemDividerProps> {
   }
 }
 
-class _ItemGroupProps extends BuiltSimpleImpl
+class _ItemGroupProps extends _IonProps
     with ItemGroupProps
     implements ItemGroupProps {
-  _ItemGroupProps._() : super();
+  _ItemGroupProps._() : super._();
 
   factory _ItemGroupProps(BuilderFunc<ItemGroupPropsBuilder> builder) =>
       ItemGroupPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   ItemGroupProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4026,22 +4065,18 @@ class _ItemGroupProps extends BuiltSimpleImpl
   ItemGroupPropsBuilder toBuilder() => ItemGroupPropsBuilder(this);
 }
 
-class ItemGroupPropsBuilder extends BuiltSimpleBuilder<ItemGroupProps> {
-  ItemGroupPropsBuilder._(_ItemGroupProps b) : v = b;
+class ItemGroupPropsBuilder extends IonPropsBuilder {
+  ItemGroupPropsBuilder._(_ItemGroupProps b) : super._(b);
 
   factory ItemGroupPropsBuilder([_ItemGroupProps b]) {
     var v = _ItemGroupProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return ItemGroupPropsBuilder._(v);
   }
 
-  _ItemGroupProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _ItemGroupProps get v => super.v;
   ItemGroupProps build() {
+    super.build();
     return v;
   }
 
@@ -4053,10 +4088,10 @@ class ItemGroupPropsBuilder extends BuiltSimpleBuilder<ItemGroupProps> {
   }
 }
 
-class _ItemSlidingProps extends BuiltSimpleImpl
+class _ItemSlidingProps extends _IonProps
     with ItemSlidingProps
     implements ItemSlidingProps {
-  _ItemSlidingProps._() : super();
+  _ItemSlidingProps._() : super._();
 
   factory _ItemSlidingProps(BuilderFunc<ItemSlidingPropsBuilder> builder) =>
       ItemSlidingPropsBuilder.create(builder);
@@ -4065,12 +4100,9 @@ class _ItemSlidingProps extends BuiltSimpleImpl
 
   ItemSlidingEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["disabled"] = disabled;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ItemSlidingProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4083,24 +4115,21 @@ class _ItemSlidingProps extends BuiltSimpleImpl
   ItemSlidingPropsBuilder toBuilder() => ItemSlidingPropsBuilder(this);
 }
 
-class ItemSlidingPropsBuilder extends BuiltSimpleBuilder<ItemSlidingProps> {
-  ItemSlidingPropsBuilder._(_ItemSlidingProps b) : v = b;
+class ItemSlidingPropsBuilder extends IonPropsBuilder {
+  ItemSlidingPropsBuilder._(_ItemSlidingProps b) : super._(b);
 
   factory ItemSlidingPropsBuilder([_ItemSlidingProps b]) {
     var v = _ItemSlidingProps._();
     if (b != null) {
       v.disabled = b.disabled;
       v.on = b.on;
-      v.key = b.key;
     }
     return ItemSlidingPropsBuilder._(v);
   }
 
   ItemSlidingEventPropsBuilder _on;
 
-  _ItemSlidingProps v;
-
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the sliding-item.</p>
   set disabled(bool value) => v.disabled = value;
 
   ///
@@ -4111,9 +4140,9 @@ class ItemSlidingPropsBuilder extends BuiltSimpleBuilder<ItemSlidingProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ItemSlidingProps get v => super.v;
   ItemSlidingProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -4166,7 +4195,7 @@ class ItemSlidingEventPropsBuilder
 
   _ItemSlidingEventProps v;
 
-  ///
+  /// Emitted when the sliding position changes.
   set ionDrag(DartHandler<CustomEvent> value) => v.ionDrag = value;
   ItemSlidingEventProps build() {
     return v;
@@ -4181,10 +4210,10 @@ class ItemSlidingEventPropsBuilder
   }
 }
 
-class _ItemOptionsProps extends BuiltSimpleImpl
+class _ItemOptionsProps extends _IonProps
     with ItemOptionsProps
     implements ItemOptionsProps {
-  _ItemOptionsProps._() : super();
+  _ItemOptionsProps._() : super._();
 
   factory _ItemOptionsProps(BuilderFunc<ItemOptionsPropsBuilder> builder) =>
       ItemOptionsPropsBuilder.create(builder);
@@ -4193,12 +4222,9 @@ class _ItemOptionsProps extends BuiltSimpleImpl
 
   ItemOptionsEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["side"] = side;
-    json["on"] = on;
-    json["key"] = key;
+    super.fillJson(json);
+    json["side"] = _enumToString(side);
   }
 
   ItemOptionsProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4211,24 +4237,21 @@ class _ItemOptionsProps extends BuiltSimpleImpl
   ItemOptionsPropsBuilder toBuilder() => ItemOptionsPropsBuilder(this);
 }
 
-class ItemOptionsPropsBuilder extends BuiltSimpleBuilder<ItemOptionsProps> {
-  ItemOptionsPropsBuilder._(_ItemOptionsProps b) : v = b;
+class ItemOptionsPropsBuilder extends IonPropsBuilder {
+  ItemOptionsPropsBuilder._(_ItemOptionsProps b) : super._(b);
 
   factory ItemOptionsPropsBuilder([_ItemOptionsProps b]) {
     var v = _ItemOptionsProps._();
     if (b != null) {
       v.side = b.side;
       v.on = b.on;
-      v.key = b.key;
     }
     return ItemOptionsPropsBuilder._(v);
   }
 
   ItemOptionsEventPropsBuilder _on;
 
-  _ItemOptionsProps v;
-
-  ///
+  /// <p>The side the option button should be on. Possible values: <code>&quot;start&quot;</code> and <code>&quot;end&quot;</code>. If you have multiple <code>ion-item-options</code>, a side must be provided for each.</p>
   set side(ItemOptionsPropsSideValue value) => v.side = value;
 
   ///
@@ -4239,9 +4262,9 @@ class ItemOptionsPropsBuilder extends BuiltSimpleBuilder<ItemOptionsProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ItemOptionsProps get v => super.v;
   ItemOptionsProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -4294,7 +4317,7 @@ class ItemOptionsEventPropsBuilder
 
   _ItemOptionsEventProps v;
 
-  ///
+  /// Emitted when the item has been fully swiped.
   set ionSwipe(DartHandler<CustomEvent> value) => v.ionSwipe = value;
   ItemOptionsEventProps build() {
     return v;
@@ -4309,10 +4332,10 @@ class ItemOptionsEventPropsBuilder
   }
 }
 
-class _ItemOptionProps extends BuiltSimpleImpl
+class _ItemOptionProps extends _IonProps
     with ItemOptionProps
     implements ItemOptionProps {
-  _ItemOptionProps._() : super();
+  _ItemOptionProps._() : super._();
 
   factory _ItemOptionProps(BuilderFunc<ItemOptionPropsBuilder> builder) =>
       ItemOptionPropsBuilder.create(builder);
@@ -4327,15 +4350,13 @@ class _ItemOptionProps extends BuiltSimpleImpl
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
     json["disabled"] = disabled;
     json["expandable"] = expandable;
     json["href"] = href;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   ItemOptionProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4348,8 +4369,8 @@ class _ItemOptionProps extends BuiltSimpleImpl
   ItemOptionPropsBuilder toBuilder() => ItemOptionPropsBuilder(this);
 }
 
-class ItemOptionPropsBuilder extends BuiltSimpleBuilder<ItemOptionProps> {
-  ItemOptionPropsBuilder._(_ItemOptionProps b) : v = b;
+class ItemOptionPropsBuilder extends IonPropsBuilder {
+  ItemOptionPropsBuilder._(_ItemOptionProps b) : super._(b);
 
   factory ItemOptionPropsBuilder([_ItemOptionProps b]) {
     var v = _ItemOptionProps._();
@@ -4359,31 +4380,30 @@ class ItemOptionPropsBuilder extends BuiltSimpleBuilder<ItemOptionProps> {
       v.expandable = b.expandable;
       v.href = b.href;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return ItemOptionPropsBuilder._(v);
   }
 
-  _ItemOptionProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the item option.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>If <code>true</code>, the option will expand to take up the available width and cover any other options.</p>
   set expandable(bool value) => v.expandable = value;
 
-  ///
+  /// <p>Contains a URL or a URL fragment that the hyperlink points to.
+  /// If this property is set, an anchor tag will be rendered.</p>
   set href(String value) => v.href = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ItemOptionProps get v => super.v;
   ItemOptionProps build() {
+    super.build();
     return v;
   }
 
@@ -4395,10 +4415,8 @@ class ItemOptionPropsBuilder extends BuiltSimpleBuilder<ItemOptionProps> {
   }
 }
 
-class _LabelProps extends BuiltSimpleImpl
-    with LabelProps
-    implements LabelProps {
-  _LabelProps._() : super();
+class _LabelProps extends _IonProps with LabelProps implements LabelProps {
+  _LabelProps._() : super._();
 
   factory _LabelProps(BuilderFunc<LabelPropsBuilder> builder) =>
       LabelPropsBuilder.create(builder);
@@ -4409,13 +4427,11 @@ class _LabelProps extends BuiltSimpleImpl
 
   LabelPropsPositionValue position;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["position"] = position;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
+    json["position"] = _enumToString(position);
   }
 
   LabelProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4428,8 +4444,8 @@ class _LabelProps extends BuiltSimpleImpl
   LabelPropsBuilder toBuilder() => LabelPropsBuilder(this);
 }
 
-class LabelPropsBuilder extends BuiltSimpleBuilder<LabelProps> {
-  LabelPropsBuilder._(_LabelProps b) : v = b;
+class LabelPropsBuilder extends IonPropsBuilder {
+  LabelPropsBuilder._(_LabelProps b) : super._(b);
 
   factory LabelPropsBuilder([_LabelProps b]) {
     var v = _LabelProps._();
@@ -4437,25 +4453,23 @@ class LabelPropsBuilder extends BuiltSimpleBuilder<LabelProps> {
       v.color = b.color;
       v.mode = b.mode;
       v.position = b.position;
-      v.key = b.key;
     }
     return LabelPropsBuilder._(v);
   }
 
-  _LabelProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The position determines where and how the label behaves inside an item.</p>
   set position(LabelPropsPositionValue value) => v.position = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _LabelProps get v => super.v;
   LabelProps build() {
+    super.build();
     return v;
   }
 
@@ -4466,8 +4480,8 @@ class LabelPropsBuilder extends BuiltSimpleBuilder<LabelProps> {
   }
 }
 
-class _NoteProps extends BuiltSimpleImpl with NoteProps implements NoteProps {
-  _NoteProps._() : super();
+class _NoteProps extends _IonProps with NoteProps implements NoteProps {
+  _NoteProps._() : super._();
 
   factory _NoteProps(BuilderFunc<NotePropsBuilder> builder) =>
       NotePropsBuilder.create(builder);
@@ -4476,12 +4490,10 @@ class _NoteProps extends BuiltSimpleImpl with NoteProps implements NoteProps {
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   NoteProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4494,30 +4506,28 @@ class _NoteProps extends BuiltSimpleImpl with NoteProps implements NoteProps {
   NotePropsBuilder toBuilder() => NotePropsBuilder(this);
 }
 
-class NotePropsBuilder extends BuiltSimpleBuilder<NoteProps> {
-  NotePropsBuilder._(_NoteProps b) : v = b;
+class NotePropsBuilder extends IonPropsBuilder {
+  NotePropsBuilder._(_NoteProps b) : super._(b);
 
   factory NotePropsBuilder([_NoteProps b]) {
     var v = _NoteProps._();
     if (b != null) {
       v.color = b.color;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return NotePropsBuilder._(v);
   }
 
-  _NoteProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _NoteProps get v => super.v;
   NoteProps build() {
+    super.build();
     return v;
   }
 
@@ -4528,8 +4538,8 @@ class NotePropsBuilder extends BuiltSimpleBuilder<NoteProps> {
   }
 }
 
-class _ListProps extends BuiltSimpleImpl with ListProps implements ListProps {
-  _ListProps._() : super();
+class _ListProps extends _IonProps with ListProps implements ListProps {
+  _ListProps._() : super._();
 
   factory _ListProps(BuilderFunc<ListPropsBuilder> builder) =>
       ListPropsBuilder.create(builder);
@@ -4540,13 +4550,11 @@ class _ListProps extends BuiltSimpleImpl with ListProps implements ListProps {
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["inset"] = inset;
-    json["lines"] = lines;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["lines"] = _enumToString(lines);
+    json["mode"] = _enumToString(mode);
   }
 
   ListProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4559,8 +4567,8 @@ class _ListProps extends BuiltSimpleImpl with ListProps implements ListProps {
   ListPropsBuilder toBuilder() => ListPropsBuilder(this);
 }
 
-class ListPropsBuilder extends BuiltSimpleBuilder<ListProps> {
-  ListPropsBuilder._(_ListProps b) : v = b;
+class ListPropsBuilder extends IonPropsBuilder {
+  ListPropsBuilder._(_ListProps b) : super._(b);
 
   factory ListPropsBuilder([_ListProps b]) {
     var v = _ListProps._();
@@ -4568,25 +4576,21 @@ class ListPropsBuilder extends BuiltSimpleBuilder<ListProps> {
       v.inset = b.inset;
       v.lines = b.lines;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return ListPropsBuilder._(v);
   }
 
-  _ListProps v;
-
-  ///
+  /// <p>If <code>true</code>, the list will have margin around it and rounded corners.</p>
   set inset(bool value) => v.inset = value;
 
-  ///
+  /// <p>How the bottom border should be displayed on all items.</p>
   set lines(LinesValue value) => v.lines = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ListProps get v => super.v;
   ListProps build() {
+    super.build();
     return v;
   }
 
@@ -4597,10 +4601,10 @@ class ListPropsBuilder extends BuiltSimpleBuilder<ListProps> {
   }
 }
 
-class _ListHeaderProps extends BuiltSimpleImpl
+class _ListHeaderProps extends _IonProps
     with ListHeaderProps
     implements ListHeaderProps {
-  _ListHeaderProps._() : super();
+  _ListHeaderProps._() : super._();
 
   factory _ListHeaderProps(BuilderFunc<ListHeaderPropsBuilder> builder) =>
       ListHeaderPropsBuilder.create(builder);
@@ -4609,12 +4613,10 @@ class _ListHeaderProps extends BuiltSimpleImpl
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   ListHeaderProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4627,30 +4629,28 @@ class _ListHeaderProps extends BuiltSimpleImpl
   ListHeaderPropsBuilder toBuilder() => ListHeaderPropsBuilder(this);
 }
 
-class ListHeaderPropsBuilder extends BuiltSimpleBuilder<ListHeaderProps> {
-  ListHeaderPropsBuilder._(_ListHeaderProps b) : v = b;
+class ListHeaderPropsBuilder extends IonPropsBuilder {
+  ListHeaderPropsBuilder._(_ListHeaderProps b) : super._(b);
 
   factory ListHeaderPropsBuilder([_ListHeaderProps b]) {
     var v = _ListHeaderProps._();
     if (b != null) {
       v.color = b.color;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return ListHeaderPropsBuilder._(v);
   }
 
-  _ListHeaderProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ListHeaderProps get v => super.v;
   ListHeaderProps build() {
+    super.build();
     return v;
   }
 
@@ -4662,10 +4662,10 @@ class ListHeaderPropsBuilder extends BuiltSimpleBuilder<ListHeaderProps> {
   }
 }
 
-class _VirtualScrollProps extends BuiltSimpleImpl
+class _VirtualScrollProps extends _IonProps
     with VirtualScrollProps
     implements VirtualScrollProps {
-  _VirtualScrollProps._() : super();
+  _VirtualScrollProps._() : super._();
 
   factory _VirtualScrollProps(BuilderFunc<VirtualScrollPropsBuilder> builder) =>
       VirtualScrollPropsBuilder.create(builder);
@@ -4692,9 +4692,8 @@ class _VirtualScrollProps extends BuiltSimpleImpl
 
   String renderItem;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["approxFooterHeight"] = approxFooterHeight;
     json["approxHeaderHeight"] = approxHeaderHeight;
     json["approxItemHeight"] = approxItemHeight;
@@ -4706,7 +4705,6 @@ class _VirtualScrollProps extends BuiltSimpleImpl
     json["renderFooter"] = renderFooter;
     json["renderHeader"] = renderHeader;
     json["renderItem"] = renderItem;
-    json["key"] = key;
   }
 
   VirtualScrollProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4719,8 +4717,8 @@ class _VirtualScrollProps extends BuiltSimpleImpl
   VirtualScrollPropsBuilder toBuilder() => VirtualScrollPropsBuilder(this);
 }
 
-class VirtualScrollPropsBuilder extends BuiltSimpleBuilder<VirtualScrollProps> {
-  VirtualScrollPropsBuilder._(_VirtualScrollProps b) : v = b;
+class VirtualScrollPropsBuilder extends IonPropsBuilder {
+  VirtualScrollPropsBuilder._(_VirtualScrollProps b) : super._(b);
 
   factory VirtualScrollPropsBuilder([_VirtualScrollProps b]) {
     var v = _VirtualScrollProps._();
@@ -4736,49 +4734,86 @@ class VirtualScrollPropsBuilder extends BuiltSimpleBuilder<VirtualScrollProps> {
       v.renderFooter = b.renderFooter;
       v.renderHeader = b.renderHeader;
       v.renderItem = b.renderItem;
-      v.key = b.key;
     }
     return VirtualScrollPropsBuilder._(v);
   }
 
-  _VirtualScrollProps v;
-
-  ///
+  /// <p>The approximate width of each footer template&#39;s cell.
+  /// This dimension is used to help determine how many cells should
+  /// be created when initialized, and to help calculate the height of
+  /// the scrollable area. This height value can only use <code>px</code> units.
+  /// Note that the actual rendered size of each cell comes from the
+  /// app&#39;s CSS, whereas this approximation is used to help calculate
+  /// initial dimensions before the item has been rendered.</p>
   set approxFooterHeight(num value) => v.approxFooterHeight = value;
 
-  ///
+  /// <p>The approximate height of each header template&#39;s cell.
+  /// This dimension is used to help determine how many cells should
+  /// be created when initialized, and to help calculate the height of
+  /// the scrollable area. This height value can only use <code>px</code> units.
+  /// Note that the actual rendered size of each cell comes from the
+  /// app&#39;s CSS, whereas this approximation is used to help calculate
+  /// initial dimensions before the item has been rendered.</p>
   set approxHeaderHeight(num value) => v.approxHeaderHeight = value;
 
-  ///
+  /// <p>It is important to provide this
+  /// if virtual item height will be significantly larger than the default
+  /// The approximate height of each virtual item template&#39;s cell.
+  /// This dimension is used to help determine how many cells should
+  /// be created when initialized, and to help calculate the height of
+  /// the scrollable area. This height value can only use <code>px</code> units.
+  /// Note that the actual rendered size of each cell comes from the
+  /// app&#39;s CSS, whereas this approximation is used to help calculate
+  /// initial dimensions before the item has been rendered.</p>
   set approxItemHeight(num value) => v.approxItemHeight = value;
 
-  ///
+  /// <p>Section footers and the data used within its given
+  /// template can be dynamically created by passing a function to <code>footerFn</code>.
+  /// The logic within the footer function can decide if the footer template
+  /// should be used, and what data to give to the footer template. The function
+  /// must return <code>null</code> if a footer cell shouldn&#39;t be created.</p>
   set footerFn(String value) => v.footerFn = value;
 
-  ///
+  /// <p>Section headers and the data used within its given
+  /// template can be dynamically created by passing a function to <code>headerFn</code>.
+  /// For example, a large list of contacts usually has dividers between each
+  /// letter in the alphabet. App&#39;s can provide their own custom <code>headerFn</code>
+  /// which is called with each record within the dataset. The logic within
+  /// the header function can decide if the header template should be used,
+  /// and what data to give to the header template. The function must return
+  /// <code>null</code> if a header cell shouldn&#39;t be created.</p>
   set headerFn(String value) => v.headerFn = value;
 
-  ///
+  /// <p>An optional function that maps each item within their height.
+  /// When this function is provides, heavy optimizations and fast path can be taked by
+  /// <code>ion-virtual-scroll</code> leading to massive performance improvements.</p>
+  /// <p>This function allows to skip all DOM reads, which can be Doing so leads
+  /// to massive performance</p>
   set itemHeight(String value) => v.itemHeight = value;
 
-  ///
+  /// <p>The data that builds the templates within the virtual scroll.
+  /// It&#39;s important to note that when this data has changed, then the
+  /// entire virtual scroll is reset, which is an expensive operation and
+  /// should be avoided if possible.</p>
   set items(String value) => v.items = value;
 
-  ///
+  /// <p>NOTE: only Vanilla JS API.</p>
   set nodeRender(String value) => v.nodeRender = value;
 
-  ///
+  /// <p>NOTE: only JSX API for stencil.</p>
+  /// <p>Provide a render function for the footer to be rendered. Returns a JSX virtual-dom.</p>
   set renderFooter(String value) => v.renderFooter = value;
 
-  ///
+  /// <p>NOTE: only JSX API for stencil.</p>
+  /// <p>Provide a render function for the header to be rendered. Returns a JSX virtual-dom.</p>
   set renderHeader(String value) => v.renderHeader = value;
 
-  ///
+  /// <p>NOTE: only JSX API for stencil.</p>
+  /// <p>Provide a render function for the items to be rendered. Returns a JSX virtual-dom.</p>
   set renderItem(String value) => v.renderItem = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _VirtualScrollProps get v => super.v;
   VirtualScrollProps build() {
+    super.build();
     return v;
   }
 
@@ -4790,18 +4825,14 @@ class VirtualScrollPropsBuilder extends BuiltSimpleBuilder<VirtualScrollProps> {
   }
 }
 
-class _AvatarProps extends BuiltSimpleImpl
-    with AvatarProps
-    implements AvatarProps {
-  _AvatarProps._() : super();
+class _AvatarProps extends _IonProps with AvatarProps implements AvatarProps {
+  _AvatarProps._() : super._();
 
   factory _AvatarProps(BuilderFunc<AvatarPropsBuilder> builder) =>
       AvatarPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   AvatarProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4814,22 +4845,18 @@ class _AvatarProps extends BuiltSimpleImpl
   AvatarPropsBuilder toBuilder() => AvatarPropsBuilder(this);
 }
 
-class AvatarPropsBuilder extends BuiltSimpleBuilder<AvatarProps> {
-  AvatarPropsBuilder._(_AvatarProps b) : v = b;
+class AvatarPropsBuilder extends IonPropsBuilder {
+  AvatarPropsBuilder._(_AvatarProps b) : super._(b);
 
   factory AvatarPropsBuilder([_AvatarProps b]) {
     var v = _AvatarProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return AvatarPropsBuilder._(v);
   }
 
-  _AvatarProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _AvatarProps get v => super.v;
   AvatarProps build() {
+    super.build();
     return v;
   }
 
@@ -4840,8 +4867,8 @@ class AvatarPropsBuilder extends BuiltSimpleBuilder<AvatarProps> {
   }
 }
 
-class _ImgProps extends BuiltSimpleImpl with ImgProps implements ImgProps {
-  _ImgProps._() : super();
+class _ImgProps extends _IonProps with ImgProps implements ImgProps {
+  _ImgProps._() : super._();
 
   factory _ImgProps(BuilderFunc<ImgPropsBuilder> builder) =>
       ImgPropsBuilder.create(builder);
@@ -4852,13 +4879,10 @@ class _ImgProps extends BuiltSimpleImpl with ImgProps implements ImgProps {
 
   ImgEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["alt"] = alt;
     json["src"] = src;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ImgProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -4871,8 +4895,8 @@ class _ImgProps extends BuiltSimpleImpl with ImgProps implements ImgProps {
   ImgPropsBuilder toBuilder() => ImgPropsBuilder(this);
 }
 
-class ImgPropsBuilder extends BuiltSimpleBuilder<ImgProps> {
-  ImgPropsBuilder._(_ImgProps b) : v = b;
+class ImgPropsBuilder extends IonPropsBuilder {
+  ImgPropsBuilder._(_ImgProps b) : super._(b);
 
   factory ImgPropsBuilder([_ImgProps b]) {
     var v = _ImgProps._();
@@ -4880,19 +4904,18 @@ class ImgPropsBuilder extends BuiltSimpleBuilder<ImgProps> {
       v.alt = b.alt;
       v.src = b.src;
       v.on = b.on;
-      v.key = b.key;
     }
     return ImgPropsBuilder._(v);
   }
 
   ImgEventPropsBuilder _on;
 
-  _ImgProps v;
-
-  ///
+  /// <p>This attribute defines the alternative text describing the image.
+  /// Users will see this text displayed if the image URL is wrong,
+  /// the image is not in one of the supported formats, or if the image is not yet downloaded.</p>
   set alt(String value) => v.alt = value;
 
-  ///
+  /// <p>The image URL. This attribute is mandatory for the <img> element.</p>
   set src(String value) => v.src = value;
 
   ///
@@ -4903,9 +4926,9 @@ class ImgPropsBuilder extends BuiltSimpleBuilder<ImgProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ImgProps get v => super.v;
   ImgProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -4962,13 +4985,13 @@ class ImgEventPropsBuilder extends BuiltSimpleBuilder<ImgEventProps> {
 
   _ImgEventProps v;
 
-  ///
+  /// Emitted when the img fails to load
   set ionError(DartHandler<CustomEvent> value) => v.ionError = value;
 
-  ///
+  /// Emitted when the image has finished loading
   set ionImgDidLoad(DartHandler<CustomEvent> value) => v.ionImgDidLoad = value;
 
-  ///
+  /// Emitted when the img src has been set
   set ionImgWillLoad(DartHandler<CustomEvent> value) =>
       v.ionImgWillLoad = value;
   ImgEventProps build() {
@@ -4982,18 +5005,16 @@ class ImgEventPropsBuilder extends BuiltSimpleBuilder<ImgEventProps> {
   }
 }
 
-class _ThumbnailProps extends BuiltSimpleImpl
+class _ThumbnailProps extends _IonProps
     with ThumbnailProps
     implements ThumbnailProps {
-  _ThumbnailProps._() : super();
+  _ThumbnailProps._() : super._();
 
   factory _ThumbnailProps(BuilderFunc<ThumbnailPropsBuilder> builder) =>
       ThumbnailPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   ThumbnailProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5006,22 +5027,18 @@ class _ThumbnailProps extends BuiltSimpleImpl
   ThumbnailPropsBuilder toBuilder() => ThumbnailPropsBuilder(this);
 }
 
-class ThumbnailPropsBuilder extends BuiltSimpleBuilder<ThumbnailProps> {
-  ThumbnailPropsBuilder._(_ThumbnailProps b) : v = b;
+class ThumbnailPropsBuilder extends IonPropsBuilder {
+  ThumbnailPropsBuilder._(_ThumbnailProps b) : super._(b);
 
   factory ThumbnailPropsBuilder([_ThumbnailProps b]) {
     var v = _ThumbnailProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return ThumbnailPropsBuilder._(v);
   }
 
-  _ThumbnailProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _ThumbnailProps get v => super.v;
   ThumbnailProps build() {
+    super.build();
     return v;
   }
 
@@ -5033,8 +5050,8 @@ class ThumbnailPropsBuilder extends BuiltSimpleBuilder<ThumbnailProps> {
   }
 }
 
-class _MenuProps extends BuiltSimpleImpl with MenuProps implements MenuProps {
-  _MenuProps._() : super();
+class _MenuProps extends _IonProps with MenuProps implements MenuProps {
+  _MenuProps._() : super._();
 
   factory _MenuProps(BuilderFunc<MenuPropsBuilder> builder) =>
       MenuPropsBuilder.create(builder);
@@ -5055,18 +5072,15 @@ class _MenuProps extends BuiltSimpleImpl with MenuProps implements MenuProps {
 
   MenuEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["contentId"] = contentId;
     json["disabled"] = disabled;
     json["maxEdgeStart"] = maxEdgeStart;
     json["menuId"] = menuId;
-    json["side"] = side;
+    json["side"] = _enumToString(side);
     json["swipeGesture"] = swipeGesture;
     json["type"] = type;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   MenuProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5079,8 +5093,8 @@ class _MenuProps extends BuiltSimpleImpl with MenuProps implements MenuProps {
   MenuPropsBuilder toBuilder() => MenuPropsBuilder(this);
 }
 
-class MenuPropsBuilder extends BuiltSimpleBuilder<MenuProps> {
-  MenuPropsBuilder._(_MenuProps b) : v = b;
+class MenuPropsBuilder extends IonPropsBuilder {
+  MenuPropsBuilder._(_MenuProps b) : super._(b);
 
   factory MenuPropsBuilder([_MenuProps b]) {
     var v = _MenuProps._();
@@ -5093,34 +5107,34 @@ class MenuPropsBuilder extends BuiltSimpleBuilder<MenuProps> {
       v.swipeGesture = b.swipeGesture;
       v.type = b.type;
       v.on = b.on;
-      v.key = b.key;
     }
     return MenuPropsBuilder._(v);
   }
 
   MenuEventPropsBuilder _on;
 
-  _MenuProps v;
-
-  ///
+  /// <p>The content&#39;s id the menu should use.</p>
   set contentId(String value) => v.contentId = value;
 
-  ///
+  /// <p>If <code>true</code>, the menu is disabled.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The edge threshold for dragging the menu open.
+  /// If a drag/swipe happens over this value, the menu is not triggered.</p>
   set maxEdgeStart(num value) => v.maxEdgeStart = value;
 
-  ///
+  /// <p>An id for the menu.</p>
   set menuId(String value) => v.menuId = value;
 
-  ///
+  /// <p>Which side of the view the menu should be placed.</p>
   set side(ItemOptionsPropsSideValue value) => v.side = value;
 
-  ///
+  /// <p>If <code>true</code>, swiping the menu is enabled.</p>
   set swipeGesture(bool value) => v.swipeGesture = value;
 
-  ///
+  /// <p>The animation type of the menu.
+  /// Available options: <code>&quot;overlay&quot;</code>, <code>&quot;reveal&quot;</code>, <code>&quot;push&quot;</code>.
+  /// Custom animations can be registered by the menu controller.</p>
   set type(String value) => v.type = value;
 
   ///
@@ -5131,9 +5145,9 @@ class MenuPropsBuilder extends BuiltSimpleBuilder<MenuProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _MenuProps get v => super.v;
   MenuProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -5194,16 +5208,16 @@ class MenuEventPropsBuilder extends BuiltSimpleBuilder<MenuEventProps> {
 
   _MenuEventProps v;
 
-  ///
+  /// Emitted when the menu is closed.
   set ionDidClose(DartHandler<CustomEvent> value) => v.ionDidClose = value;
 
-  ///
+  /// Emitted when the menu is open.
   set ionDidOpen(DartHandler<CustomEvent> value) => v.ionDidOpen = value;
 
-  ///
+  /// Emitted when the menu is about to be closed.
   set ionWillClose(DartHandler<CustomEvent> value) => v.ionWillClose = value;
 
-  ///
+  /// Emitted when the menu is about to be opened.
   set ionWillOpen(DartHandler<CustomEvent> value) => v.ionWillOpen = value;
   MenuEventProps build() {
     return v;
@@ -5217,10 +5231,10 @@ class MenuEventPropsBuilder extends BuiltSimpleBuilder<MenuEventProps> {
   }
 }
 
-class _MenuButtonProps extends BuiltSimpleImpl
+class _MenuButtonProps extends _IonProps
     with MenuButtonProps
     implements MenuButtonProps {
-  _MenuButtonProps._() : super();
+  _MenuButtonProps._() : super._();
 
   factory _MenuButtonProps(BuilderFunc<MenuButtonPropsBuilder> builder) =>
       MenuButtonPropsBuilder.create(builder);
@@ -5233,14 +5247,12 @@ class _MenuButtonProps extends BuiltSimpleImpl
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["autoHide"] = autoHide;
     json["color"] = color;
     json["menu"] = menu;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   MenuButtonProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5253,8 +5265,8 @@ class _MenuButtonProps extends BuiltSimpleImpl
   MenuButtonPropsBuilder toBuilder() => MenuButtonPropsBuilder(this);
 }
 
-class MenuButtonPropsBuilder extends BuiltSimpleBuilder<MenuButtonProps> {
-  MenuButtonPropsBuilder._(_MenuButtonProps b) : v = b;
+class MenuButtonPropsBuilder extends IonPropsBuilder {
+  MenuButtonPropsBuilder._(_MenuButtonProps b) : super._(b);
 
   factory MenuButtonPropsBuilder([_MenuButtonProps b]) {
     var v = _MenuButtonProps._();
@@ -5263,28 +5275,26 @@ class MenuButtonPropsBuilder extends BuiltSimpleBuilder<MenuButtonProps> {
       v.color = b.color;
       v.menu = b.menu;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return MenuButtonPropsBuilder._(v);
   }
 
-  _MenuButtonProps v;
-
-  ///
+  /// <p>Automatically hides the menu button when the corresponding menu is not active</p>
   set autoHide(bool value) => v.autoHide = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>Optional property that maps to a Menu&#39;s <code>menuId</code> prop. Can also be <code>start</code> or <code>end</code> for the menu side. This is used to find the correct menu to toggle</p>
   set menu(String value) => v.menu = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _MenuButtonProps get v => super.v;
   MenuButtonProps build() {
+    super.build();
     return v;
   }
 
@@ -5296,19 +5306,17 @@ class MenuButtonPropsBuilder extends BuiltSimpleBuilder<MenuButtonProps> {
   }
 }
 
-class _MenuControllerProps extends BuiltSimpleImpl
+class _MenuControllerProps extends _IonProps
     with MenuControllerProps
     implements MenuControllerProps {
-  _MenuControllerProps._() : super();
+  _MenuControllerProps._() : super._();
 
   factory _MenuControllerProps(
           BuilderFunc<MenuControllerPropsBuilder> builder) =>
       MenuControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   MenuControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5321,23 +5329,18 @@ class _MenuControllerProps extends BuiltSimpleImpl
   MenuControllerPropsBuilder toBuilder() => MenuControllerPropsBuilder(this);
 }
 
-class MenuControllerPropsBuilder
-    extends BuiltSimpleBuilder<MenuControllerProps> {
-  MenuControllerPropsBuilder._(_MenuControllerProps b) : v = b;
+class MenuControllerPropsBuilder extends IonPropsBuilder {
+  MenuControllerPropsBuilder._(_MenuControllerProps b) : super._(b);
 
   factory MenuControllerPropsBuilder([_MenuControllerProps b]) {
     var v = _MenuControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return MenuControllerPropsBuilder._(v);
   }
 
-  _MenuControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _MenuControllerProps get v => super.v;
   MenuControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -5349,10 +5352,10 @@ class MenuControllerPropsBuilder
   }
 }
 
-class _MenuToggleProps extends BuiltSimpleImpl
+class _MenuToggleProps extends _IonProps
     with MenuToggleProps
     implements MenuToggleProps {
-  _MenuToggleProps._() : super();
+  _MenuToggleProps._() : super._();
 
   factory _MenuToggleProps(BuilderFunc<MenuTogglePropsBuilder> builder) =>
       MenuTogglePropsBuilder.create(builder);
@@ -5361,12 +5364,10 @@ class _MenuToggleProps extends BuiltSimpleImpl
 
   String menu;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["autoHide"] = autoHide;
     json["menu"] = menu;
-    json["key"] = key;
   }
 
   MenuToggleProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5379,30 +5380,32 @@ class _MenuToggleProps extends BuiltSimpleImpl
   MenuTogglePropsBuilder toBuilder() => MenuTogglePropsBuilder(this);
 }
 
-class MenuTogglePropsBuilder extends BuiltSimpleBuilder<MenuToggleProps> {
-  MenuTogglePropsBuilder._(_MenuToggleProps b) : v = b;
+class MenuTogglePropsBuilder extends IonPropsBuilder {
+  MenuTogglePropsBuilder._(_MenuToggleProps b) : super._(b);
 
   factory MenuTogglePropsBuilder([_MenuToggleProps b]) {
     var v = _MenuToggleProps._();
     if (b != null) {
       v.autoHide = b.autoHide;
       v.menu = b.menu;
-      v.key = b.key;
     }
     return MenuTogglePropsBuilder._(v);
   }
 
-  _MenuToggleProps v;
-
-  ///
+  /// <p>Automatically hides the content when the corresponding menu is not active.</p>
+  /// <p>By default, it&#39;s <code>true</code>. Change it to <code>false</code> in order to
+  /// keep <code>ion-menu-toggle</code> always visible regardless the state of the menu.</p>
   set autoHide(bool value) => v.autoHide = value;
 
-  ///
+  /// <p>Optional property that maps to a Menu&#39;s <code>menuId</code> prop.
+  /// Can also be <code>start</code> or <code>end</code> for the menu side.
+  /// This is used to find the correct menu to toggle.</p>
+  /// <p>If this property is not used, <code>ion-menu-toggle</code> will toggle the
+  /// first menu that is active.</p>
   set menu(String value) => v.menu = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _MenuToggleProps get v => super.v;
   MenuToggleProps build() {
+    super.build();
     return v;
   }
 
@@ -5414,10 +5417,10 @@ class MenuTogglePropsBuilder extends BuiltSimpleBuilder<MenuToggleProps> {
   }
 }
 
-class _SplitPaneProps extends BuiltSimpleImpl
+class _SplitPaneProps extends _IonProps
     with SplitPaneProps
     implements SplitPaneProps {
-  _SplitPaneProps._() : super();
+  _SplitPaneProps._() : super._();
 
   factory _SplitPaneProps(BuilderFunc<SplitPanePropsBuilder> builder) =>
       SplitPanePropsBuilder.create(builder);
@@ -5430,14 +5433,11 @@ class _SplitPaneProps extends BuiltSimpleImpl
 
   SplitPaneEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["contentId"] = contentId;
     json["disabled"] = disabled;
     json["when"] = when;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   SplitPaneProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5450,8 +5450,8 @@ class _SplitPaneProps extends BuiltSimpleImpl
   SplitPanePropsBuilder toBuilder() => SplitPanePropsBuilder(this);
 }
 
-class SplitPanePropsBuilder extends BuiltSimpleBuilder<SplitPaneProps> {
-  SplitPanePropsBuilder._(_SplitPaneProps b) : v = b;
+class SplitPanePropsBuilder extends IonPropsBuilder {
+  SplitPanePropsBuilder._(_SplitPaneProps b) : super._(b);
 
   factory SplitPanePropsBuilder([_SplitPaneProps b]) {
     var v = _SplitPaneProps._();
@@ -5460,22 +5460,23 @@ class SplitPanePropsBuilder extends BuiltSimpleBuilder<SplitPaneProps> {
       v.disabled = b.disabled;
       v.when = b.when;
       v.on = b.on;
-      v.key = b.key;
     }
     return SplitPanePropsBuilder._(v);
   }
 
   SplitPaneEventPropsBuilder _on;
 
-  _SplitPaneProps v;
-
-  ///
+  /// <p>The content <code>id</code> of the split-pane&#39;s main content.
+  /// This property can be used instead of the <code>[main]</code> attribute to select the <code>main</code>
+  /// content of the split-pane.</p>
   set contentId(String value) => v.contentId = value;
 
-  ///
+  /// <p>If <code>true</code>, the split pane will be hidden.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>When the split-pane should be shown.
+  /// Can be a CSS media query expression, or a shortcut expression.
+  /// Can also be a boolean expression.</p>
   set when(String value) => v.when = value;
 
   ///
@@ -5486,9 +5487,9 @@ class SplitPanePropsBuilder extends BuiltSimpleBuilder<SplitPaneProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _SplitPaneProps get v => super.v;
   SplitPaneProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -5540,7 +5541,7 @@ class SplitPaneEventPropsBuilder
 
   _SplitPaneEventProps v;
 
-  ///
+  /// Expression to be called when the split-pane visibility has changed
   set ionSplitPaneVisible(DartHandler<CustomEvent> value) =>
       v.ionSplitPaneVisible = value;
   SplitPaneEventProps build() {
@@ -5555,10 +5556,8 @@ class SplitPaneEventPropsBuilder
   }
 }
 
-class _ModalProps extends BuiltSimpleImpl
-    with ModalProps
-    implements ModalProps {
-  _ModalProps._() : super();
+class _ModalProps extends _IonProps with ModalProps implements ModalProps {
+  _ModalProps._() : super._();
 
   factory _ModalProps(BuilderFunc<ModalPropsBuilder> builder) =>
       ModalPropsBuilder.create(builder);
@@ -5585,9 +5584,8 @@ class _ModalProps extends BuiltSimpleImpl
 
   ModalEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["backdropDismiss"] = backdropDismiss;
     json["component"] = component;
@@ -5596,10 +5594,8 @@ class _ModalProps extends BuiltSimpleImpl
     json["enterAnimation"] = enterAnimation;
     json["keyboardClose"] = keyboardClose;
     json["leaveAnimation"] = leaveAnimation;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["showBackdrop"] = showBackdrop;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ModalProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5612,8 +5608,8 @@ class _ModalProps extends BuiltSimpleImpl
   ModalPropsBuilder toBuilder() => ModalPropsBuilder(this);
 }
 
-class ModalPropsBuilder extends BuiltSimpleBuilder<ModalProps> {
-  ModalPropsBuilder._(_ModalProps b) : v = b;
+class ModalPropsBuilder extends IonPropsBuilder {
+  ModalPropsBuilder._(_ModalProps b) : super._(b);
 
   factory ModalPropsBuilder([_ModalProps b]) {
     var v = _ModalProps._();
@@ -5629,7 +5625,6 @@ class ModalPropsBuilder extends BuiltSimpleBuilder<ModalProps> {
       v.mode = b.mode;
       v.showBackdrop = b.showBackdrop;
       v.on = b.on;
-      v.key = b.key;
     }
     return ModalPropsBuilder._(v);
   }
@@ -5638,21 +5633,20 @@ class ModalPropsBuilder extends BuiltSimpleBuilder<ModalProps> {
 
   ModalEventPropsBuilder _on;
 
-  _ModalProps v;
-
-  ///
+  /// <p>If <code>true</code>, the modal will animate.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>If <code>true</code>, the modal will be dismissed when the backdrop is clicked.</p>
   set backdropDismiss(bool value) => v.backdropDismiss = value;
 
-  ///
+  /// <p>The component to display inside of the modal.</p>
   set component(String value) => v.component = value;
 
-  ///
+  /// <p>The data to pass to the modal component.</p>
   set componentProps(String value) => v.componentProps = value;
 
-  ///
+  /// <p>Additional classes to apply for custom CSS. If multiple classes are
+  /// provided they should be separated by spaces.</p>
   ListBuilder<String> get cssClass {
     if (_cssClass == null) {
       _cssClass = ListBuilder<String>(v.cssClass ?? const <String>[]);
@@ -5660,19 +5654,19 @@ class ModalPropsBuilder extends BuiltSimpleBuilder<ModalProps> {
     return _cssClass;
   }
 
-  ///
+  /// <p>Animation to use when the modal is presented.</p>
   set enterAnimation(String value) => v.enterAnimation = value;
 
-  ///
+  /// <p>If <code>true</code>, the keyboard will be automatically dismissed when the overlay is presented.</p>
   set keyboardClose(bool value) => v.keyboardClose = value;
 
-  ///
+  /// <p>Animation to use when the modal is dismissed.</p>
   set leaveAnimation(String value) => v.leaveAnimation = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, a backdrop will be displayed behind the modal.</p>
   set showBackdrop(bool value) => v.showBackdrop = value;
 
   ///
@@ -5683,9 +5677,9 @@ class ModalPropsBuilder extends BuiltSimpleBuilder<ModalProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ModalProps get v => super.v;
   ModalProps build() {
+    super.build();
     v.cssClass = _cssClass?.build();
     v.on = _on?.build();
     return v;
@@ -5747,19 +5741,19 @@ class ModalEventPropsBuilder extends BuiltSimpleBuilder<ModalEventProps> {
 
   _ModalEventProps v;
 
-  ///
+  /// Emitted after the modal has dismissed.
   set ionModalDidDismiss(DartHandler<CustomEvent> value) =>
       v.ionModalDidDismiss = value;
 
-  ///
+  /// Emitted after the modal has presented.
   set ionModalDidPresent(DartHandler<CustomEvent> value) =>
       v.ionModalDidPresent = value;
 
-  ///
+  /// Emitted before the modal has dismissed.
   set ionModalWillDismiss(DartHandler<CustomEvent> value) =>
       v.ionModalWillDismiss = value;
 
-  ///
+  /// Emitted before the modal has presented.
   set ionModalWillPresent(DartHandler<CustomEvent> value) =>
       v.ionModalWillPresent = value;
   ModalEventProps build() {
@@ -5774,19 +5768,17 @@ class ModalEventPropsBuilder extends BuiltSimpleBuilder<ModalEventProps> {
   }
 }
 
-class _ModalControllerProps extends BuiltSimpleImpl
+class _ModalControllerProps extends _IonProps
     with ModalControllerProps
     implements ModalControllerProps {
-  _ModalControllerProps._() : super();
+  _ModalControllerProps._() : super._();
 
   factory _ModalControllerProps(
           BuilderFunc<ModalControllerPropsBuilder> builder) =>
       ModalControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   ModalControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5799,23 +5791,18 @@ class _ModalControllerProps extends BuiltSimpleImpl
   ModalControllerPropsBuilder toBuilder() => ModalControllerPropsBuilder(this);
 }
 
-class ModalControllerPropsBuilder
-    extends BuiltSimpleBuilder<ModalControllerProps> {
-  ModalControllerPropsBuilder._(_ModalControllerProps b) : v = b;
+class ModalControllerPropsBuilder extends IonPropsBuilder {
+  ModalControllerPropsBuilder._(_ModalControllerProps b) : super._(b);
 
   factory ModalControllerPropsBuilder([_ModalControllerProps b]) {
     var v = _ModalControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return ModalControllerPropsBuilder._(v);
   }
 
-  _ModalControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _ModalControllerProps get v => super.v;
   ModalControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -5827,10 +5814,10 @@ class ModalControllerPropsBuilder
   }
 }
 
-class _BackdropProps extends BuiltSimpleImpl
+class _BackdropProps extends _IonProps
     with BackdropProps
     implements BackdropProps {
-  _BackdropProps._() : super();
+  _BackdropProps._() : super._();
 
   factory _BackdropProps(BuilderFunc<BackdropPropsBuilder> builder) =>
       BackdropPropsBuilder.create(builder);
@@ -5843,14 +5830,11 @@ class _BackdropProps extends BuiltSimpleImpl
 
   BackdropEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["stopPropagation"] = stopPropagation;
     json["tappable"] = tappable;
     json["visible"] = visible;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   BackdropProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -5863,8 +5847,8 @@ class _BackdropProps extends BuiltSimpleImpl
   BackdropPropsBuilder toBuilder() => BackdropPropsBuilder(this);
 }
 
-class BackdropPropsBuilder extends BuiltSimpleBuilder<BackdropProps> {
-  BackdropPropsBuilder._(_BackdropProps b) : v = b;
+class BackdropPropsBuilder extends IonPropsBuilder {
+  BackdropPropsBuilder._(_BackdropProps b) : super._(b);
 
   factory BackdropPropsBuilder([_BackdropProps b]) {
     var v = _BackdropProps._();
@@ -5873,22 +5857,19 @@ class BackdropPropsBuilder extends BuiltSimpleBuilder<BackdropProps> {
       v.tappable = b.tappable;
       v.visible = b.visible;
       v.on = b.on;
-      v.key = b.key;
     }
     return BackdropPropsBuilder._(v);
   }
 
   BackdropEventPropsBuilder _on;
 
-  _BackdropProps v;
-
-  ///
+  /// <p>If <code>true</code>, the backdrop will stop propagation on tap.</p>
   set stopPropagation(bool value) => v.stopPropagation = value;
 
-  ///
+  /// <p>If <code>true</code>, the backdrop will can be clicked and will emit the <code>ionBackdropTap</code> event.</p>
   set tappable(bool value) => v.tappable = value;
 
-  ///
+  /// <p>If <code>true</code>, the backdrop will be visible.</p>
   set visible(bool value) => v.visible = value;
 
   ///
@@ -5899,9 +5880,9 @@ class BackdropPropsBuilder extends BuiltSimpleBuilder<BackdropProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _BackdropProps get v => super.v;
   BackdropProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -5950,7 +5931,7 @@ class BackdropEventPropsBuilder extends BuiltSimpleBuilder<BackdropEventProps> {
 
   _BackdropEventProps v;
 
-  ///
+  /// Emitted when the backdrop is tapped.
   set ionBackdropTap(DartHandler<CustomEvent> value) =>
       v.ionBackdropTap = value;
   BackdropEventProps build() {
@@ -5965,8 +5946,8 @@ class BackdropEventPropsBuilder extends BuiltSimpleBuilder<BackdropEventProps> {
   }
 }
 
-class _NavProps extends BuiltSimpleImpl with NavProps implements NavProps {
-  _NavProps._() : super();
+class _NavProps extends _IonProps with NavProps implements NavProps {
+  _NavProps._() : super._();
 
   factory _NavProps(BuilderFunc<NavPropsBuilder> builder) =>
       NavPropsBuilder.create(builder);
@@ -5983,16 +5964,13 @@ class _NavProps extends BuiltSimpleImpl with NavProps implements NavProps {
 
   NavEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["animation"] = animation;
     json["root"] = root;
     json["rootParams"] = rootParams;
     json["swipeGesture"] = swipeGesture;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   NavProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6005,8 +5983,8 @@ class _NavProps extends BuiltSimpleImpl with NavProps implements NavProps {
   NavPropsBuilder toBuilder() => NavPropsBuilder(this);
 }
 
-class NavPropsBuilder extends BuiltSimpleBuilder<NavProps> {
-  NavPropsBuilder._(_NavProps b) : v = b;
+class NavPropsBuilder extends IonPropsBuilder {
+  NavPropsBuilder._(_NavProps b) : super._(b);
 
   factory NavPropsBuilder([_NavProps b]) {
     var v = _NavProps._();
@@ -6017,28 +5995,26 @@ class NavPropsBuilder extends BuiltSimpleBuilder<NavProps> {
       v.rootParams = b.rootParams;
       v.swipeGesture = b.swipeGesture;
       v.on = b.on;
-      v.key = b.key;
     }
     return NavPropsBuilder._(v);
   }
 
   NavEventPropsBuilder _on;
 
-  _NavProps v;
-
-  ///
+  /// <p>If <code>true</code>, the nav should animate the transition of components.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>By default <code>ion-nav</code> animates transition between pages based in the mode (ios or material design).
+  /// However, this property allows to create custom transition using <code>AnimateBuilder</code> functions.</p>
   set animation(String value) => v.animation = value;
 
-  ///
+  /// <p>Root NavComponent to load</p>
   set root(String value) => v.root = value;
 
-  ///
+  /// <p>Any parameters for the root component</p>
   set rootParams(String value) => v.rootParams = value;
 
-  ///
+  /// <p>If the nav component should allow for swipe-to-go-back.</p>
   set swipeGesture(bool value) => v.swipeGesture = value;
 
   ///
@@ -6049,9 +6025,9 @@ class NavPropsBuilder extends BuiltSimpleBuilder<NavProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _NavProps get v => super.v;
   NavProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -6104,11 +6080,11 @@ class NavEventPropsBuilder extends BuiltSimpleBuilder<NavEventProps> {
 
   _NavEventProps v;
 
-  ///
+  /// Event fired when the nav has changed components
   set ionNavDidChange(DartHandler<CustomEvent> value) =>
       v.ionNavDidChange = value;
 
-  ///
+  /// Event fired when the nav will change components
   set ionNavWillChange(DartHandler<CustomEvent> value) =>
       v.ionNavWillChange = value;
   NavEventProps build() {
@@ -6122,18 +6098,14 @@ class NavEventPropsBuilder extends BuiltSimpleBuilder<NavEventProps> {
   }
 }
 
-class _NavPopProps extends BuiltSimpleImpl
-    with NavPopProps
-    implements NavPopProps {
-  _NavPopProps._() : super();
+class _NavPopProps extends _IonProps with NavPopProps implements NavPopProps {
+  _NavPopProps._() : super._();
 
   factory _NavPopProps(BuilderFunc<NavPopPropsBuilder> builder) =>
       NavPopPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   NavPopProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6146,22 +6118,18 @@ class _NavPopProps extends BuiltSimpleImpl
   NavPopPropsBuilder toBuilder() => NavPopPropsBuilder(this);
 }
 
-class NavPopPropsBuilder extends BuiltSimpleBuilder<NavPopProps> {
-  NavPopPropsBuilder._(_NavPopProps b) : v = b;
+class NavPopPropsBuilder extends IonPropsBuilder {
+  NavPopPropsBuilder._(_NavPopProps b) : super._(b);
 
   factory NavPopPropsBuilder([_NavPopProps b]) {
     var v = _NavPopProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return NavPopPropsBuilder._(v);
   }
 
-  _NavPopProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _NavPopProps get v => super.v;
   NavPopProps build() {
+    super.build();
     return v;
   }
 
@@ -6172,10 +6140,10 @@ class NavPopPropsBuilder extends BuiltSimpleBuilder<NavPopProps> {
   }
 }
 
-class _NavPushProps extends BuiltSimpleImpl
+class _NavPushProps extends _IonProps
     with NavPushProps
     implements NavPushProps {
-  _NavPushProps._() : super();
+  _NavPushProps._() : super._();
 
   factory _NavPushProps(BuilderFunc<NavPushPropsBuilder> builder) =>
       NavPushPropsBuilder.create(builder);
@@ -6184,12 +6152,10 @@ class _NavPushProps extends BuiltSimpleImpl
 
   String componentProps;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["component"] = component;
     json["componentProps"] = componentProps;
-    json["key"] = key;
   }
 
   NavPushProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6202,30 +6168,26 @@ class _NavPushProps extends BuiltSimpleImpl
   NavPushPropsBuilder toBuilder() => NavPushPropsBuilder(this);
 }
 
-class NavPushPropsBuilder extends BuiltSimpleBuilder<NavPushProps> {
-  NavPushPropsBuilder._(_NavPushProps b) : v = b;
+class NavPushPropsBuilder extends IonPropsBuilder {
+  NavPushPropsBuilder._(_NavPushProps b) : super._(b);
 
   factory NavPushPropsBuilder([_NavPushProps b]) {
     var v = _NavPushProps._();
     if (b != null) {
       v.component = b.component;
       v.componentProps = b.componentProps;
-      v.key = b.key;
     }
     return NavPushPropsBuilder._(v);
   }
 
-  _NavPushProps v;
-
-  ///
+  /// <p>Component to navigate to</p>
   set component(String value) => v.component = value;
 
-  ///
+  /// <p>Data you want to pass to the component as props</p>
   set componentProps(String value) => v.componentProps = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _NavPushProps get v => super.v;
   NavPushProps build() {
+    super.build();
     return v;
   }
 
@@ -6236,10 +6198,10 @@ class NavPushPropsBuilder extends BuiltSimpleBuilder<NavPushProps> {
   }
 }
 
-class _NavSetRootProps extends BuiltSimpleImpl
+class _NavSetRootProps extends _IonProps
     with NavSetRootProps
     implements NavSetRootProps {
-  _NavSetRootProps._() : super();
+  _NavSetRootProps._() : super._();
 
   factory _NavSetRootProps(BuilderFunc<NavSetRootPropsBuilder> builder) =>
       NavSetRootPropsBuilder.create(builder);
@@ -6248,12 +6210,10 @@ class _NavSetRootProps extends BuiltSimpleImpl
 
   String componentProps;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["component"] = component;
     json["componentProps"] = componentProps;
-    json["key"] = key;
   }
 
   NavSetRootProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6266,30 +6226,26 @@ class _NavSetRootProps extends BuiltSimpleImpl
   NavSetRootPropsBuilder toBuilder() => NavSetRootPropsBuilder(this);
 }
 
-class NavSetRootPropsBuilder extends BuiltSimpleBuilder<NavSetRootProps> {
-  NavSetRootPropsBuilder._(_NavSetRootProps b) : v = b;
+class NavSetRootPropsBuilder extends IonPropsBuilder {
+  NavSetRootPropsBuilder._(_NavSetRootProps b) : super._(b);
 
   factory NavSetRootPropsBuilder([_NavSetRootProps b]) {
     var v = _NavSetRootProps._();
     if (b != null) {
       v.component = b.component;
       v.componentProps = b.componentProps;
-      v.key = b.key;
     }
     return NavSetRootPropsBuilder._(v);
   }
 
-  _NavSetRootProps v;
-
-  ///
+  /// <p>Component you want to make root for the navigation stack</p>
   set component(String value) => v.component = value;
 
-  ///
+  /// <p>Data you want to pass to the component as props</p>
   set componentProps(String value) => v.componentProps = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _NavSetRootProps get v => super.v;
   NavSetRootProps build() {
+    super.build();
     return v;
   }
 
@@ -6301,10 +6257,10 @@ class NavSetRootPropsBuilder extends BuiltSimpleBuilder<NavSetRootProps> {
   }
 }
 
-class _PopoverProps extends BuiltSimpleImpl
+class _PopoverProps extends _IonProps
     with PopoverProps
     implements PopoverProps {
-  _PopoverProps._() : super();
+  _PopoverProps._() : super._();
 
   factory _PopoverProps(BuilderFunc<PopoverPropsBuilder> builder) =>
       PopoverPropsBuilder.create(builder);
@@ -6335,9 +6291,8 @@ class _PopoverProps extends BuiltSimpleImpl
 
   PopoverEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["backdropDismiss"] = backdropDismiss;
     json["component"] = component;
@@ -6347,11 +6302,9 @@ class _PopoverProps extends BuiltSimpleImpl
     json["event"] = event;
     json["keyboardClose"] = keyboardClose;
     json["leaveAnimation"] = leaveAnimation;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["showBackdrop"] = showBackdrop;
     json["translucent"] = translucent;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   PopoverProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6364,8 +6317,8 @@ class _PopoverProps extends BuiltSimpleImpl
   PopoverPropsBuilder toBuilder() => PopoverPropsBuilder(this);
 }
 
-class PopoverPropsBuilder extends BuiltSimpleBuilder<PopoverProps> {
-  PopoverPropsBuilder._(_PopoverProps b) : v = b;
+class PopoverPropsBuilder extends IonPropsBuilder {
+  PopoverPropsBuilder._(_PopoverProps b) : super._(b);
 
   factory PopoverPropsBuilder([_PopoverProps b]) {
     var v = _PopoverProps._();
@@ -6383,7 +6336,6 @@ class PopoverPropsBuilder extends BuiltSimpleBuilder<PopoverProps> {
       v.showBackdrop = b.showBackdrop;
       v.translucent = b.translucent;
       v.on = b.on;
-      v.key = b.key;
     }
     return PopoverPropsBuilder._(v);
   }
@@ -6392,21 +6344,20 @@ class PopoverPropsBuilder extends BuiltSimpleBuilder<PopoverProps> {
 
   PopoverEventPropsBuilder _on;
 
-  _PopoverProps v;
-
-  ///
+  /// <p>If <code>true</code>, the popover will animate.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>If <code>true</code>, the popover will be dismissed when the backdrop is clicked.</p>
   set backdropDismiss(bool value) => v.backdropDismiss = value;
 
-  ///
+  /// <p>The component to display inside of the popover.</p>
   set component(String value) => v.component = value;
 
-  ///
+  /// <p>The data to pass to the popover component.</p>
   set componentProps(String value) => v.componentProps = value;
 
-  ///
+  /// <p>Additional classes to apply for custom CSS. If multiple classes are
+  /// provided they should be separated by spaces.</p>
   ListBuilder<String> get cssClass {
     if (_cssClass == null) {
       _cssClass = ListBuilder<String>(v.cssClass ?? const <String>[]);
@@ -6414,25 +6365,25 @@ class PopoverPropsBuilder extends BuiltSimpleBuilder<PopoverProps> {
     return _cssClass;
   }
 
-  ///
+  /// <p>Animation to use when the popover is presented.</p>
   set enterAnimation(String value) => v.enterAnimation = value;
 
-  ///
+  /// <p>The event to pass to the popover animation.</p>
   set event(String value) => v.event = value;
 
-  ///
+  /// <p>If <code>true</code>, the keyboard will be automatically dismissed when the overlay is presented.</p>
   set keyboardClose(bool value) => v.keyboardClose = value;
 
-  ///
+  /// <p>Animation to use when the popover is dismissed.</p>
   set leaveAnimation(String value) => v.leaveAnimation = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, a backdrop will be displayed behind the popover.</p>
   set showBackdrop(bool value) => v.showBackdrop = value;
 
-  ///
+  /// <p>If <code>true</code>, the popover will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
 
   ///
@@ -6443,9 +6394,9 @@ class PopoverPropsBuilder extends BuiltSimpleBuilder<PopoverProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _PopoverProps get v => super.v;
   PopoverProps build() {
+    super.build();
     v.cssClass = _cssClass?.build();
     v.on = _on?.build();
     return v;
@@ -6507,19 +6458,19 @@ class PopoverEventPropsBuilder extends BuiltSimpleBuilder<PopoverEventProps> {
 
   _PopoverEventProps v;
 
-  ///
+  /// Emitted after the popover has dismissed.
   set ionPopoverDidDismiss(DartHandler<CustomEvent> value) =>
       v.ionPopoverDidDismiss = value;
 
-  ///
+  /// Emitted after the popover has presented.
   set ionPopoverDidPresent(DartHandler<CustomEvent> value) =>
       v.ionPopoverDidPresent = value;
 
-  ///
+  /// Emitted before the popover has dismissed.
   set ionPopoverWillDismiss(DartHandler<CustomEvent> value) =>
       v.ionPopoverWillDismiss = value;
 
-  ///
+  /// Emitted before the popover has presented.
   set ionPopoverWillPresent(DartHandler<CustomEvent> value) =>
       v.ionPopoverWillPresent = value;
   PopoverEventProps build() {
@@ -6534,19 +6485,17 @@ class PopoverEventPropsBuilder extends BuiltSimpleBuilder<PopoverEventProps> {
   }
 }
 
-class _PopoverControllerProps extends BuiltSimpleImpl
+class _PopoverControllerProps extends _IonProps
     with PopoverControllerProps
     implements PopoverControllerProps {
-  _PopoverControllerProps._() : super();
+  _PopoverControllerProps._() : super._();
 
   factory _PopoverControllerProps(
           BuilderFunc<PopoverControllerPropsBuilder> builder) =>
       PopoverControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   PopoverControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6561,23 +6510,18 @@ class _PopoverControllerProps extends BuiltSimpleImpl
       PopoverControllerPropsBuilder(this);
 }
 
-class PopoverControllerPropsBuilder
-    extends BuiltSimpleBuilder<PopoverControllerProps> {
-  PopoverControllerPropsBuilder._(_PopoverControllerProps b) : v = b;
+class PopoverControllerPropsBuilder extends IonPropsBuilder {
+  PopoverControllerPropsBuilder._(_PopoverControllerProps b) : super._(b);
 
   factory PopoverControllerPropsBuilder([_PopoverControllerProps b]) {
     var v = _PopoverControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return PopoverControllerPropsBuilder._(v);
   }
 
-  _PopoverControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _PopoverControllerProps get v => super.v;
   PopoverControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -6590,10 +6534,10 @@ class PopoverControllerPropsBuilder
   }
 }
 
-class _LoadingProps extends BuiltSimpleImpl
+class _LoadingProps extends _IonProps
     with LoadingProps
     implements LoadingProps {
-  _LoadingProps._() : super();
+  _LoadingProps._() : super._();
 
   factory _LoadingProps(BuilderFunc<LoadingPropsBuilder> builder) =>
       LoadingPropsBuilder.create(builder);
@@ -6624,9 +6568,8 @@ class _LoadingProps extends BuiltSimpleImpl
 
   LoadingEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["backdropDismiss"] = backdropDismiss;
     json["cssClass"] = cssClass;
@@ -6635,12 +6578,10 @@ class _LoadingProps extends BuiltSimpleImpl
     json["keyboardClose"] = keyboardClose;
     json["leaveAnimation"] = leaveAnimation;
     json["message"] = message;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["showBackdrop"] = showBackdrop;
-    json["spinner"] = spinner;
+    json["spinner"] = _enumToString(spinner);
     json["translucent"] = translucent;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   LoadingProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6653,8 +6594,8 @@ class _LoadingProps extends BuiltSimpleImpl
   LoadingPropsBuilder toBuilder() => LoadingPropsBuilder(this);
 }
 
-class LoadingPropsBuilder extends BuiltSimpleBuilder<LoadingProps> {
-  LoadingPropsBuilder._(_LoadingProps b) : v = b;
+class LoadingPropsBuilder extends IonPropsBuilder {
+  LoadingPropsBuilder._(_LoadingProps b) : super._(b);
 
   factory LoadingPropsBuilder([_LoadingProps b]) {
     var v = _LoadingProps._();
@@ -6672,7 +6613,6 @@ class LoadingPropsBuilder extends BuiltSimpleBuilder<LoadingProps> {
       v.spinner = b.spinner;
       v.translucent = b.translucent;
       v.on = b.on;
-      v.key = b.key;
     }
     return LoadingPropsBuilder._(v);
   }
@@ -6681,15 +6621,14 @@ class LoadingPropsBuilder extends BuiltSimpleBuilder<LoadingProps> {
 
   LoadingEventPropsBuilder _on;
 
-  _LoadingProps v;
-
-  ///
+  /// <p>If <code>true</code>, the loading indicator will animate.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>If <code>true</code>, the loading indicator will be dismissed when the backdrop is clicked.</p>
   set backdropDismiss(bool value) => v.backdropDismiss = value;
 
-  ///
+  /// <p>Additional classes to apply for custom CSS. If multiple classes are
+  /// provided they should be separated by spaces.</p>
   ListBuilder<String> get cssClass {
     if (_cssClass == null) {
       _cssClass = ListBuilder<String>(v.cssClass ?? const <String>[]);
@@ -6697,31 +6636,31 @@ class LoadingPropsBuilder extends BuiltSimpleBuilder<LoadingProps> {
     return _cssClass;
   }
 
-  ///
+  /// <p>Number of milliseconds to wait before dismissing the loading indicator.</p>
   set duration(num value) => v.duration = value;
 
-  ///
+  /// <p>Animation to use when the loading indicator is presented.</p>
   set enterAnimation(String value) => v.enterAnimation = value;
 
-  ///
+  /// <p>If <code>true</code>, the keyboard will be automatically dismissed when the overlay is presented.</p>
   set keyboardClose(bool value) => v.keyboardClose = value;
 
-  ///
+  /// <p>Animation to use when the loading indicator is dismissed.</p>
   set leaveAnimation(String value) => v.leaveAnimation = value;
 
-  ///
+  /// <p>Optional text content to display in the loading indicator.</p>
   set message(String value) => v.message = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, a backdrop will be displayed behind the loading indicator.</p>
   set showBackdrop(bool value) => v.showBackdrop = value;
 
-  ///
+  /// <p>The name of the spinner to display.</p>
   set spinner(LoadingSpinnerValue value) => v.spinner = value;
 
-  ///
+  /// <p>If <code>true</code>, the loading indicator will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
 
   ///
@@ -6732,9 +6671,9 @@ class LoadingPropsBuilder extends BuiltSimpleBuilder<LoadingProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _LoadingProps get v => super.v;
   LoadingProps build() {
+    super.build();
     v.cssClass = _cssClass?.build();
     v.on = _on?.build();
     return v;
@@ -6796,19 +6735,19 @@ class LoadingEventPropsBuilder extends BuiltSimpleBuilder<LoadingEventProps> {
 
   _LoadingEventProps v;
 
-  ///
+  /// Emitted after the loading has dismissed.
   set ionLoadingDidDismiss(DartHandler<CustomEvent> value) =>
       v.ionLoadingDidDismiss = value;
 
-  ///
+  /// Emitted after the loading has presented.
   set ionLoadingDidPresent(DartHandler<CustomEvent> value) =>
       v.ionLoadingDidPresent = value;
 
-  ///
+  /// Emitted before the loading has dismissed.
   set ionLoadingWillDismiss(DartHandler<CustomEvent> value) =>
       v.ionLoadingWillDismiss = value;
 
-  ///
+  /// Emitted before the loading has presented.
   set ionLoadingWillPresent(DartHandler<CustomEvent> value) =>
       v.ionLoadingWillPresent = value;
   LoadingEventProps build() {
@@ -6823,19 +6762,17 @@ class LoadingEventPropsBuilder extends BuiltSimpleBuilder<LoadingEventProps> {
   }
 }
 
-class _LoadingControllerProps extends BuiltSimpleImpl
+class _LoadingControllerProps extends _IonProps
     with LoadingControllerProps
     implements LoadingControllerProps {
-  _LoadingControllerProps._() : super();
+  _LoadingControllerProps._() : super._();
 
   factory _LoadingControllerProps(
           BuilderFunc<LoadingControllerPropsBuilder> builder) =>
       LoadingControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   LoadingControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6850,23 +6787,18 @@ class _LoadingControllerProps extends BuiltSimpleImpl
       LoadingControllerPropsBuilder(this);
 }
 
-class LoadingControllerPropsBuilder
-    extends BuiltSimpleBuilder<LoadingControllerProps> {
-  LoadingControllerPropsBuilder._(_LoadingControllerProps b) : v = b;
+class LoadingControllerPropsBuilder extends IonPropsBuilder {
+  LoadingControllerPropsBuilder._(_LoadingControllerProps b) : super._(b);
 
   factory LoadingControllerPropsBuilder([_LoadingControllerProps b]) {
     var v = _LoadingControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return LoadingControllerPropsBuilder._(v);
   }
 
-  _LoadingControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _LoadingControllerProps get v => super.v;
   LoadingControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -6879,10 +6811,10 @@ class LoadingControllerPropsBuilder
   }
 }
 
-class _ProgressBarProps extends BuiltSimpleImpl
+class _ProgressBarProps extends _IonProps
     with ProgressBarProps
     implements ProgressBarProps {
-  _ProgressBarProps._() : super();
+  _ProgressBarProps._() : super._();
 
   factory _ProgressBarProps(BuilderFunc<ProgressBarPropsBuilder> builder) =>
       ProgressBarPropsBuilder.create(builder);
@@ -6899,16 +6831,14 @@ class _ProgressBarProps extends BuiltSimpleImpl
 
   num value;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["buffer"] = buffer;
     json["color"] = color;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["reversed"] = reversed;
-    json["type"] = type;
+    json["type"] = _enumToString(type);
     json["value"] = value;
-    json["key"] = key;
   }
 
   ProgressBarProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -6921,8 +6851,8 @@ class _ProgressBarProps extends BuiltSimpleImpl
   ProgressBarPropsBuilder toBuilder() => ProgressBarPropsBuilder(this);
 }
 
-class ProgressBarPropsBuilder extends BuiltSimpleBuilder<ProgressBarProps> {
-  ProgressBarPropsBuilder._(_ProgressBarProps b) : v = b;
+class ProgressBarPropsBuilder extends IonPropsBuilder {
+  ProgressBarPropsBuilder._(_ProgressBarProps b) : super._(b);
 
   factory ProgressBarPropsBuilder([_ProgressBarProps b]) {
     var v = _ProgressBarProps._();
@@ -6933,34 +6863,36 @@ class ProgressBarPropsBuilder extends BuiltSimpleBuilder<ProgressBarProps> {
       v.reversed = b.reversed;
       v.type = b.type;
       v.value = b.value;
-      v.key = b.key;
     }
     return ProgressBarPropsBuilder._(v);
   }
 
-  _ProgressBarProps v;
-
-  ///
+  /// <p>If the buffer and value are smaller than 1, the buffer circles will show.
+  /// The buffer should be between [0, 1].</p>
   set buffer(num value) => v.buffer = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If true, reverse the progress bar direction.</p>
   set reversed(bool value) => v.reversed = value;
 
-  ///
+  /// <p>The state of the progress bar, based on if the time the process takes is known or not.
+  /// Default options are: <code>&quot;determinate&quot;</code> (no animation), <code>&quot;indeterminate&quot;</code> (animate from left to right).</p>
   set type(ProgressBarPropsTypeValue value) => v.type = value;
 
-  ///
+  /// <p>The value determines how much of the active bar should display when the
+  /// <code>type</code> is <code>&quot;determinate&quot;</code>.
+  /// The value should be between [0, 1].</p>
   set value(num value) => v.value = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ProgressBarProps get v => super.v;
   ProgressBarProps build() {
+    super.build();
     return v;
   }
 
@@ -6972,10 +6904,10 @@ class ProgressBarPropsBuilder extends BuiltSimpleBuilder<ProgressBarProps> {
   }
 }
 
-class _SkeletonTextProps extends BuiltSimpleImpl
+class _SkeletonTextProps extends _IonProps
     with SkeletonTextProps
     implements SkeletonTextProps {
-  _SkeletonTextProps._() : super();
+  _SkeletonTextProps._() : super._();
 
   factory _SkeletonTextProps(BuilderFunc<SkeletonTextPropsBuilder> builder) =>
       SkeletonTextPropsBuilder.create(builder);
@@ -6984,12 +6916,10 @@ class _SkeletonTextProps extends BuiltSimpleImpl
 
   String width;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["width"] = width;
-    json["key"] = key;
   }
 
   SkeletonTextProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7002,30 +6932,26 @@ class _SkeletonTextProps extends BuiltSimpleImpl
   SkeletonTextPropsBuilder toBuilder() => SkeletonTextPropsBuilder(this);
 }
 
-class SkeletonTextPropsBuilder extends BuiltSimpleBuilder<SkeletonTextProps> {
-  SkeletonTextPropsBuilder._(_SkeletonTextProps b) : v = b;
+class SkeletonTextPropsBuilder extends IonPropsBuilder {
+  SkeletonTextPropsBuilder._(_SkeletonTextProps b) : super._(b);
 
   factory SkeletonTextPropsBuilder([_SkeletonTextProps b]) {
     var v = _SkeletonTextProps._();
     if (b != null) {
       v.animated = b.animated;
       v.width = b.width;
-      v.key = b.key;
     }
     return SkeletonTextPropsBuilder._(v);
   }
 
-  _SkeletonTextProps v;
-
-  ///
+  /// <p>If <code>true</code>, the skeleton text will animate.</p>
   set animated(bool value) => v.animated = value;
 
   ///
   set width(String value) => v.width = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _SkeletonTextProps get v => super.v;
   SkeletonTextProps build() {
+    super.build();
     return v;
   }
 
@@ -7037,10 +6963,10 @@ class SkeletonTextPropsBuilder extends BuiltSimpleBuilder<SkeletonTextProps> {
   }
 }
 
-class _SpinnerProps extends BuiltSimpleImpl
+class _SpinnerProps extends _IonProps
     with SpinnerProps
     implements SpinnerProps {
-  _SpinnerProps._() : super();
+  _SpinnerProps._() : super._();
 
   factory _SpinnerProps(BuilderFunc<SpinnerPropsBuilder> builder) =>
       SpinnerPropsBuilder.create(builder);
@@ -7053,14 +6979,12 @@ class _SpinnerProps extends BuiltSimpleImpl
 
   bool paused;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
     json["duration"] = duration;
-    json["name"] = name;
+    json["name"] = _enumToString(name);
     json["paused"] = paused;
-    json["key"] = key;
   }
 
   SpinnerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7073,8 +6997,8 @@ class _SpinnerProps extends BuiltSimpleImpl
   SpinnerPropsBuilder toBuilder() => SpinnerPropsBuilder(this);
 }
 
-class SpinnerPropsBuilder extends BuiltSimpleBuilder<SpinnerProps> {
-  SpinnerPropsBuilder._(_SpinnerProps b) : v = b;
+class SpinnerPropsBuilder extends IonPropsBuilder {
+  SpinnerPropsBuilder._(_SpinnerProps b) : super._(b);
 
   factory SpinnerPropsBuilder([_SpinnerProps b]) {
     var v = _SpinnerProps._();
@@ -7083,28 +7007,27 @@ class SpinnerPropsBuilder extends BuiltSimpleBuilder<SpinnerProps> {
       v.duration = b.duration;
       v.name = b.name;
       v.paused = b.paused;
-      v.key = b.key;
     }
     return SpinnerPropsBuilder._(v);
   }
 
-  _SpinnerProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>Duration of the spinner animation in milliseconds. The default varies based on the spinner.</p>
   set duration(num value) => v.duration = value;
 
-  ///
+  /// <p>The name of the SVG spinner to use. If a name is not provided, the platform&#39;s default
+  /// spinner will be used.</p>
   set name(LoadingSpinnerValue value) => v.name = value;
 
-  ///
+  /// <p>If <code>true</code>, the spinner&#39;s animation will be paused.</p>
   set paused(bool value) => v.paused = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _SpinnerProps get v => super.v;
   SpinnerProps build() {
+    super.build();
     return v;
   }
 
@@ -7115,10 +7038,8 @@ class SpinnerPropsBuilder extends BuiltSimpleBuilder<SpinnerProps> {
   }
 }
 
-class _RadioProps extends BuiltSimpleImpl
-    with RadioProps
-    implements RadioProps {
-  _RadioProps._() : super();
+class _RadioProps extends _IonProps with RadioProps implements RadioProps {
+  _RadioProps._() : super._();
 
   factory _RadioProps(BuilderFunc<RadioPropsBuilder> builder) =>
       RadioPropsBuilder.create(builder);
@@ -7137,17 +7058,14 @@ class _RadioProps extends BuiltSimpleImpl
 
   RadioEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["checked"] = checked;
     json["color"] = color;
     json["disabled"] = disabled;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["name"] = name;
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   RadioProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7160,8 +7078,8 @@ class _RadioProps extends BuiltSimpleImpl
   RadioPropsBuilder toBuilder() => RadioPropsBuilder(this);
 }
 
-class RadioPropsBuilder extends BuiltSimpleBuilder<RadioProps> {
-  RadioPropsBuilder._(_RadioProps b) : v = b;
+class RadioPropsBuilder extends IonPropsBuilder {
+  RadioPropsBuilder._(_RadioProps b) : super._(b);
 
   factory RadioPropsBuilder([_RadioProps b]) {
     var v = _RadioProps._();
@@ -7173,31 +7091,30 @@ class RadioPropsBuilder extends BuiltSimpleBuilder<RadioProps> {
       v.name = b.name;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return RadioPropsBuilder._(v);
   }
 
   RadioEventPropsBuilder _on;
 
-  _RadioProps v;
-
-  ///
+  /// <p>If <code>true</code>, the radio is selected.</p>
   set checked(bool value) => v.checked = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the radio.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>the value of the radio.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -7208,9 +7125,9 @@ class RadioPropsBuilder extends BuiltSimpleBuilder<RadioProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _RadioProps get v => super.v;
   RadioProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -7267,13 +7184,13 @@ class RadioEventPropsBuilder extends BuiltSimpleBuilder<RadioEventProps> {
 
   _RadioEventProps v;
 
-  ///
+  /// Emitted when the radio button loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the radio button has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
 
-  ///
+  /// Emitted when the radio button is selected.
   set ionSelect(DartHandler<CustomEvent> value) => v.ionSelect = value;
   RadioEventProps build() {
     return v;
@@ -7287,10 +7204,10 @@ class RadioEventPropsBuilder extends BuiltSimpleBuilder<RadioEventProps> {
   }
 }
 
-class _RadioGroupProps extends BuiltSimpleImpl
+class _RadioGroupProps extends _IonProps
     with RadioGroupProps
     implements RadioGroupProps {
-  _RadioGroupProps._() : super();
+  _RadioGroupProps._() : super._();
 
   factory _RadioGroupProps(BuilderFunc<RadioGroupPropsBuilder> builder) =>
       RadioGroupPropsBuilder.create(builder);
@@ -7303,14 +7220,11 @@ class _RadioGroupProps extends BuiltSimpleImpl
 
   RadioGroupEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["allowEmptySelection"] = allowEmptySelection;
     json["name"] = name;
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   RadioGroupProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7323,8 +7237,8 @@ class _RadioGroupProps extends BuiltSimpleImpl
   RadioGroupPropsBuilder toBuilder() => RadioGroupPropsBuilder(this);
 }
 
-class RadioGroupPropsBuilder extends BuiltSimpleBuilder<RadioGroupProps> {
-  RadioGroupPropsBuilder._(_RadioGroupProps b) : v = b;
+class RadioGroupPropsBuilder extends IonPropsBuilder {
+  RadioGroupPropsBuilder._(_RadioGroupProps b) : super._(b);
 
   factory RadioGroupPropsBuilder([_RadioGroupProps b]) {
     var v = _RadioGroupProps._();
@@ -7333,22 +7247,19 @@ class RadioGroupPropsBuilder extends BuiltSimpleBuilder<RadioGroupProps> {
       v.name = b.name;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return RadioGroupPropsBuilder._(v);
   }
 
   RadioGroupEventPropsBuilder _on;
 
-  _RadioGroupProps v;
-
-  ///
+  /// <p>If <code>true</code>, the radios can be deselected.</p>
   set allowEmptySelection(bool value) => v.allowEmptySelection = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>the value of the radio group.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -7359,9 +7270,9 @@ class RadioGroupPropsBuilder extends BuiltSimpleBuilder<RadioGroupProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _RadioGroupProps get v => super.v;
   RadioGroupProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -7413,7 +7324,7 @@ class RadioGroupEventPropsBuilder
 
   _RadioGroupEventProps v;
 
-  ///
+  /// Emitted when the value has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
   RadioGroupEventProps build() {
     return v;
@@ -7427,10 +7338,8 @@ class RadioGroupEventPropsBuilder
   }
 }
 
-class _RangeProps extends BuiltSimpleImpl
-    with RangeProps
-    implements RangeProps {
-  _RangeProps._() : super();
+class _RangeProps extends _IonProps with RangeProps implements RangeProps {
+  _RangeProps._() : super._();
 
   factory _RangeProps(BuilderFunc<RangePropsBuilder> builder) =>
       RangePropsBuilder.create(builder);
@@ -7463,24 +7372,21 @@ class _RangeProps extends BuiltSimpleImpl
 
   RangeEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
     json["debounce"] = debounce;
     json["disabled"] = disabled;
     json["dualKnobs"] = dualKnobs;
     json["max"] = max;
     json["min"] = min;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["name"] = name;
     json["pin"] = pin;
     json["snaps"] = snaps;
     json["step"] = step;
     json["ticks"] = ticks;
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   RangeProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7493,8 +7399,8 @@ class _RangeProps extends BuiltSimpleImpl
   RangePropsBuilder toBuilder() => RangePropsBuilder(this);
 }
 
-class RangePropsBuilder extends BuiltSimpleBuilder<RangeProps> {
-  RangePropsBuilder._(_RangeProps b) : v = b;
+class RangePropsBuilder extends IonPropsBuilder {
+  RangePropsBuilder._(_RangeProps b) : super._(b);
 
   factory RangePropsBuilder([_RangeProps b]) {
     var v = _RangeProps._();
@@ -7513,52 +7419,55 @@ class RangePropsBuilder extends BuiltSimpleBuilder<RangeProps> {
       v.ticks = b.ticks;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return RangePropsBuilder._(v);
   }
 
   RangeEventPropsBuilder _on;
 
-  _RangeProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>How long, in milliseconds, to wait to trigger the
+  /// <code>ionChange</code> event after each change in the range value.</p>
   set debounce(num value) => v.debounce = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the range.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>Show two knobs.</p>
   set dualKnobs(bool value) => v.dualKnobs = value;
 
-  ///
+  /// <p>Maximum integer value of the range.</p>
   set max(num value) => v.max = value;
 
-  ///
+  /// <p>Minimum integer value of the range.</p>
   set min(num value) => v.min = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>If <code>true</code>, a pin with integer value is shown when the knob
+  /// is pressed.</p>
   set pin(bool value) => v.pin = value;
 
-  ///
+  /// <p>If <code>true</code>, the knob snaps to tick marks evenly spaced based
+  /// on the step property value.</p>
   set snaps(bool value) => v.snaps = value;
 
-  ///
+  /// <p>Specifies the value granularity.</p>
   set step(num value) => v.step = value;
 
-  ///
+  /// <p>If <code>true</code>, tick marks are displayed based on the step value.
+  /// Only applies when <code>snaps</code> is <code>true</code>.</p>
   set ticks(bool value) => v.ticks = value;
 
-  ///
+  /// <p>the value of the range.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -7569,9 +7478,9 @@ class RangePropsBuilder extends BuiltSimpleBuilder<RangeProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _RangeProps get v => super.v;
   RangeProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -7628,13 +7537,13 @@ class RangeEventPropsBuilder extends BuiltSimpleBuilder<RangeEventProps> {
 
   _RangeEventProps v;
 
-  ///
+  /// Emitted when the range loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the value property has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the range has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
   RangeEventProps build() {
     return v;
@@ -7648,10 +7557,10 @@ class RangeEventPropsBuilder extends BuiltSimpleBuilder<RangeEventProps> {
   }
 }
 
-class _RefresherProps extends BuiltSimpleImpl
+class _RefresherProps extends _IonProps
     with RefresherProps
     implements RefresherProps {
-  _RefresherProps._() : super();
+  _RefresherProps._() : super._();
 
   factory _RefresherProps(BuilderFunc<RefresherPropsBuilder> builder) =>
       RefresherPropsBuilder.create(builder);
@@ -7670,17 +7579,14 @@ class _RefresherProps extends BuiltSimpleImpl
 
   RefresherEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["closeDuration"] = closeDuration;
     json["disabled"] = disabled;
     json["pullFactor"] = pullFactor;
     json["pullMax"] = pullMax;
     json["pullMin"] = pullMin;
     json["snapbackDuration"] = snapbackDuration;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   RefresherProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7693,8 +7599,8 @@ class _RefresherProps extends BuiltSimpleImpl
   RefresherPropsBuilder toBuilder() => RefresherPropsBuilder(this);
 }
 
-class RefresherPropsBuilder extends BuiltSimpleBuilder<RefresherProps> {
-  RefresherPropsBuilder._(_RefresherProps b) : v = b;
+class RefresherPropsBuilder extends IonPropsBuilder {
+  RefresherPropsBuilder._(_RefresherProps b) : super._(b);
 
   factory RefresherPropsBuilder([_RefresherProps b]) {
     var v = _RefresherProps._();
@@ -7706,31 +7612,38 @@ class RefresherPropsBuilder extends BuiltSimpleBuilder<RefresherProps> {
       v.pullMin = b.pullMin;
       v.snapbackDuration = b.snapbackDuration;
       v.on = b.on;
-      v.key = b.key;
     }
     return RefresherPropsBuilder._(v);
   }
 
   RefresherEventPropsBuilder _on;
 
-  _RefresherProps v;
-
-  ///
+  /// <p>Time it takes to close the refresher.</p>
   set closeDuration(String value) => v.closeDuration = value;
 
-  ///
+  /// <p>If <code>true</code>, the refresher will be hidden.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>How much to multiply the pull speed by. To slow the pull animation down,
+  /// pass a number less than <code>1</code>. To speed up the pull, pass a number greater
+  /// than <code>1</code>. The default value is <code>1</code> which is equal to the speed of the cursor.
+  /// If a negative value is passed in, the factor will be <code>1</code> instead.</p>
+  /// <p>For example: If the value passed is <code>1.2</code> and the content is dragged by
+  /// <code>10</code> pixels, instead of <code>10</code> pixels the content will be pulled by <code>12</code> pixels
+  /// (an increase of 20 percent). If the value passed is <code>0.8</code>, the dragged amount
+  /// will be <code>8</code> pixels, less than the amount the cursor has moved.</p>
   set pullFactor(num value) => v.pullFactor = value;
 
-  ///
+  /// <p>The maximum distance of the pull until the refresher
+  /// will automatically go into the <code>refreshing</code> state.
+  /// Defaults to the result of <code>pullMin + 60</code>.</p>
   set pullMax(num value) => v.pullMax = value;
 
-  ///
+  /// <p>The minimum distance the user must pull down until the
+  /// refresher will go into the <code>refreshing</code> state.</p>
   set pullMin(num value) => v.pullMin = value;
 
-  ///
+  /// <p>Time it takes the refresher to to snap back to the <code>refreshing</code> state.</p>
   set snapbackDuration(String value) => v.snapbackDuration = value;
 
   ///
@@ -7741,9 +7654,9 @@ class RefresherPropsBuilder extends BuiltSimpleBuilder<RefresherProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _RefresherProps get v => super.v;
   RefresherProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -7803,13 +7716,16 @@ class RefresherEventPropsBuilder
 
   _RefresherEventProps v;
 
-  ///
+  /// Emitted while the user is pulling down the content and exposing the refresher.
   set ionPull(DartHandler<CustomEvent> value) => v.ionPull = value;
 
-  ///
+  /// Emitted when the user lets go of the content and has pulled down
+  /// further than the `pullMin` or pulls the content down and exceeds the pullMax.
+  /// Updates the refresher state to `refreshing`. The `complete()` method should be
+  /// called when the async operation has completed.
   set ionRefresh(DartHandler<CustomEvent> value) => v.ionRefresh = value;
 
-  ///
+  /// Emitted when the user begins to start pulling down.
   set ionStart(DartHandler<CustomEvent> value) => v.ionStart = value;
   RefresherEventProps build() {
     return v;
@@ -7823,10 +7739,10 @@ class RefresherEventPropsBuilder
   }
 }
 
-class _RefresherContentProps extends BuiltSimpleImpl
+class _RefresherContentProps extends _IonProps
     with RefresherContentProps
     implements RefresherContentProps {
-  _RefresherContentProps._() : super();
+  _RefresherContentProps._() : super._();
 
   factory _RefresherContentProps(
           BuilderFunc<RefresherContentPropsBuilder> builder) =>
@@ -7840,14 +7756,12 @@ class _RefresherContentProps extends BuiltSimpleImpl
 
   String refreshingText;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["pullingIcon"] = pullingIcon;
     json["pullingText"] = pullingText;
-    json["refreshingSpinner"] = refreshingSpinner;
+    json["refreshingSpinner"] = _enumToString(refreshingSpinner);
     json["refreshingText"] = refreshingText;
-    json["key"] = key;
   }
 
   RefresherContentProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7861,9 +7775,8 @@ class _RefresherContentProps extends BuiltSimpleImpl
       RefresherContentPropsBuilder(this);
 }
 
-class RefresherContentPropsBuilder
-    extends BuiltSimpleBuilder<RefresherContentProps> {
-  RefresherContentPropsBuilder._(_RefresherContentProps b) : v = b;
+class RefresherContentPropsBuilder extends IonPropsBuilder {
+  RefresherContentPropsBuilder._(_RefresherContentProps b) : super._(b);
 
   factory RefresherContentPropsBuilder([_RefresherContentProps b]) {
     var v = _RefresherContentProps._();
@@ -7872,29 +7785,35 @@ class RefresherContentPropsBuilder
       v.pullingText = b.pullingText;
       v.refreshingSpinner = b.refreshingSpinner;
       v.refreshingText = b.refreshingText;
-      v.key = b.key;
     }
     return RefresherContentPropsBuilder._(v);
   }
 
-  _RefresherContentProps v;
-
-  ///
+  /// <p>A static icon to display when you begin to pull down</p>
   set pullingIcon(String value) => v.pullingIcon = value;
 
-  ///
+  /// <p>The text you want to display when you begin to pull down.
+  /// <code>pullingText</code> can accept either plaintext or HTML as a string.
+  /// To display characters normally reserved for HTML, they
+  /// must be escaped. For example <code>&lt;Ionic&gt;</code> would become
+  /// <code>&amp;lt;Ionic&amp;gt;</code></p>
+  /// <p>For more information: <a href=https://ionicframework.com/docs/faq/security >Security Documentation</a></p>
   set pullingText(String value) => v.pullingText = value;
 
-  ///
+  /// <p>An animated SVG spinner that shows when refreshing begins</p>
   set refreshingSpinner(LoadingSpinnerValue value) =>
       v.refreshingSpinner = value;
 
-  ///
+  /// <p>The text you want to display when performing a refresh.
+  /// <code>refreshingText</code> can accept either plaintext or HTML as a string.
+  /// To display characters normally reserved for HTML, they
+  /// must be escaped. For example <code>&lt;Ionic&gt;</code> would become
+  /// <code>&amp;lt;Ionic&amp;gt;</code></p>
+  /// <p>For more information: <a href=https://ionicframework.com/docs/faq/security >Security Documentation</a></p>
   set refreshingText(String value) => v.refreshingText = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _RefresherContentProps get v => super.v;
   RefresherContentProps build() {
+    super.build();
     return v;
   }
 
@@ -7907,18 +7826,16 @@ class RefresherContentPropsBuilder
   }
 }
 
-class _ReorderProps extends BuiltSimpleImpl
+class _ReorderProps extends _IonProps
     with ReorderProps
     implements ReorderProps {
-  _ReorderProps._() : super();
+  _ReorderProps._() : super._();
 
   factory _ReorderProps(BuilderFunc<ReorderPropsBuilder> builder) =>
       ReorderPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   ReorderProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7931,22 +7848,18 @@ class _ReorderProps extends BuiltSimpleImpl
   ReorderPropsBuilder toBuilder() => ReorderPropsBuilder(this);
 }
 
-class ReorderPropsBuilder extends BuiltSimpleBuilder<ReorderProps> {
-  ReorderPropsBuilder._(_ReorderProps b) : v = b;
+class ReorderPropsBuilder extends IonPropsBuilder {
+  ReorderPropsBuilder._(_ReorderProps b) : super._(b);
 
   factory ReorderPropsBuilder([_ReorderProps b]) {
     var v = _ReorderProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return ReorderPropsBuilder._(v);
   }
 
-  _ReorderProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _ReorderProps get v => super.v;
   ReorderProps build() {
+    super.build();
     return v;
   }
 
@@ -7957,10 +7870,10 @@ class ReorderPropsBuilder extends BuiltSimpleBuilder<ReorderProps> {
   }
 }
 
-class _ReorderGroupProps extends BuiltSimpleImpl
+class _ReorderGroupProps extends _IonProps
     with ReorderGroupProps
     implements ReorderGroupProps {
-  _ReorderGroupProps._() : super();
+  _ReorderGroupProps._() : super._();
 
   factory _ReorderGroupProps(BuilderFunc<ReorderGroupPropsBuilder> builder) =>
       ReorderGroupPropsBuilder.create(builder);
@@ -7969,12 +7882,9 @@ class _ReorderGroupProps extends BuiltSimpleImpl
 
   ReorderGroupEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["disabled"] = disabled;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ReorderGroupProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -7987,24 +7897,21 @@ class _ReorderGroupProps extends BuiltSimpleImpl
   ReorderGroupPropsBuilder toBuilder() => ReorderGroupPropsBuilder(this);
 }
 
-class ReorderGroupPropsBuilder extends BuiltSimpleBuilder<ReorderGroupProps> {
-  ReorderGroupPropsBuilder._(_ReorderGroupProps b) : v = b;
+class ReorderGroupPropsBuilder extends IonPropsBuilder {
+  ReorderGroupPropsBuilder._(_ReorderGroupProps b) : super._(b);
 
   factory ReorderGroupPropsBuilder([_ReorderGroupProps b]) {
     var v = _ReorderGroupProps._();
     if (b != null) {
       v.disabled = b.disabled;
       v.on = b.on;
-      v.key = b.key;
     }
     return ReorderGroupPropsBuilder._(v);
   }
 
   ReorderGroupEventPropsBuilder _on;
 
-  _ReorderGroupProps v;
-
-  ///
+  /// <p>If <code>true</code>, the reorder will be hidden.</p>
   set disabled(bool value) => v.disabled = value;
 
   ///
@@ -8015,9 +7922,9 @@ class ReorderGroupPropsBuilder extends BuiltSimpleBuilder<ReorderGroupProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ReorderGroupProps get v => super.v;
   ReorderGroupProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -8071,7 +7978,9 @@ class ReorderGroupEventPropsBuilder
 
   _ReorderGroupEventProps v;
 
-  ///
+  /// Event that needs to be listened to in order to complete the reorder action.
+  /// Once the event has been emitted, the `complete()` method then needs
+  /// to be called in order to finalize the reorder action.
   set ionItemReorder(DartHandler<CustomEvent> value) =>
       v.ionItemReorder = value;
   ReorderGroupEventProps build() {
@@ -8087,10 +7996,8 @@ class ReorderGroupEventPropsBuilder
   }
 }
 
-class _RouterProps extends BuiltSimpleImpl
-    with RouterProps
-    implements RouterProps {
-  _RouterProps._() : super();
+class _RouterProps extends _IonProps with RouterProps implements RouterProps {
+  _RouterProps._() : super._();
 
   factory _RouterProps(BuilderFunc<RouterPropsBuilder> builder) =>
       RouterPropsBuilder.create(builder);
@@ -8101,13 +8008,10 @@ class _RouterProps extends BuiltSimpleImpl
 
   RouterEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["root"] = root;
     json["useHash"] = useHash;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   RouterProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -8120,8 +8024,8 @@ class _RouterProps extends BuiltSimpleImpl
   RouterPropsBuilder toBuilder() => RouterPropsBuilder(this);
 }
 
-class RouterPropsBuilder extends BuiltSimpleBuilder<RouterProps> {
-  RouterPropsBuilder._(_RouterProps b) : v = b;
+class RouterPropsBuilder extends IonPropsBuilder {
+  RouterPropsBuilder._(_RouterProps b) : super._(b);
 
   factory RouterPropsBuilder([_RouterProps b]) {
     var v = _RouterProps._();
@@ -8129,19 +8033,26 @@ class RouterPropsBuilder extends BuiltSimpleBuilder<RouterProps> {
       v.root = b.root;
       v.useHash = b.useHash;
       v.on = b.on;
-      v.key = b.key;
     }
     return RouterPropsBuilder._(v);
   }
 
   RouterEventPropsBuilder _on;
 
-  _RouterProps v;
-
-  ///
+  /// <p>By default <code>ion-router</code> will match the routes at the root path (&quot;/&quot;).
+  /// That can be changed when</p>
   set root(String value) => v.root = value;
 
-  ///
+  /// <p>The router can work in two &quot;modes&quot;:</p>
+  /// <ul>
+  /// <li>With hash: <code>/index.html#/path/to/page</code></li>
+  /// <li>Without hash: <code>/path/to/page</code></li>
+  /// </ul>
+  /// <p>Using one or another might depend in the requirements of your app and/or where it&#39;s deployed.</p>
+  /// <p>Usually &quot;hash-less&quot; navigation works better for SEO and it&#39;s more user friendly too, but it might
+  /// requires additional server-side configuration in order to properly work.</p>
+  /// <p>On the otherside hash-navigation is much easier to deploy, it even works over the file protocol.</p>
+  /// <p>By default, this property is <code>true</code>, change to <code>false</code> to allow hash-less URLs.</p>
   set useHash(bool value) => v.useHash = value;
 
   ///
@@ -8152,9 +8063,9 @@ class RouterPropsBuilder extends BuiltSimpleBuilder<RouterProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _RouterProps get v => super.v;
   RouterProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -8207,11 +8118,11 @@ class RouterEventPropsBuilder extends BuiltSimpleBuilder<RouterEventProps> {
 
   _RouterEventProps v;
 
-  ///
+  /// Emitted when the route had changed
   set ionRouteDidChange(DartHandler<CustomEvent> value) =>
       v.ionRouteDidChange = value;
 
-  ///
+  /// Event emitted when the route is about to change
   set ionRouteWillChange(DartHandler<CustomEvent> value) =>
       v.ionRouteWillChange = value;
   RouterEventProps build() {
@@ -8226,10 +8137,10 @@ class RouterEventPropsBuilder extends BuiltSimpleBuilder<RouterEventProps> {
   }
 }
 
-class _RouterOutletProps extends BuiltSimpleImpl
+class _RouterOutletProps extends _IonProps
     with RouterOutletProps
     implements RouterOutletProps {
-  _RouterOutletProps._() : super();
+  _RouterOutletProps._() : super._();
 
   factory _RouterOutletProps(BuilderFunc<RouterOutletPropsBuilder> builder) =>
       RouterOutletPropsBuilder.create(builder);
@@ -8238,12 +8149,10 @@ class _RouterOutletProps extends BuiltSimpleImpl
 
   String animation;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["animation"] = animation;
-    json["key"] = key;
   }
 
   RouterOutletProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -8256,30 +8165,27 @@ class _RouterOutletProps extends BuiltSimpleImpl
   RouterOutletPropsBuilder toBuilder() => RouterOutletPropsBuilder(this);
 }
 
-class RouterOutletPropsBuilder extends BuiltSimpleBuilder<RouterOutletProps> {
-  RouterOutletPropsBuilder._(_RouterOutletProps b) : v = b;
+class RouterOutletPropsBuilder extends IonPropsBuilder {
+  RouterOutletPropsBuilder._(_RouterOutletProps b) : super._(b);
 
   factory RouterOutletPropsBuilder([_RouterOutletProps b]) {
     var v = _RouterOutletProps._();
     if (b != null) {
       v.animated = b.animated;
       v.animation = b.animation;
-      v.key = b.key;
     }
     return RouterOutletPropsBuilder._(v);
   }
 
-  _RouterOutletProps v;
-
-  ///
+  /// <p>If <code>true</code>, the router-outlet should animate the transition of components.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>By default <code>ion-nav</code> animates transition between pages based in the mode (ios or material design).
+  /// However, this property allows to create custom transition using <code>AnimateBuilder</code> functions.</p>
   set animation(String value) => v.animation = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _RouterOutletProps get v => super.v;
   RouterOutletProps build() {
+    super.build();
     return v;
   }
 
@@ -8291,10 +8197,8 @@ class RouterOutletPropsBuilder extends BuiltSimpleBuilder<RouterOutletProps> {
   }
 }
 
-class _RouteProps extends BuiltSimpleImpl
-    with RouteProps
-    implements RouteProps {
-  _RouteProps._() : super();
+class _RouteProps extends _IonProps with RouteProps implements RouteProps {
+  _RouteProps._() : super._();
 
   factory _RouteProps(BuilderFunc<RoutePropsBuilder> builder) =>
       RoutePropsBuilder.create(builder);
@@ -8307,14 +8211,11 @@ class _RouteProps extends BuiltSimpleImpl
 
   RouteEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["component"] = component;
     json["componentProps"] = componentProps;
     json["url"] = url;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   RouteProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -8327,8 +8228,8 @@ class _RouteProps extends BuiltSimpleImpl
   RoutePropsBuilder toBuilder() => RoutePropsBuilder(this);
 }
 
-class RoutePropsBuilder extends BuiltSimpleBuilder<RouteProps> {
-  RoutePropsBuilder._(_RouteProps b) : v = b;
+class RoutePropsBuilder extends IonPropsBuilder {
+  RoutePropsBuilder._(_RouteProps b) : super._(b);
 
   factory RoutePropsBuilder([_RouteProps b]) {
     var v = _RouteProps._();
@@ -8337,22 +8238,25 @@ class RoutePropsBuilder extends BuiltSimpleBuilder<RouteProps> {
       v.componentProps = b.componentProps;
       v.url = b.url;
       v.on = b.on;
-      v.key = b.key;
     }
     return RoutePropsBuilder._(v);
   }
 
   RouteEventPropsBuilder _on;
 
-  _RouteProps v;
-
-  ///
+  /// <p>Name of the component to load/select in the navigation outlet (<code>ion-tabs</code>, <code>ion-nav</code>)
+  /// when the route matches.</p>
+  /// <p>The value of this property is not always the tagname of the component to load,
+  /// in <code>ion-tabs</code> it actually refers to the name of the <code>ion-tab</code> to select.</p>
   set component(String value) => v.component = value;
 
-  ///
+  /// <p>A key value <code>{ &#39;red&#39;: true, &#39;blue&#39;: &#39;white&#39;}</code> containing props that should be passed
+  /// to the defined component when rendered.</p>
   set componentProps(String value) => v.componentProps = value;
 
-  ///
+  /// <p>Relative path that needs to match in order for this route to apply.</p>
+  /// <p>Accepts paths similar to expressjs so that you can define parameters
+  /// in the url /foo/:bar where bar would be available in incoming props.</p>
   set url(String value) => v.url = value;
 
   ///
@@ -8363,9 +8267,9 @@ class RoutePropsBuilder extends BuiltSimpleBuilder<RouteProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _RouteProps get v => super.v;
   RouteProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -8414,7 +8318,7 @@ class RouteEventPropsBuilder extends BuiltSimpleBuilder<RouteEventProps> {
 
   _RouteEventProps v;
 
-  ///
+  /// Used internally by `ion-router` to know when this route did change.
   set ionRouteDataChanged(DartHandler<CustomEvent> value) =>
       v.ionRouteDataChanged = value;
   RouteEventProps build() {
@@ -8429,10 +8333,10 @@ class RouteEventPropsBuilder extends BuiltSimpleBuilder<RouteEventProps> {
   }
 }
 
-class _RouteRedirectProps extends BuiltSimpleImpl
+class _RouteRedirectProps extends _IonProps
     with RouteRedirectProps
     implements RouteRedirectProps {
-  _RouteRedirectProps._() : super();
+  _RouteRedirectProps._() : super._();
 
   factory _RouteRedirectProps(BuilderFunc<RouteRedirectPropsBuilder> builder) =>
       RouteRedirectPropsBuilder.create(builder);
@@ -8443,13 +8347,10 @@ class _RouteRedirectProps extends BuiltSimpleImpl
 
   RouteRedirectEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["from"] = from;
     json["to"] = to;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   RouteRedirectProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -8462,8 +8363,8 @@ class _RouteRedirectProps extends BuiltSimpleImpl
   RouteRedirectPropsBuilder toBuilder() => RouteRedirectPropsBuilder(this);
 }
 
-class RouteRedirectPropsBuilder extends BuiltSimpleBuilder<RouteRedirectProps> {
-  RouteRedirectPropsBuilder._(_RouteRedirectProps b) : v = b;
+class RouteRedirectPropsBuilder extends IonPropsBuilder {
+  RouteRedirectPropsBuilder._(_RouteRedirectProps b) : super._(b);
 
   factory RouteRedirectPropsBuilder([_RouteRedirectProps b]) {
     var v = _RouteRedirectProps._();
@@ -8471,19 +8372,27 @@ class RouteRedirectPropsBuilder extends BuiltSimpleBuilder<RouteRedirectProps> {
       v.from = b.from;
       v.to = b.to;
       v.on = b.on;
-      v.key = b.key;
     }
     return RouteRedirectPropsBuilder._(v);
   }
 
   RouteRedirectEventPropsBuilder _on;
 
-  _RouteRedirectProps v;
-
-  ///
+  /// <p>A redirect route, redirects &quot;from&quot; a URL &quot;to&quot; another URL. This property is that &quot;from&quot; URL.
+  /// It needs to be an exact match of the navigated URL in order to apply.</p>
+  /// <p>The path specified in this value is always an absolute path, even if the initial <code>/</code> slash
+  /// is not specified.</p>
   set from(String value) => v.from = value;
 
-  ///
+  /// <p>A redirect route, redirects &quot;from&quot; a URL &quot;to&quot; another URL. This property is that &quot;to&quot; URL.
+  /// When the defined <code>ion-route-redirect</code> rule matches, the router will redirect to the path
+  /// specified in this property.</p>
+  /// <p>The value of this property is always an absolute path inside the scope of routes defined in
+  /// <code>ion-router</code> it can&#39;t be used with another router or to perform a redirection to a different domain.</p>
+  /// <p>Note that this is a virtual redirect, it will not cause a real browser refresh, again, it&#39;s
+  /// a redirect inside the context of ion-router.</p>
+  /// <p>When this property is not specified or his value is <code>undefined</code> the whole redirect route is noop,
+  /// even if the &quot;from&quot; value matches.</p>
   set to(String value) => v.to = value;
 
   ///
@@ -8494,9 +8403,9 @@ class RouteRedirectPropsBuilder extends BuiltSimpleBuilder<RouteRedirectProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _RouteRedirectProps get v => super.v;
   RouteRedirectProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -8550,7 +8459,9 @@ class RouteRedirectEventPropsBuilder
 
   _RouteRedirectEventProps v;
 
-  ///
+  /// Internal event that fires when any value of this rule is added/removed from the DOM,
+  /// or any of his public properties changes.
+  /// `ion-router` captures this event in order to update his internal registry of router rules.
   set ionRouteRedirectChanged(DartHandler<CustomEvent> value) =>
       v.ionRouteRedirectChanged = value;
   RouteRedirectEventProps build() {
@@ -8566,10 +8477,10 @@ class RouteRedirectEventPropsBuilder
   }
 }
 
-class _SearchbarProps extends BuiltSimpleImpl
+class _SearchbarProps extends _IonProps
     with SearchbarProps
     implements SearchbarProps {
-  _SearchbarProps._() : super();
+  _SearchbarProps._() : super._();
 
   factory _SearchbarProps(BuilderFunc<SearchbarPropsBuilder> builder) =>
       SearchbarPropsBuilder.create(builder);
@@ -8608,27 +8519,24 @@ class _SearchbarProps extends BuiltSimpleImpl
 
   SearchbarEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
-    json["autocomplete"] = autocomplete;
-    json["autocorrect"] = autocorrect;
+    json["autocomplete"] = _enumToString(autocomplete);
+    json["autocorrect"] = _enumToString(autocorrect);
     json["cancelButtonIcon"] = cancelButtonIcon;
     json["cancelButtonText"] = cancelButtonText;
     json["clearIcon"] = clearIcon;
     json["color"] = color;
     json["debounce"] = debounce;
     json["disabled"] = disabled;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["placeholder"] = placeholder;
     json["searchIcon"] = searchIcon;
     json["showCancelButton"] = showCancelButton;
     json["spellcheck"] = spellcheck;
-    json["type"] = type;
+    json["type"] = _enumToString(type);
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   SearchbarProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -8641,8 +8549,8 @@ class _SearchbarProps extends BuiltSimpleImpl
   SearchbarPropsBuilder toBuilder() => SearchbarPropsBuilder(this);
 }
 
-class SearchbarPropsBuilder extends BuiltSimpleBuilder<SearchbarProps> {
-  SearchbarPropsBuilder._(_SearchbarProps b) : v = b;
+class SearchbarPropsBuilder extends IonPropsBuilder {
+  SearchbarPropsBuilder._(_SearchbarProps b) : super._(b);
 
   factory SearchbarPropsBuilder([_SearchbarProps b]) {
     var v = _SearchbarProps._();
@@ -8664,61 +8572,65 @@ class SearchbarPropsBuilder extends BuiltSimpleBuilder<SearchbarProps> {
       v.type = b.type;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return SearchbarPropsBuilder._(v);
   }
 
   SearchbarEventPropsBuilder _on;
 
-  _SearchbarProps v;
-
-  ///
+  /// <p>If <code>true</code>, enable searchbar animation.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>Set the input&#39;s autocomplete property.</p>
   set autocomplete(AutocompleteValue value) => v.autocomplete = value;
 
-  ///
+  /// <p>Set the input&#39;s autocorrect property.</p>
   set autocorrect(AutocompleteValue value) => v.autocorrect = value;
 
-  ///
+  /// <p>Set the cancel button icon. Only applies to <code>md</code> mode.</p>
   set cancelButtonIcon(String value) => v.cancelButtonIcon = value;
 
-  ///
+  /// <p>Set the the cancel button text. Only applies to <code>ios</code> mode.</p>
   set cancelButtonText(String value) => v.cancelButtonText = value;
 
-  ///
+  /// <p>Set the clear icon. Defaults to <code>&quot;close-circle&quot;</code> for <code>ios</code> and <code>&quot;close&quot;</code> for <code>md</code>.</p>
   set clearIcon(String value) => v.clearIcon = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>Set the amount of time, in milliseconds, to wait to trigger the <code>ionChange</code> event after each keystroke.</p>
   set debounce(num value) => v.debounce = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the input.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>Set the input&#39;s placeholder.
+  /// <code>placeholder</code> can accept either plaintext or HTML as a string.
+  /// To display characters normally reserved for HTML, they
+  /// must be escaped. For example <code>&lt;Ionic&gt;</code> would become
+  /// <code>&amp;lt;Ionic&amp;gt;</code></p>
+  /// <p>For more information: <a href=https://ionicframework.com/docs/faq/security >Security Documentation</a></p>
   set placeholder(String value) => v.placeholder = value;
 
-  ///
+  /// <p>The icon to use as the search icon.</p>
   set searchIcon(String value) => v.searchIcon = value;
 
-  ///
+  /// <p>If <code>true</code>, show the cancel button.</p>
   set showCancelButton(bool value) => v.showCancelButton = value;
 
-  ///
+  /// <p>If <code>true</code>, enable spellcheck on the input.</p>
   set spellcheck(bool value) => v.spellcheck = value;
 
-  ///
+  /// <p>Set the type of the input.</p>
   set type(SearchbarPropsTypeValue value) => v.type = value;
 
-  ///
+  /// <p>the value of the searchbar.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -8729,9 +8641,9 @@ class SearchbarPropsBuilder extends BuiltSimpleBuilder<SearchbarProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _SearchbarProps get v => super.v;
   SearchbarProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -8803,22 +8715,22 @@ class SearchbarEventPropsBuilder
 
   _SearchbarEventProps v;
 
-  ///
+  /// Emitted when the input loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the cancel button is clicked.
   set ionCancel(DartHandler<CustomEvent> value) => v.ionCancel = value;
 
-  ///
+  /// Emitted when the value has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the clear input button is clicked.
   set ionClear(DartHandler<CustomEvent> value) => v.ionClear = value;
 
-  ///
+  /// Emitted when the input has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
 
-  ///
+  /// Emitted when a keyboard input ocurred.
   set ionInput(DartHandler<CustomEvent> value) => v.ionInput = value;
   SearchbarEventProps build() {
     return v;
@@ -8832,10 +8744,10 @@ class SearchbarEventPropsBuilder
   }
 }
 
-class _SegmentProps extends BuiltSimpleImpl
+class _SegmentProps extends _IonProps
     with SegmentProps
     implements SegmentProps {
-  _SegmentProps._() : super();
+  _SegmentProps._() : super._();
 
   factory _SegmentProps(BuilderFunc<SegmentPropsBuilder> builder) =>
       SegmentPropsBuilder.create(builder);
@@ -8852,16 +8764,13 @@ class _SegmentProps extends BuiltSimpleImpl
 
   SegmentEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
     json["disabled"] = disabled;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["scrollable"] = scrollable;
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   SegmentProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -8874,8 +8783,8 @@ class _SegmentProps extends BuiltSimpleImpl
   SegmentPropsBuilder toBuilder() => SegmentPropsBuilder(this);
 }
 
-class SegmentPropsBuilder extends BuiltSimpleBuilder<SegmentProps> {
-  SegmentPropsBuilder._(_SegmentProps b) : v = b;
+class SegmentPropsBuilder extends IonPropsBuilder {
+  SegmentPropsBuilder._(_SegmentProps b) : super._(b);
 
   factory SegmentPropsBuilder([_SegmentProps b]) {
     var v = _SegmentProps._();
@@ -8886,28 +8795,27 @@ class SegmentPropsBuilder extends BuiltSimpleBuilder<SegmentProps> {
       v.scrollable = b.scrollable;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return SegmentPropsBuilder._(v);
   }
 
   SegmentEventPropsBuilder _on;
 
-  _SegmentProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the segment.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, the segment buttons will overflow and the user can swipe to see them.</p>
   set scrollable(bool value) => v.scrollable = value;
 
-  ///
+  /// <p>the value of the segment.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -8918,9 +8826,9 @@ class SegmentPropsBuilder extends BuiltSimpleBuilder<SegmentProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _SegmentProps get v => super.v;
   SegmentProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -8973,10 +8881,10 @@ class SegmentEventPropsBuilder extends BuiltSimpleBuilder<SegmentEventProps> {
 
   _SegmentEventProps v;
 
-  ///
+  /// Emitted when the value property has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the styles change.
   set ionStyle(DartHandler<CustomEvent> value) => v.ionStyle = value;
   SegmentEventProps build() {
     return v;
@@ -8990,10 +8898,10 @@ class SegmentEventPropsBuilder extends BuiltSimpleBuilder<SegmentEventProps> {
   }
 }
 
-class _SegmentButtonProps extends BuiltSimpleImpl
+class _SegmentButtonProps extends _IonProps
     with SegmentButtonProps
     implements SegmentButtonProps {
-  _SegmentButtonProps._() : super();
+  _SegmentButtonProps._() : super._();
 
   factory _SegmentButtonProps(BuilderFunc<SegmentButtonPropsBuilder> builder) =>
       SegmentButtonPropsBuilder.create(builder);
@@ -9010,16 +8918,13 @@ class _SegmentButtonProps extends BuiltSimpleImpl
 
   SegmentButtonEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["checked"] = checked;
     json["disabled"] = disabled;
-    json["layout"] = layout;
-    json["mode"] = mode;
+    json["layout"] = _enumToString(layout);
+    json["mode"] = _enumToString(mode);
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   SegmentButtonProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9032,8 +8937,8 @@ class _SegmentButtonProps extends BuiltSimpleImpl
   SegmentButtonPropsBuilder toBuilder() => SegmentButtonPropsBuilder(this);
 }
 
-class SegmentButtonPropsBuilder extends BuiltSimpleBuilder<SegmentButtonProps> {
-  SegmentButtonPropsBuilder._(_SegmentButtonProps b) : v = b;
+class SegmentButtonPropsBuilder extends IonPropsBuilder {
+  SegmentButtonPropsBuilder._(_SegmentButtonProps b) : super._(b);
 
   factory SegmentButtonPropsBuilder([_SegmentButtonProps b]) {
     var v = _SegmentButtonProps._();
@@ -9044,28 +8949,25 @@ class SegmentButtonPropsBuilder extends BuiltSimpleBuilder<SegmentButtonProps> {
       v.mode = b.mode;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return SegmentButtonPropsBuilder._(v);
   }
 
   SegmentButtonEventPropsBuilder _on;
 
-  _SegmentButtonProps v;
-
-  ///
+  /// <p>If <code>true</code>, the segment button is selected.</p>
   set checked(bool value) => v.checked = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the segment button.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>Set the layout of the text and icon in the segment.</p>
   set layout(LayoutValue value) => v.layout = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The value of the segment button.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -9076,9 +8978,9 @@ class SegmentButtonPropsBuilder extends BuiltSimpleBuilder<SegmentButtonProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _SegmentButtonProps get v => super.v;
   SegmentButtonProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -9132,7 +9034,7 @@ class SegmentButtonEventPropsBuilder
 
   _SegmentButtonEventProps v;
 
-  ///
+  /// Emitted when the segment button is clicked.
   set ionSelect(DartHandler<CustomEvent> value) => v.ionSelect = value;
   SegmentButtonEventProps build() {
     return v;
@@ -9147,10 +9049,8 @@ class SegmentButtonEventPropsBuilder
   }
 }
 
-class _SelectProps extends BuiltSimpleImpl
-    with SelectProps
-    implements SelectProps {
-  _SelectProps._() : super();
+class _SelectProps extends _IonProps with SelectProps implements SelectProps {
+  _SelectProps._() : super._();
 
   factory _SelectProps(BuilderFunc<SelectPropsBuilder> builder) =>
       SelectPropsBuilder.create(builder);
@@ -9181,23 +9081,20 @@ class _SelectProps extends BuiltSimpleImpl
 
   SelectEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["cancelText"] = cancelText;
     json["compareWith"] = compareWith;
     json["disabled"] = disabled;
-    json["interface"] = interface;
+    json["interface"] = _enumToString(interface);
     json["interfaceOptions"] = interfaceOptions;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["multiple"] = multiple;
     json["name"] = name;
     json["okText"] = okText;
     json["placeholder"] = placeholder;
     json["selectedText"] = selectedText;
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   SelectProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9210,8 +9107,8 @@ class _SelectProps extends BuiltSimpleImpl
   SelectPropsBuilder toBuilder() => SelectPropsBuilder(this);
 }
 
-class SelectPropsBuilder extends BuiltSimpleBuilder<SelectProps> {
-  SelectPropsBuilder._(_SelectProps b) : v = b;
+class SelectPropsBuilder extends IonPropsBuilder {
+  SelectPropsBuilder._(_SelectProps b) : super._(b);
 
   factory SelectPropsBuilder([_SelectProps b]) {
     var v = _SelectProps._();
@@ -9229,49 +9126,50 @@ class SelectPropsBuilder extends BuiltSimpleBuilder<SelectProps> {
       v.selectedText = b.selectedText;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return SelectPropsBuilder._(v);
   }
 
   SelectEventPropsBuilder _on;
 
-  _SelectProps v;
-
-  ///
+  /// <p>The text to display on the cancel button.</p>
   set cancelText(String value) => v.cancelText = value;
 
-  ///
+  /// <p>A property name or function used to compare object values</p>
   set compareWith(String value) => v.compareWith = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the select.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The interface the select should use: <code>action-sheet</code>, <code>popover</code> or <code>alert</code>.</p>
   set interface(InterfaceValue value) => v.interface = value;
 
-  ///
+  /// <p>Any additional options that the <code>alert</code>, <code>action-sheet</code> or <code>popover</code> interface
+  /// can take. See the <stencil-route-link url=/docs/alert/AlertController/#create >AlertController API docs</stencil-route-link>, the
+  /// <stencil-route-link url=/docs/action-sheet/ActionSheetController/#create >ActionSheetController API docs</stencil-route-link> and the
+  /// <stencil-route-link url=/docs/popover/PopoverController/#create >PopoverController API docs</stencil-route-link> for the
+  /// create options for each interface.</p>
   set interfaceOptions(String value) => v.interfaceOptions = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, the select can accept multiple values.</p>
   set multiple(bool value) => v.multiple = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>The text to display on the ok button.</p>
   set okText(String value) => v.okText = value;
 
-  ///
+  /// <p>The text to display when the select is empty.</p>
   set placeholder(String value) => v.placeholder = value;
 
-  ///
+  /// <p>The text to display instead of the selected option&#39;s value.</p>
   set selectedText(String value) => v.selectedText = value;
 
-  ///
+  /// <p>the value of the select.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -9282,9 +9180,9 @@ class SelectPropsBuilder extends BuiltSimpleBuilder<SelectProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _SelectProps get v => super.v;
   SelectProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -9345,16 +9243,16 @@ class SelectEventPropsBuilder extends BuiltSimpleBuilder<SelectEventProps> {
 
   _SelectEventProps v;
 
-  ///
+  /// Emitted when the select loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the selection is cancelled.
   set ionCancel(DartHandler<CustomEvent> value) => v.ionCancel = value;
 
-  ///
+  /// Emitted when the value has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the select has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
   SelectEventProps build() {
     return v;
@@ -9368,10 +9266,10 @@ class SelectEventPropsBuilder extends BuiltSimpleBuilder<SelectEventProps> {
   }
 }
 
-class _SelectOptionProps extends BuiltSimpleImpl
+class _SelectOptionProps extends _IonProps
     with SelectOptionProps
     implements SelectOptionProps {
-  _SelectOptionProps._() : super();
+  _SelectOptionProps._() : super._();
 
   factory _SelectOptionProps(BuilderFunc<SelectOptionPropsBuilder> builder) =>
       SelectOptionPropsBuilder.create(builder);
@@ -9382,13 +9280,11 @@ class _SelectOptionProps extends BuiltSimpleImpl
 
   String value;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["disabled"] = disabled;
     json["selected"] = selected;
     json["value"] = value;
-    json["key"] = key;
   }
 
   SelectOptionProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9401,8 +9297,8 @@ class _SelectOptionProps extends BuiltSimpleImpl
   SelectOptionPropsBuilder toBuilder() => SelectOptionPropsBuilder(this);
 }
 
-class SelectOptionPropsBuilder extends BuiltSimpleBuilder<SelectOptionProps> {
-  SelectOptionPropsBuilder._(_SelectOptionProps b) : v = b;
+class SelectOptionPropsBuilder extends IonPropsBuilder {
+  SelectOptionPropsBuilder._(_SelectOptionProps b) : super._(b);
 
   factory SelectOptionPropsBuilder([_SelectOptionProps b]) {
     var v = _SelectOptionProps._();
@@ -9410,25 +9306,21 @@ class SelectOptionPropsBuilder extends BuiltSimpleBuilder<SelectOptionProps> {
       v.disabled = b.disabled;
       v.selected = b.selected;
       v.value = b.value;
-      v.key = b.key;
     }
     return SelectOptionPropsBuilder._(v);
   }
 
-  _SelectOptionProps v;
-
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the select option.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>If <code>true</code>, the element is selected.</p>
   set selected(bool value) => v.selected = value;
 
-  ///
+  /// <p>The text value of the option.</p>
   set value(String value) => v.value = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _SelectOptionProps get v => super.v;
   SelectOptionProps build() {
+    super.build();
     return v;
   }
 
@@ -9440,10 +9332,8 @@ class SelectOptionPropsBuilder extends BuiltSimpleBuilder<SelectOptionProps> {
   }
 }
 
-class _SlidesProps extends BuiltSimpleImpl
-    with SlidesProps
-    implements SlidesProps {
-  _SlidesProps._() : super();
+class _SlidesProps extends _IonProps with SlidesProps implements SlidesProps {
+  _SlidesProps._() : super._();
 
   factory _SlidesProps(BuilderFunc<SlidesPropsBuilder> builder) =>
       SlidesPropsBuilder.create(builder);
@@ -9458,15 +9348,12 @@ class _SlidesProps extends BuiltSimpleImpl
 
   SlidesEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["mode"] = mode;
+    super.fillJson(json);
+    json["mode"] = _enumToString(mode);
     json["options"] = options;
     json["pager"] = pager;
     json["scrollbar"] = scrollbar;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   SlidesProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9479,8 +9366,8 @@ class _SlidesProps extends BuiltSimpleImpl
   SlidesPropsBuilder toBuilder() => SlidesPropsBuilder(this);
 }
 
-class SlidesPropsBuilder extends BuiltSimpleBuilder<SlidesProps> {
-  SlidesPropsBuilder._(_SlidesProps b) : v = b;
+class SlidesPropsBuilder extends IonPropsBuilder {
+  SlidesPropsBuilder._(_SlidesProps b) : super._(b);
 
   factory SlidesPropsBuilder([_SlidesProps b]) {
     var v = _SlidesProps._();
@@ -9490,25 +9377,23 @@ class SlidesPropsBuilder extends BuiltSimpleBuilder<SlidesProps> {
       v.pager = b.pager;
       v.scrollbar = b.scrollbar;
       v.on = b.on;
-      v.key = b.key;
     }
     return SlidesPropsBuilder._(v);
   }
 
   SlidesEventPropsBuilder _on;
 
-  _SlidesProps v;
-
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>Options to pass to the swiper instance.
+  /// See <a href=http://idangero.us/swiper/api/ >http://idangero.us/swiper/api/</a> for valid options</p>
   set options(String value) => v.options = value;
 
-  ///
+  /// <p>If <code>true</code>, show the pagination.</p>
   set pager(bool value) => v.pager = value;
 
-  ///
+  /// <p>If <code>true</code>, show the scrollbar.</p>
   set scrollbar(bool value) => v.scrollbar = value;
 
   ///
@@ -9519,9 +9404,9 @@ class SlidesPropsBuilder extends BuiltSimpleBuilder<SlidesProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _SlidesProps get v => super.v;
   SlidesProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -9630,65 +9515,65 @@ class SlidesEventPropsBuilder extends BuiltSimpleBuilder<SlidesEventProps> {
 
   _SlidesEventProps v;
 
-  ///
+  /// Emitted after the active slide has changed.
   set ionSlideDidChange(DartHandler<CustomEvent> value) =>
       v.ionSlideDidChange = value;
 
-  ///
+  /// Emitted when the user double taps on the slide's container.
   set ionSlideDoubleTap(DartHandler<CustomEvent> value) =>
       v.ionSlideDoubleTap = value;
 
-  ///
+  /// Emitted when the slider is actively being moved.
   set ionSlideDrag(DartHandler<CustomEvent> value) => v.ionSlideDrag = value;
 
-  ///
+  /// Emitted when the next slide has ended.
   set ionSlideNextEnd(DartHandler<CustomEvent> value) =>
       v.ionSlideNextEnd = value;
 
-  ///
+  /// Emitted when the next slide has started.
   set ionSlideNextStart(DartHandler<CustomEvent> value) =>
       v.ionSlideNextStart = value;
 
-  ///
+  /// Emitted when the previous slide has ended.
   set ionSlidePrevEnd(DartHandler<CustomEvent> value) =>
       v.ionSlidePrevEnd = value;
 
-  ///
+  /// Emitted when the previous slide has started.
   set ionSlidePrevStart(DartHandler<CustomEvent> value) =>
       v.ionSlidePrevStart = value;
 
-  ///
+  /// Emitted when the slider is at the last slide.
   set ionSlideReachEnd(DartHandler<CustomEvent> value) =>
       v.ionSlideReachEnd = value;
 
-  ///
+  /// Emitted when the slider is at its initial position.
   set ionSlideReachStart(DartHandler<CustomEvent> value) =>
       v.ionSlideReachStart = value;
 
-  ///
+  /// Emitted after Swiper initialization
   set ionSlidesDidLoad(DartHandler<CustomEvent> value) =>
       v.ionSlidesDidLoad = value;
 
-  ///
+  /// Emitted when the user taps/clicks on the slide's container.
   set ionSlideTap(DartHandler<CustomEvent> value) => v.ionSlideTap = value;
 
-  ///
+  /// Emitted when the user releases the touch.
   set ionSlideTouchEnd(DartHandler<CustomEvent> value) =>
       v.ionSlideTouchEnd = value;
 
-  ///
+  /// Emitted when the user first touches the slider.
   set ionSlideTouchStart(DartHandler<CustomEvent> value) =>
       v.ionSlideTouchStart = value;
 
-  ///
+  /// Emitted when the slide transition has ended.
   set ionSlideTransitionEnd(DartHandler<CustomEvent> value) =>
       v.ionSlideTransitionEnd = value;
 
-  ///
+  /// Emitted when the slide transition has started.
   set ionSlideTransitionStart(DartHandler<CustomEvent> value) =>
       v.ionSlideTransitionStart = value;
 
-  ///
+  /// Emitted before the active slide has changed.
   set ionSlideWillChange(DartHandler<CustomEvent> value) =>
       v.ionSlideWillChange = value;
   SlidesEventProps build() {
@@ -9703,18 +9588,14 @@ class SlidesEventPropsBuilder extends BuiltSimpleBuilder<SlidesEventProps> {
   }
 }
 
-class _SlideProps extends BuiltSimpleImpl
-    with SlideProps
-    implements SlideProps {
-  _SlideProps._() : super();
+class _SlideProps extends _IonProps with SlideProps implements SlideProps {
+  _SlideProps._() : super._();
 
   factory _SlideProps(BuilderFunc<SlidePropsBuilder> builder) =>
       SlidePropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   SlideProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9727,22 +9608,18 @@ class _SlideProps extends BuiltSimpleImpl
   SlidePropsBuilder toBuilder() => SlidePropsBuilder(this);
 }
 
-class SlidePropsBuilder extends BuiltSimpleBuilder<SlideProps> {
-  SlidePropsBuilder._(_SlideProps b) : v = b;
+class SlidePropsBuilder extends IonPropsBuilder {
+  SlidePropsBuilder._(_SlideProps b) : super._(b);
 
   factory SlidePropsBuilder([_SlideProps b]) {
     var v = _SlideProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return SlidePropsBuilder._(v);
   }
 
-  _SlideProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _SlideProps get v => super.v;
   SlideProps build() {
+    super.build();
     return v;
   }
 
@@ -9753,19 +9630,16 @@ class SlidePropsBuilder extends BuiltSimpleBuilder<SlideProps> {
   }
 }
 
-class _TabsProps extends BuiltSimpleImpl with TabsProps implements TabsProps {
-  _TabsProps._() : super();
+class _TabsProps extends _IonProps with TabsProps implements TabsProps {
+  _TabsProps._() : super._();
 
   factory _TabsProps(BuilderFunc<TabsPropsBuilder> builder) =>
       TabsPropsBuilder.create(builder);
 
   TabsEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["on"] = on;
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   TabsProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9778,21 +9652,18 @@ class _TabsProps extends BuiltSimpleImpl with TabsProps implements TabsProps {
   TabsPropsBuilder toBuilder() => TabsPropsBuilder(this);
 }
 
-class TabsPropsBuilder extends BuiltSimpleBuilder<TabsProps> {
-  TabsPropsBuilder._(_TabsProps b) : v = b;
+class TabsPropsBuilder extends IonPropsBuilder {
+  TabsPropsBuilder._(_TabsProps b) : super._(b);
 
   factory TabsPropsBuilder([_TabsProps b]) {
     var v = _TabsProps._();
     if (b != null) {
       v.on = b.on;
-      v.key = b.key;
     }
     return TabsPropsBuilder._(v);
   }
 
   TabsEventPropsBuilder _on;
-
-  _TabsProps v;
 
   ///
   TabsEventPropsBuilder get on {
@@ -9802,9 +9673,9 @@ class TabsPropsBuilder extends BuiltSimpleBuilder<TabsProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _TabsProps get v => super.v;
   TabsProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -9857,11 +9728,11 @@ class TabsEventPropsBuilder extends BuiltSimpleBuilder<TabsEventProps> {
 
   _TabsEventProps v;
 
-  ///
+  /// Emitted when the navigation has finished transitioning to a new component.
   set ionTabsDidChange(DartHandler<CustomEvent> value) =>
       v.ionTabsDidChange = value;
 
-  ///
+  /// Emitted when the navigation is about to transition to a new component.
   set ionTabsWillChange(DartHandler<CustomEvent> value) =>
       v.ionTabsWillChange = value;
   TabsEventProps build() {
@@ -9876,8 +9747,8 @@ class TabsEventPropsBuilder extends BuiltSimpleBuilder<TabsEventProps> {
   }
 }
 
-class _TabProps extends BuiltSimpleImpl with TabProps implements TabProps {
-  _TabProps._() : super();
+class _TabProps extends _IonProps with TabProps implements TabProps {
+  _TabProps._() : super._();
 
   factory _TabProps(BuilderFunc<TabPropsBuilder> builder) =>
       TabPropsBuilder.create(builder);
@@ -9886,12 +9757,10 @@ class _TabProps extends BuiltSimpleImpl with TabProps implements TabProps {
 
   String tab;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["component"] = component;
     json["tab"] = tab;
-    json["key"] = key;
   }
 
   TabProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9904,30 +9773,27 @@ class _TabProps extends BuiltSimpleImpl with TabProps implements TabProps {
   TabPropsBuilder toBuilder() => TabPropsBuilder(this);
 }
 
-class TabPropsBuilder extends BuiltSimpleBuilder<TabProps> {
-  TabPropsBuilder._(_TabProps b) : v = b;
+class TabPropsBuilder extends IonPropsBuilder {
+  TabPropsBuilder._(_TabProps b) : super._(b);
 
   factory TabPropsBuilder([_TabProps b]) {
     var v = _TabProps._();
     if (b != null) {
       v.component = b.component;
       v.tab = b.tab;
-      v.key = b.key;
     }
     return TabPropsBuilder._(v);
   }
 
-  _TabProps v;
-
-  ///
+  /// <p>The component to display inside of the tab.</p>
   set component(String value) => v.component = value;
 
-  ///
+  /// <p>A tab id must be provided for each <code>ion-tab</code>. It&#39;s used internally to reference
+  /// the selected tab or by the router to switch between them.</p>
   set tab(String value) => v.tab = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _TabProps get v => super.v;
   TabProps build() {
+    super.build();
     return v;
   }
 
@@ -9938,10 +9804,8 @@ class TabPropsBuilder extends BuiltSimpleBuilder<TabProps> {
   }
 }
 
-class _TabBarProps extends BuiltSimpleImpl
-    with TabBarProps
-    implements TabBarProps {
-  _TabBarProps._() : super();
+class _TabBarProps extends _IonProps with TabBarProps implements TabBarProps {
+  _TabBarProps._() : super._();
 
   factory _TabBarProps(BuilderFunc<TabBarPropsBuilder> builder) =>
       TabBarPropsBuilder.create(builder);
@@ -9954,14 +9818,12 @@ class _TabBarProps extends BuiltSimpleImpl
 
   bool translucent;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["selectedTab"] = selectedTab;
     json["translucent"] = translucent;
-    json["key"] = key;
   }
 
   TabBarProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -9974,8 +9836,8 @@ class _TabBarProps extends BuiltSimpleImpl
   TabBarPropsBuilder toBuilder() => TabBarPropsBuilder(this);
 }
 
-class TabBarPropsBuilder extends BuiltSimpleBuilder<TabBarProps> {
-  TabBarPropsBuilder._(_TabBarProps b) : v = b;
+class TabBarPropsBuilder extends IonPropsBuilder {
+  TabBarPropsBuilder._(_TabBarProps b) : super._(b);
 
   factory TabBarPropsBuilder([_TabBarProps b]) {
     var v = _TabBarProps._();
@@ -9984,28 +9846,26 @@ class TabBarPropsBuilder extends BuiltSimpleBuilder<TabBarProps> {
       v.mode = b.mode;
       v.selectedTab = b.selectedTab;
       v.translucent = b.translucent;
-      v.key = b.key;
     }
     return TabBarPropsBuilder._(v);
   }
 
-  _TabBarProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The selected tab component</p>
   set selectedTab(String value) => v.selectedTab = value;
 
-  ///
+  /// <p>If <code>true</code>, the tab bar will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _TabBarProps get v => super.v;
   TabBarProps build() {
+    super.build();
     return v;
   }
 
@@ -10016,10 +9876,10 @@ class TabBarPropsBuilder extends BuiltSimpleBuilder<TabBarProps> {
   }
 }
 
-class _TabButtonProps extends BuiltSimpleImpl
+class _TabButtonProps extends _IonProps
     with TabButtonProps
     implements TabButtonProps {
-  _TabButtonProps._() : super();
+  _TabButtonProps._() : super._();
 
   factory _TabButtonProps(BuilderFunc<TabButtonPropsBuilder> builder) =>
       TabButtonPropsBuilder.create(builder);
@@ -10036,16 +9896,14 @@ class _TabButtonProps extends BuiltSimpleImpl
 
   String tab;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["disabled"] = disabled;
     json["href"] = href;
-    json["layout"] = layout;
-    json["mode"] = mode;
+    json["layout"] = _enumToString(layout);
+    json["mode"] = _enumToString(mode);
     json["selected"] = selected;
     json["tab"] = tab;
-    json["key"] = key;
   }
 
   TabButtonProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10058,8 +9916,8 @@ class _TabButtonProps extends BuiltSimpleImpl
   TabButtonPropsBuilder toBuilder() => TabButtonPropsBuilder(this);
 }
 
-class TabButtonPropsBuilder extends BuiltSimpleBuilder<TabButtonProps> {
-  TabButtonPropsBuilder._(_TabButtonProps b) : v = b;
+class TabButtonPropsBuilder extends IonPropsBuilder {
+  TabButtonPropsBuilder._(_TabButtonProps b) : super._(b);
 
   factory TabButtonPropsBuilder([_TabButtonProps b]) {
     var v = _TabButtonProps._();
@@ -10070,34 +9928,32 @@ class TabButtonPropsBuilder extends BuiltSimpleBuilder<TabButtonProps> {
       v.mode = b.mode;
       v.selected = b.selected;
       v.tab = b.tab;
-      v.key = b.key;
     }
     return TabButtonPropsBuilder._(v);
   }
 
-  _TabButtonProps v;
-
-  ///
+  /// <p>The selected tab component</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The URL which will be used as the <code>href</code> within this tab&#39;s button anchor.</p>
   set href(String value) => v.href = value;
 
-  ///
+  /// <p>Set the layout of the text and icon in the tab bar.
+  /// It defaults to <code>&#39;icon-top&#39;</code>.</p>
   set layout(LayoutValue value) => v.layout = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The selected tab component</p>
   set selected(bool value) => v.selected = value;
 
-  ///
+  /// <p>A tab id must be provided for each <code>ion-tab</code>. It&#39;s used internally to reference
+  /// the selected tab or by the router to switch between them.</p>
   set tab(String value) => v.tab = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _TabButtonProps get v => super.v;
   TabButtonProps build() {
+    super.build();
     return v;
   }
 
@@ -10109,10 +9965,8 @@ class TabButtonPropsBuilder extends BuiltSimpleBuilder<TabButtonProps> {
   }
 }
 
-class _ToastProps extends BuiltSimpleImpl
-    with ToastProps
-    implements ToastProps {
-  _ToastProps._() : super();
+class _ToastProps extends _IonProps with ToastProps implements ToastProps {
+  _ToastProps._() : super._();
 
   factory _ToastProps(BuilderFunc<ToastPropsBuilder> builder) =>
       ToastPropsBuilder.create(builder);
@@ -10149,9 +10003,8 @@ class _ToastProps extends BuiltSimpleImpl
 
   ToastEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["animated"] = animated;
     json["buttons"] = buttons;
     json["closeButtonText"] = closeButtonText;
@@ -10163,12 +10016,10 @@ class _ToastProps extends BuiltSimpleImpl
     json["keyboardClose"] = keyboardClose;
     json["leaveAnimation"] = leaveAnimation;
     json["message"] = message;
-    json["mode"] = mode;
-    json["position"] = position;
+    json["mode"] = _enumToString(mode);
+    json["position"] = _enumToString(position);
     json["showCloseButton"] = showCloseButton;
     json["translucent"] = translucent;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ToastProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10181,8 +10032,8 @@ class _ToastProps extends BuiltSimpleImpl
   ToastPropsBuilder toBuilder() => ToastPropsBuilder(this);
 }
 
-class ToastPropsBuilder extends BuiltSimpleBuilder<ToastProps> {
-  ToastPropsBuilder._(_ToastProps b) : v = b;
+class ToastPropsBuilder extends IonPropsBuilder {
+  ToastPropsBuilder._(_ToastProps b) : super._(b);
 
   factory ToastPropsBuilder([_ToastProps b]) {
     var v = _ToastProps._();
@@ -10203,7 +10054,6 @@ class ToastPropsBuilder extends BuiltSimpleBuilder<ToastProps> {
       v.showCloseButton = b.showCloseButton;
       v.translucent = b.translucent;
       v.on = b.on;
-      v.key = b.key;
     }
     return ToastPropsBuilder._(v);
   }
@@ -10212,21 +10062,22 @@ class ToastPropsBuilder extends BuiltSimpleBuilder<ToastProps> {
 
   ToastEventPropsBuilder _on;
 
-  _ToastProps v;
-
-  ///
+  /// <p>If <code>true</code>, the toast will animate.</p>
   set animated(bool value) => v.animated = value;
 
-  ///
+  /// <p>An array of buttons for the toast.</p>
   set buttons(String value) => v.buttons = value;
 
-  ///
+  /// <p>Text to display in the close button.</p>
   set closeButtonText(String value) => v.closeButtonText = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>Additional classes to apply for custom CSS. If multiple classes are
+  /// provided they should be separated by spaces.</p>
   ListBuilder<String> get cssClass {
     if (_cssClass == null) {
       _cssClass = ListBuilder<String>(v.cssClass ?? const <String>[]);
@@ -10234,34 +10085,35 @@ class ToastPropsBuilder extends BuiltSimpleBuilder<ToastProps> {
     return _cssClass;
   }
 
-  ///
+  /// <p>How many milliseconds to wait before hiding the toast. By default, it will show
+  /// until <code>dismiss()</code> is called.</p>
   set duration(num value) => v.duration = value;
 
-  ///
+  /// <p>Animation to use when the toast is presented.</p>
   set enterAnimation(String value) => v.enterAnimation = value;
 
-  ///
+  /// <p>Header to be shown in the toast.</p>
   set header(String value) => v.header = value;
 
-  ///
+  /// <p>If <code>true</code>, the keyboard will be automatically dismissed when the overlay is presented.</p>
   set keyboardClose(bool value) => v.keyboardClose = value;
 
-  ///
+  /// <p>Animation to use when the toast is dismissed.</p>
   set leaveAnimation(String value) => v.leaveAnimation = value;
 
-  ///
+  /// <p>Message to be shown in the toast.</p>
   set message(String value) => v.message = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The position of the toast on the screen.</p>
   set position(ToastPropsPositionValue value) => v.position = value;
 
-  ///
+  /// <p>If <code>true</code>, the close button will be displayed.</p>
   set showCloseButton(bool value) => v.showCloseButton = value;
 
-  ///
+  /// <p>If <code>true</code>, the toast will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
 
   ///
@@ -10272,9 +10124,9 @@ class ToastPropsBuilder extends BuiltSimpleBuilder<ToastProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ToastProps get v => super.v;
   ToastProps build() {
+    super.build();
     v.cssClass = _cssClass?.build();
     v.on = _on?.build();
     return v;
@@ -10336,19 +10188,19 @@ class ToastEventPropsBuilder extends BuiltSimpleBuilder<ToastEventProps> {
 
   _ToastEventProps v;
 
-  ///
+  /// Emitted after the toast has dismissed.
   set ionToastDidDismiss(DartHandler<CustomEvent> value) =>
       v.ionToastDidDismiss = value;
 
-  ///
+  /// Emitted after the toast has presented.
   set ionToastDidPresent(DartHandler<CustomEvent> value) =>
       v.ionToastDidPresent = value;
 
-  ///
+  /// Emitted before the toast has dismissed.
   set ionToastWillDismiss(DartHandler<CustomEvent> value) =>
       v.ionToastWillDismiss = value;
 
-  ///
+  /// Emitted before the toast has presented.
   set ionToastWillPresent(DartHandler<CustomEvent> value) =>
       v.ionToastWillPresent = value;
   ToastEventProps build() {
@@ -10363,19 +10215,17 @@ class ToastEventPropsBuilder extends BuiltSimpleBuilder<ToastEventProps> {
   }
 }
 
-class _ToastControllerProps extends BuiltSimpleImpl
+class _ToastControllerProps extends _IonProps
     with ToastControllerProps
     implements ToastControllerProps {
-  _ToastControllerProps._() : super();
+  _ToastControllerProps._() : super._();
 
   factory _ToastControllerProps(
           BuilderFunc<ToastControllerPropsBuilder> builder) =>
       ToastControllerPropsBuilder.create(builder);
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
   }
 
   ToastControllerProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10388,23 +10238,18 @@ class _ToastControllerProps extends BuiltSimpleImpl
   ToastControllerPropsBuilder toBuilder() => ToastControllerPropsBuilder(this);
 }
 
-class ToastControllerPropsBuilder
-    extends BuiltSimpleBuilder<ToastControllerProps> {
-  ToastControllerPropsBuilder._(_ToastControllerProps b) : v = b;
+class ToastControllerPropsBuilder extends IonPropsBuilder {
+  ToastControllerPropsBuilder._(_ToastControllerProps b) : super._(b);
 
   factory ToastControllerPropsBuilder([_ToastControllerProps b]) {
     var v = _ToastControllerProps._();
-    if (b != null) {
-      v.key = b.key;
-    }
+    if (b != null) {}
     return ToastControllerPropsBuilder._(v);
   }
 
-  _ToastControllerProps v;
-
-  ///
-  set key(String value) => v.key = value;
+  _ToastControllerProps get v => super.v;
   ToastControllerProps build() {
+    super.build();
     return v;
   }
 
@@ -10416,10 +10261,8 @@ class ToastControllerPropsBuilder
   }
 }
 
-class _ToggleProps extends BuiltSimpleImpl
-    with ToggleProps
-    implements ToggleProps {
-  _ToggleProps._() : super();
+class _ToggleProps extends _IonProps with ToggleProps implements ToggleProps {
+  _ToggleProps._() : super._();
 
   factory _ToggleProps(BuilderFunc<TogglePropsBuilder> builder) =>
       TogglePropsBuilder.create(builder);
@@ -10438,17 +10281,14 @@ class _ToggleProps extends BuiltSimpleImpl
 
   ToggleEventProps on;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["checked"] = checked;
     json["color"] = color;
     json["disabled"] = disabled;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["name"] = name;
     json["value"] = value;
-    json["on"] = on;
-    json["key"] = key;
   }
 
   ToggleProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10461,8 +10301,8 @@ class _ToggleProps extends BuiltSimpleImpl
   TogglePropsBuilder toBuilder() => TogglePropsBuilder(this);
 }
 
-class TogglePropsBuilder extends BuiltSimpleBuilder<ToggleProps> {
-  TogglePropsBuilder._(_ToggleProps b) : v = b;
+class TogglePropsBuilder extends IonPropsBuilder {
+  TogglePropsBuilder._(_ToggleProps b) : super._(b);
 
   factory TogglePropsBuilder([_ToggleProps b]) {
     var v = _ToggleProps._();
@@ -10474,31 +10314,33 @@ class TogglePropsBuilder extends BuiltSimpleBuilder<ToggleProps> {
       v.name = b.name;
       v.value = b.value;
       v.on = b.on;
-      v.key = b.key;
     }
     return TogglePropsBuilder._(v);
   }
 
   ToggleEventPropsBuilder _on;
 
-  _ToggleProps v;
-
-  ///
+  /// <p>If <code>true</code>, the toggle is selected.</p>
   set checked(bool value) => v.checked = value;
 
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>If <code>true</code>, the user cannot interact with the toggle.</p>
   set disabled(bool value) => v.disabled = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The name of the control, which is submitted with the form data.</p>
   set name(String value) => v.name = value;
 
-  ///
+  /// <p>The value of the toggle does not mean if it&#39;s checked or not, use the <code>checked</code>
+  /// property for that.</p>
+  /// <p>The value of a toggle is analogous to the value of a <code>&lt;input type=&quot;checkbox&quot;&gt;</code>,
+  /// it&#39;s only used when the toggle participates in a native <code>&lt;form&gt;</code>.</p>
   set value(String value) => v.value = value;
 
   ///
@@ -10509,9 +10351,9 @@ class TogglePropsBuilder extends BuiltSimpleBuilder<ToggleProps> {
     return _on;
   }
 
-  ///
-  set key(String value) => v.key = value;
+  _ToggleProps get v => super.v;
   ToggleProps build() {
+    super.build();
     v.on = _on?.build();
     return v;
   }
@@ -10568,13 +10410,13 @@ class ToggleEventPropsBuilder extends BuiltSimpleBuilder<ToggleEventProps> {
 
   _ToggleEventProps v;
 
-  ///
+  /// Emitted when the toggle loses focus.
   set ionBlur(DartHandler<CustomEvent> value) => v.ionBlur = value;
 
-  ///
+  /// Emitted when the value property has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
 
-  ///
+  /// Emitted when the toggle has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
   ToggleEventProps build() {
     return v;
@@ -10588,10 +10430,10 @@ class ToggleEventPropsBuilder extends BuiltSimpleBuilder<ToggleEventProps> {
   }
 }
 
-class _ToolbarProps extends BuiltSimpleImpl
+class _ToolbarProps extends _IonProps
     with ToolbarProps
     implements ToolbarProps {
-  _ToolbarProps._() : super();
+  _ToolbarProps._() : super._();
 
   factory _ToolbarProps(BuilderFunc<ToolbarPropsBuilder> builder) =>
       ToolbarPropsBuilder.create(builder);
@@ -10600,12 +10442,10 @@ class _ToolbarProps extends BuiltSimpleImpl
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   ToolbarProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10618,30 +10458,28 @@ class _ToolbarProps extends BuiltSimpleImpl
   ToolbarPropsBuilder toBuilder() => ToolbarPropsBuilder(this);
 }
 
-class ToolbarPropsBuilder extends BuiltSimpleBuilder<ToolbarProps> {
-  ToolbarPropsBuilder._(_ToolbarProps b) : v = b;
+class ToolbarPropsBuilder extends IonPropsBuilder {
+  ToolbarPropsBuilder._(_ToolbarProps b) : super._(b);
 
   factory ToolbarPropsBuilder([_ToolbarProps b]) {
     var v = _ToolbarProps._();
     if (b != null) {
       v.color = b.color;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return ToolbarPropsBuilder._(v);
   }
 
-  _ToolbarProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _ToolbarProps get v => super.v;
   ToolbarProps build() {
+    super.build();
     return v;
   }
 
@@ -10652,10 +10490,8 @@ class ToolbarPropsBuilder extends BuiltSimpleBuilder<ToolbarProps> {
   }
 }
 
-class _HeaderProps extends BuiltSimpleImpl
-    with HeaderProps
-    implements HeaderProps {
-  _HeaderProps._() : super();
+class _HeaderProps extends _IonProps with HeaderProps implements HeaderProps {
+  _HeaderProps._() : super._();
 
   factory _HeaderProps(BuilderFunc<HeaderPropsBuilder> builder) =>
       HeaderPropsBuilder.create(builder);
@@ -10664,12 +10500,10 @@ class _HeaderProps extends BuiltSimpleImpl
 
   bool translucent;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["mode"] = mode;
+    super.fillJson(json);
+    json["mode"] = _enumToString(mode);
     json["translucent"] = translucent;
-    json["key"] = key;
   }
 
   HeaderProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10682,30 +10516,28 @@ class _HeaderProps extends BuiltSimpleImpl
   HeaderPropsBuilder toBuilder() => HeaderPropsBuilder(this);
 }
 
-class HeaderPropsBuilder extends BuiltSimpleBuilder<HeaderProps> {
-  HeaderPropsBuilder._(_HeaderProps b) : v = b;
+class HeaderPropsBuilder extends IonPropsBuilder {
+  HeaderPropsBuilder._(_HeaderProps b) : super._(b);
 
   factory HeaderPropsBuilder([_HeaderProps b]) {
     var v = _HeaderProps._();
     if (b != null) {
       v.mode = b.mode;
       v.translucent = b.translucent;
-      v.key = b.key;
     }
     return HeaderPropsBuilder._(v);
   }
 
-  _HeaderProps v;
-
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, the header will be translucent.
+  /// Note: In order to scroll content behind the header, the <code>fullscreen</code>
+  /// attribute needs to be set on the content.</p>
   set translucent(bool value) => v.translucent = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _HeaderProps get v => super.v;
   HeaderProps build() {
+    super.build();
     return v;
   }
 
@@ -10716,10 +10548,8 @@ class HeaderPropsBuilder extends BuiltSimpleBuilder<HeaderProps> {
   }
 }
 
-class _FooterProps extends BuiltSimpleImpl
-    with FooterProps
-    implements FooterProps {
-  _FooterProps._() : super();
+class _FooterProps extends _IonProps with FooterProps implements FooterProps {
+  _FooterProps._() : super._();
 
   factory _FooterProps(BuilderFunc<FooterPropsBuilder> builder) =>
       FooterPropsBuilder.create(builder);
@@ -10728,12 +10558,10 @@ class _FooterProps extends BuiltSimpleImpl
 
   bool translucent;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
-    json["mode"] = mode;
+    super.fillJson(json);
+    json["mode"] = _enumToString(mode);
     json["translucent"] = translucent;
-    json["key"] = key;
   }
 
   FooterProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10746,30 +10574,28 @@ class _FooterProps extends BuiltSimpleImpl
   FooterPropsBuilder toBuilder() => FooterPropsBuilder(this);
 }
 
-class FooterPropsBuilder extends BuiltSimpleBuilder<FooterProps> {
-  FooterPropsBuilder._(_FooterProps b) : v = b;
+class FooterPropsBuilder extends IonPropsBuilder {
+  FooterPropsBuilder._(_FooterProps b) : super._(b);
 
   factory FooterPropsBuilder([_FooterProps b]) {
     var v = _FooterProps._();
     if (b != null) {
       v.mode = b.mode;
       v.translucent = b.translucent;
-      v.key = b.key;
     }
     return FooterPropsBuilder._(v);
   }
 
-  _FooterProps v;
-
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>If <code>true</code>, the footer will be translucent.
+  /// Note: In order to scroll content behind the footer, the <code>fullscreen</code>
+  /// attribute needs to be set on the content.</p>
   set translucent(bool value) => v.translucent = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _FooterProps get v => super.v;
   FooterProps build() {
+    super.build();
     return v;
   }
 
@@ -10780,21 +10606,17 @@ class FooterPropsBuilder extends BuiltSimpleBuilder<FooterProps> {
   }
 }
 
-class _TitleProps extends BuiltSimpleImpl
-    with TitleProps
-    implements TitleProps {
-  _TitleProps._() : super();
+class _TitleProps extends _IonProps with TitleProps implements TitleProps {
+  _TitleProps._() : super._();
 
   factory _TitleProps(BuilderFunc<TitlePropsBuilder> builder) =>
       TitlePropsBuilder.create(builder);
 
   String color;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["key"] = key;
   }
 
   TitleProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10807,26 +10629,24 @@ class _TitleProps extends BuiltSimpleImpl
   TitlePropsBuilder toBuilder() => TitlePropsBuilder(this);
 }
 
-class TitlePropsBuilder extends BuiltSimpleBuilder<TitleProps> {
-  TitlePropsBuilder._(_TitleProps b) : v = b;
+class TitlePropsBuilder extends IonPropsBuilder {
+  TitlePropsBuilder._(_TitleProps b) : super._(b);
 
   factory TitlePropsBuilder([_TitleProps b]) {
     var v = _TitleProps._();
     if (b != null) {
       v.color = b.color;
-      v.key = b.key;
     }
     return TitlePropsBuilder._(v);
   }
 
-  _TitleProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _TitleProps get v => super.v;
   TitleProps build() {
+    super.build();
     return v;
   }
 
@@ -10837,18 +10657,19 @@ class TitlePropsBuilder extends BuiltSimpleBuilder<TitleProps> {
   }
 }
 
-class _ButtonsProps extends BuiltSimpleImpl
+class _ButtonsProps extends _IonProps
     with ButtonsProps
     implements ButtonsProps {
-  _ButtonsProps._() : super();
+  _ButtonsProps._() : super._();
 
   factory _ButtonsProps(BuilderFunc<ButtonsPropsBuilder> builder) =>
       ButtonsPropsBuilder.create(builder);
 
-  String key;
+  ButtonsPropsSlotValue slot;
 
   fillJson(Map<String, dynamic> json) {
-    json["key"] = key;
+    super.fillJson(json);
+    json["slot"] = _enumToString(slot);
   }
 
   ButtonsProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10861,22 +10682,22 @@ class _ButtonsProps extends BuiltSimpleImpl
   ButtonsPropsBuilder toBuilder() => ButtonsPropsBuilder(this);
 }
 
-class ButtonsPropsBuilder extends BuiltSimpleBuilder<ButtonsProps> {
-  ButtonsPropsBuilder._(_ButtonsProps b) : v = b;
+class ButtonsPropsBuilder extends IonPropsBuilder {
+  ButtonsPropsBuilder._(_ButtonsProps b) : super._(b);
 
   factory ButtonsPropsBuilder([_ButtonsProps b]) {
     var v = _ButtonsProps._();
     if (b != null) {
-      v.key = b.key;
+      v.slot = b.slot;
     }
     return ButtonsPropsBuilder._(v);
   }
 
-  _ButtonsProps v;
-
   ///
-  set key(String value) => v.key = value;
+  set slot(ButtonsPropsSlotValue value) => v.slot = value;
+  _ButtonsProps get v => super.v;
   ButtonsProps build() {
+    super.build();
     return v;
   }
 
@@ -10887,10 +10708,10 @@ class ButtonsPropsBuilder extends BuiltSimpleBuilder<ButtonsProps> {
   }
 }
 
-class _BackButtonProps extends BuiltSimpleImpl
+class _BackButtonProps extends _IonProps
     with BackButtonProps
     implements BackButtonProps {
-  _BackButtonProps._() : super();
+  _BackButtonProps._() : super._();
 
   factory _BackButtonProps(BuilderFunc<BackButtonPropsBuilder> builder) =>
       BackButtonPropsBuilder.create(builder);
@@ -10905,15 +10726,13 @@ class _BackButtonProps extends BuiltSimpleImpl
 
   String text;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
     json["defaultHref"] = defaultHref;
     json["icon"] = icon;
-    json["mode"] = mode;
+    json["mode"] = _enumToString(mode);
     json["text"] = text;
-    json["key"] = key;
   }
 
   BackButtonProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -10926,8 +10745,8 @@ class _BackButtonProps extends BuiltSimpleImpl
   BackButtonPropsBuilder toBuilder() => BackButtonPropsBuilder(this);
 }
 
-class BackButtonPropsBuilder extends BuiltSimpleBuilder<BackButtonProps> {
-  BackButtonPropsBuilder._(_BackButtonProps b) : v = b;
+class BackButtonPropsBuilder extends IonPropsBuilder {
+  BackButtonPropsBuilder._(_BackButtonProps b) : super._(b);
 
   factory BackButtonPropsBuilder([_BackButtonProps b]) {
     var v = _BackButtonProps._();
@@ -10937,31 +10756,29 @@ class BackButtonPropsBuilder extends BuiltSimpleBuilder<BackButtonProps> {
       v.icon = b.icon;
       v.mode = b.mode;
       v.text = b.text;
-      v.key = b.key;
     }
     return BackButtonPropsBuilder._(v);
   }
 
-  _BackButtonProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The url to navigate back to by default when there is no history.</p>
   set defaultHref(String value) => v.defaultHref = value;
 
-  ///
+  /// <p>The icon name to use for the back button.</p>
   set icon(String value) => v.icon = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
 
-  ///
+  /// <p>The text to display in the back button.</p>
   set text(String value) => v.text = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _BackButtonProps get v => super.v;
   BackButtonProps build() {
+    super.build();
     return v;
   }
 
@@ -10973,10 +10790,8 @@ class BackButtonPropsBuilder extends BuiltSimpleBuilder<BackButtonProps> {
   }
 }
 
-class _AnchorProps extends BuiltSimpleImpl
-    with AnchorProps
-    implements AnchorProps {
-  _AnchorProps._() : super();
+class _AnchorProps extends _IonProps with AnchorProps implements AnchorProps {
+  _AnchorProps._() : super._();
 
   factory _AnchorProps(BuilderFunc<AnchorPropsBuilder> builder) =>
       AnchorPropsBuilder.create(builder);
@@ -10987,13 +10802,11 @@ class _AnchorProps extends BuiltSimpleImpl
 
   RouterDirectionValue routerDirection;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
     json["href"] = href;
-    json["routerDirection"] = routerDirection;
-    json["key"] = key;
+    json["routerDirection"] = _enumToString(routerDirection);
   }
 
   AnchorProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -11006,8 +10819,8 @@ class _AnchorProps extends BuiltSimpleImpl
   AnchorPropsBuilder toBuilder() => AnchorPropsBuilder(this);
 }
 
-class AnchorPropsBuilder extends BuiltSimpleBuilder<AnchorProps> {
-  AnchorPropsBuilder._(_AnchorProps b) : v = b;
+class AnchorPropsBuilder extends IonPropsBuilder {
+  AnchorPropsBuilder._(_AnchorProps b) : super._(b);
 
   factory AnchorPropsBuilder([_AnchorProps b]) {
     var v = _AnchorProps._();
@@ -11015,25 +10828,25 @@ class AnchorPropsBuilder extends BuiltSimpleBuilder<AnchorProps> {
       v.color = b.color;
       v.href = b.href;
       v.routerDirection = b.routerDirection;
-      v.key = b.key;
     }
     return AnchorPropsBuilder._(v);
   }
 
-  _AnchorProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>Contains a URL or a URL fragment that the hyperlink points to.
+  /// If this property is set, an anchor tag will be rendered.</p>
   set href(String value) => v.href = value;
 
-  ///
+  /// <p>When using a router, it specifies the transition direction when navigating to
+  /// another page using <code>href</code>.</p>
   set routerDirection(RouterDirectionValue value) => v.routerDirection = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _AnchorProps get v => super.v;
   AnchorProps build() {
+    super.build();
     return v;
   }
 
@@ -11044,8 +10857,8 @@ class AnchorPropsBuilder extends BuiltSimpleBuilder<AnchorProps> {
   }
 }
 
-class _TextProps extends BuiltSimpleImpl with TextProps implements TextProps {
-  _TextProps._() : super();
+class _TextProps extends _IonProps with TextProps implements TextProps {
+  _TextProps._() : super._();
 
   factory _TextProps(BuilderFunc<TextPropsBuilder> builder) =>
       TextPropsBuilder.create(builder);
@@ -11054,12 +10867,10 @@ class _TextProps extends BuiltSimpleImpl with TextProps implements TextProps {
 
   ModeValue mode;
 
-  String key;
-
   fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
     json["color"] = color;
-    json["mode"] = mode;
-    json["key"] = key;
+    json["mode"] = _enumToString(mode);
   }
 
   TextProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -11072,35 +10883,131 @@ class _TextProps extends BuiltSimpleImpl with TextProps implements TextProps {
   TextPropsBuilder toBuilder() => TextPropsBuilder(this);
 }
 
-class TextPropsBuilder extends BuiltSimpleBuilder<TextProps> {
-  TextPropsBuilder._(_TextProps b) : v = b;
+class TextPropsBuilder extends IonPropsBuilder {
+  TextPropsBuilder._(_TextProps b) : super._(b);
 
   factory TextPropsBuilder([_TextProps b]) {
     var v = _TextProps._();
     if (b != null) {
       v.color = b.color;
       v.mode = b.mode;
-      v.key = b.key;
     }
     return TextPropsBuilder._(v);
   }
 
-  _TextProps v;
-
-  ///
+  /// <p>The color to use from your application&#39;s color palette.
+  /// Default options are: <code>&quot;primary&quot;</code>, <code>&quot;secondary&quot;</code>, <code>&quot;tertiary&quot;</code>, <code>&quot;success&quot;</code>, <code>&quot;warning&quot;</code>, <code>&quot;danger&quot;</code>, <code>&quot;light&quot;</code>, <code>&quot;medium&quot;</code>, and <code>&quot;dark&quot;</code>.
+  /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
 
-  ///
+  /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
-
-  ///
-  set key(String value) => v.key = value;
+  _TextProps get v => super.v;
   TextProps build() {
+    super.build();
     return v;
   }
 
   static _TextProps create(BuilderFunc<TextPropsBuilder> builderFunc) {
     var builder = new TextPropsBuilder._(_TextProps._());
+    if (builderFunc != null) builderFunc(builder);
+    return builder.build();
+  }
+}
+
+class _IconProps extends _IonProps with IconProps implements IconProps {
+  _IconProps._() : super._();
+
+  factory _IconProps(BuilderFunc<IconPropsBuilder> builder) =>
+      IconPropsBuilder.create(builder);
+
+  String name;
+
+  IconPropsSlotValue slot;
+
+  fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
+    json["name"] = name;
+    json["slot"] = _enumToString(slot);
+  }
+
+  IconProps rebuild<T>(BuilderFunc<T> builderFuncT) {
+    var builderFunc = builderFuncT as BuilderFunc<IconPropsBuilder>;
+    var builder = toBuilder();
+    builderFunc(builder);
+    return builder.build();
+  }
+
+  IconPropsBuilder toBuilder() => IconPropsBuilder(this);
+}
+
+class IconPropsBuilder extends IonPropsBuilder {
+  IconPropsBuilder._(_IconProps b) : super._(b);
+
+  factory IconPropsBuilder([_IconProps b]) {
+    var v = _IconProps._();
+    if (b != null) {
+      v.name = b.name;
+      v.slot = b.slot;
+    }
+    return IconPropsBuilder._(v);
+  }
+
+  ///
+  set name(String value) => v.name = value;
+
+  ///
+  set slot(IconPropsSlotValue value) => v.slot = value;
+  _IconProps get v => super.v;
+  IconProps build() {
+    super.build();
+    return v;
+  }
+
+  static _IconProps create(BuilderFunc<IconPropsBuilder> builderFunc) {
+    var builder = new IconPropsBuilder._(_IconProps._());
+    if (builderFunc != null) builderFunc(builder);
+    return builder.build();
+  }
+}
+
+class _PageProps extends _IonProps with PageProps implements PageProps {
+  _PageProps._() : super._();
+
+  factory _PageProps(BuilderFunc<PagePropsBuilder> builder) =>
+      PagePropsBuilder.create(builder);
+
+  fillJson(Map<String, dynamic> json) {
+    super.fillJson(json);
+  }
+
+  PageProps rebuild<T>(BuilderFunc<T> builderFuncT) {
+    var builderFunc = builderFuncT as BuilderFunc<PagePropsBuilder>;
+    var builder = toBuilder();
+    builderFunc(builder);
+    return builder.build();
+  }
+
+  PagePropsBuilder toBuilder() => PagePropsBuilder(this);
+}
+
+class PagePropsBuilder extends IonPropsBuilder {
+  PagePropsBuilder._(_PageProps b) : super._(b);
+
+  factory PagePropsBuilder([_PageProps b]) {
+    var v = _PageProps._();
+    if (b != null) {}
+    return PagePropsBuilder._(v);
+  }
+
+  _PageProps get v => super.v;
+  PageProps build() {
+    super.build();
+    return v;
+  }
+
+  static _PageProps create(BuilderFunc<PagePropsBuilder> builderFunc) {
+    var builder = new PagePropsBuilder._(_PageProps._());
     if (builderFunc != null) builderFunc(builder);
     return builder.build();
   }

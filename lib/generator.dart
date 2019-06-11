@@ -391,12 +391,52 @@ const ionicPrefix = '''
 import 'element.dart';
 import 'built_simple.dart';
 import 'props.dart';
+import 'component.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:react/react_client.dart';
 import 'dart:html';
+import 'dart:async';
 
 part 'ionic.built.g.dart';
     
+String _enumToString(dynamic e) => e != null ? e.toString().split('.').last.replaceAll('default_value', 'default').replaceAll('_', '-') : null;
+
+StreamSubscription<CustomEvent> _subscribe(ElementStream<CustomEvent> stream, DartHandler<CustomEvent> handler) => 
+    handler == null ? null : stream.listen((e) => handler(e));
+    
+abstract class IonProps implements BuiltSimple, Props {
+
+  /// Css classes
+  @BuiltSimpleField(json: '_classNameJson(json, value)')
+  BuiltList<String> get className;
+
+  /// Custom attributes
+  @BuiltSimpleField(json: '_customJson(json, value)')
+  BuiltMap<String, CustomValue> get custom;
+
+}    
+
+_customJson(Map<String, dynamic> json, BuiltMap<String, CustomValue> value) {
+  if (value != null) {
+    json.addAll(value.toMap().map((k, v) => MapEntry<String, dynamic>(k, v.value)));
+  }
+}
+
+_classNameJson(Map<String, dynamic> json, BuiltList<String> value) {
+  if (value != null) {
+    var stringValue = value.toList().join(' ');
+    if(json['class']!=null) {
+      stringValue = json['class']+' '+stringValue;
+    }
+    json['class'] = stringValue;
+  }
+}
+    
 ''';
+
+var _slots = <String, String>{
+  'ion-buttons': '"secondary" | "primary" | "start" | "end"'
+};
 
 class IonicGenerator extends Generator {
   List<Class> generatedClasses = [];
@@ -409,6 +449,24 @@ class IonicGenerator extends Generator {
   FutureOr<String> generate(LibraryReader library, BuildStep buildStep) async {
     var file = File('generate/ionic.json');
     var json = jsonDecode(file.readAsStringSync());
+    json['ion-icon'] = <String, dynamic>{
+      'title': 'ion-icon',
+      'tag': 'ion-icon',
+      'props': [
+        <String, dynamic>{'name': 'name', 'type': 'string', 'docs': ''},
+        <String, dynamic>{'name': 'slot', 'type': '"icon-only" | "start" | "end"', 'docs': ''}
+      ],
+      'docs': '',
+      'events': []
+    };
+    json['ion-page'] = <String, dynamic>{
+      'title': 'ion-page',
+      'tag': 'ion-page',
+      'props': [],
+      'docs': '',
+      'events': []
+    };
+    json['ion-buttons']['props'].add({ 'name': 'slot', 'type': '"secondary" | "primary" | "start" | "end"', 'docs': ''});
     await generateClasses(json);
     var emitter = DartEmitter();
     var typedefs = lines.map((c) => c.accept(emitter).toString()).join('\n');
@@ -421,10 +479,62 @@ class IonicGenerator extends Generator {
     json.keys.forEach((key) {
       var element = json[key];
       generatePropClass(element);
+      generateElementClass(element);
       if (element['events'].length > 0) {
         generateEventClass(element);
       }
     });
+    generateIonClass(json);
+  }
+
+  generateIonClass(Map<String, dynamic> json) {
+    generatedClasses.add(Class((c) => c
+      ..name = 'Ion'
+      ..fields.addAll(json.keys.map((k) {
+        var element = json[k];
+        var name = ReCase(element['tag']).pascalCase;
+        var builderName = ReCase(element['tag'].substring(4)).pascalCase + 'PropsBuilder';
+        return Field((f) => f
+          ..name = ReCase(name.substring(3)).camelCase
+          ..static = true
+          ..modifier = FieldModifier.final$
+          ..type = Reference('ElementFactory<${builderName}>')
+          ..assignment = Code('([b,c]) => ${name}(b, c)'));
+      }))));
+  }
+
+  generateElementClass(Map<String, dynamic> json) {
+    var name = ReCase(json['tag']).pascalCase;
+    var propsName = ReCase(json['tag'].substring(4)).pascalCase + 'Props';
+    generatedClasses.add(Class((c) => c
+      ..name = name
+      ..extend = Reference('HtmlElementBase')
+      ..docs.addAll(docs(json['docs']))
+      ..methods.add(Method((m) => m
+        ..name = 'props'
+        ..type = MethodType.getter
+        ..returns = Reference(propsName)
+        ..lambda = true
+        ..body = Code('super.props')))
+      ..fields.add(Field((f) => f
+        ..name = 'factory'
+        ..static = true
+        ..modifier = FieldModifier.final$
+        ..assignment = Code('ReactDomComponentFactoryProxy(\'${json['tag']}\')')))
+      ..constructors.add(Constructor((c) => c
+        ..optionalParameters.add(Parameter((p) => p
+          ..name = 'propsBuilder'
+          ..type = Reference('BuilderFunc<' + propsName + 'Builder>')))
+        ..optionalParameters.add(Parameter((p) => p
+          ..name = 'children'
+          ..type = Reference('List<RenderResult>')))
+        ..initializers.add(Code('super(' + propsName + '(propsBuilder), children, factory)'))))
+      ..constructors.add(Constructor((c) => c
+        ..name = 'c'
+        ..requiredParameters.add(Parameter((p) => p
+          ..name = 'children'
+          ..type = Reference('List<RenderResult>')))
+        ..initializers.add(Code('super(' + propsName + '(null), children, factory)'))))));
   }
 
   typeReference(String elementName, String propName, String type) {
@@ -444,7 +554,7 @@ class IonicGenerator extends Generator {
     if (type.startsWith('"')) {
       if (!enumTypes.containsKey(type)) {
         var typeName = '${ReCase(propName).pascalCase}Value';
-        if (['side', 'size', 'position', 'type'].contains(propName)) {
+        if (['side', 'size', 'position', 'type', 'slot'].contains(propName)) {
           typeName = ReCase(elementName).pascalCase + typeName;
         }
         var values = type
@@ -477,20 +587,27 @@ class IonicGenerator extends Generator {
     return Reference('String');
   }
 
+  Iterable<String> docs(String docs) => docs.split('\n').where((l) => l.length > 0).map((l) => '/// $l');
+
   generatePropClass(Map<String, dynamic> element) {
     var name = ReCase(element['tag'].substring(4)).pascalCase + 'Props';
     var eventPropsName = ReCase(element['tag'].substring(4)).pascalCase + 'EventProps';
     List<dynamic> props = element['props'];
     generatedClasses.add(Class((c) => c
       ..name = name
-      ..implements.add(Reference('Props'))
+      ..implements.add(Reference('IonProps'))
       ..implements.add(Reference('BuiltSimple'))
+      ..implements.addAll(element['events'].length > 0 ? [Reference('Subscribable')] : [])
       ..abstract = true
       ..methods.addAll(props
           .where((p) => p != null)
           .map<Method>((prop) => Method((m) => m
             ..name = prop['name']
             ..type = MethodType.getter
+            ..docs.addAll(docs(prop['docs']))
+            ..annotations.addAll(prop['type'].contains('"')
+                ? [CodeExpression(Code('BuiltSimpleField(json: \'json[name]=_enumToString(value)\')'))]
+                : [])
             ..returns = typeReference(name, prop['name'], prop['type'])))
           .toList())
       ..methods.addAll(element['events'].length > 0
@@ -498,7 +615,16 @@ class IonicGenerator extends Generator {
               Method((m) => m
                 ..name = 'on'
                 ..type = MethodType.getter
-                ..returns = Reference(eventPropsName))
+                ..annotations.add(CodeExpression(Code('BuiltSimpleField(json: \'\')')))
+                ..returns = Reference(eventPropsName)),
+              Method((m) => m
+                ..name = 'subscribeAll'
+                ..returns = Reference('Iterable<StreamSubscription>')
+                ..lambda = true
+                ..requiredParameters.add(Parameter((p) => p
+                  ..name = 'e'
+                  ..type = Reference('Element')))
+                ..body = Code('on?.subscribeAll(e)'))
             ]
           : [])
       ..constructors.add(Constructor((c) => c
@@ -522,8 +648,19 @@ class IonicGenerator extends Generator {
           .map<Method>((event) => Method((m) => m
             ..name = event['event']
             ..type = MethodType.getter
+            ..docs.addAll(docs(event['docs']))
             ..returns = Reference('DartHandler<CustomEvent>')))
           .toList())
+      ..methods.add(Method((m) => m
+        ..name = 'subscribeAll'
+        ..returns = Reference('Iterable<StreamSubscription>')
+        ..lambda = true
+        ..requiredParameters.add(Parameter((p) => p
+          ..name = 'e'
+          ..type = Reference('Element')))
+        ..body = Code('<StreamSubscription>[' +
+            events.map((event) => '_subscribe(e.on[\'${event['event']}\'], ${event['event']})').join(',') +
+            '].where((s) => s != null)')))
       ..constructors.add(Constructor((c) => c
         ..factory = true
         ..lambda = true
@@ -681,8 +818,8 @@ class BuiltSimpleGenerator extends Generator {
       var value = f.name;
       var jsonExpr = builtSimpleField?.getField('json')?.toStringValue() ?? 'json[name]=value';
       jsonExpr = jsonExpr.replaceAll('name', '"' + name + '"').replaceAll('value', value);
-      return Code('$jsonExpr;');
-    }));
+      return jsonExpr.isNotEmpty ? Code('$jsonExpr;') : null;
+    }).where((c) => c != null));
     return ret;
   }
 
