@@ -12,6 +12,7 @@ export 'src/element.dart' show Size, SizeUnit;
 export 'src/built_simple.dart';
 export 'src/props.dart';
 export 'src/click_outside_handler.dart';
+export 'src/components/router.dart';
 
 render(Component component, String selector) {
   react_dom.render(component.toUntyped(), querySelector(selector));

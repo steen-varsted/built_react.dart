@@ -11,8 +11,14 @@ enum ComponentMethod {
 }
 
 class BuiltSimpleField {
-  const BuiltSimpleField({this.flattenJsonPrefix, this.stringJoin, this.json});
+  const BuiltSimpleField({this.flattenJsonPrefix, this.stringJoin, this.json, this.fromJson});
   final String flattenJsonPrefix;
   final String stringJoin;
   final String json;
+  final String fromJson;
+}
+
+class BuiltSimpleClass {
+  const BuiltSimpleClass({this.buildFromJson});
+  final bool buildFromJson;
 }

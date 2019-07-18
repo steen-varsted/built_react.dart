@@ -24,8 +24,8 @@ String _enumToString(dynamic e) => e != null
         .replaceAll('_', '-')
     : null;
 
-StreamSubscription<CustomEvent> _subscribe(
-        ElementStream<CustomEvent> stream, DartHandler<CustomEvent> handler) =>
+StreamSubscription<T1> _subscribe<T1 extends Event, T2 extends T1>(
+        ElementStream<T1> stream, DartHandler<T2> handler) =>
     handler == null ? null : stream.listen((e) => handler(e));
 
 abstract class IonProps implements BuiltSimple, Props {
@@ -48,7 +48,7 @@ _customJson(Map<String, dynamic> json, BuiltMap<String, CustomValue> value) {
 _classNameJson(Map<String, dynamic> json, BuiltList<String> value) {
   if (value != null) {
     var stringValue = value.toList().join(' ');
-    if (json['className'] != null) {
+    if (json['class'] != null) {
       stringValue = json['class'] + ' ' + stringValue;
     }
     json['class'] = stringValue;
@@ -182,11 +182,14 @@ abstract class ActionSheetEventProps implements BuiltSimple {
   /// Emitted before the alert has presented.
   DartHandler<CustomEvent> get ionActionSheetWillPresent;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionActionSheetDidDismiss'], ionActionSheetDidDismiss),
-        _subscribe(e.on['ionActionSheetDidPresent'], ionActionSheetDidPresent),
-        _subscribe(
+        _subscribe<Event, CustomEvent>(
+            e.on['ionActionSheetDidDismiss'], ionActionSheetDidDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionActionSheetDidPresent'], ionActionSheetDidPresent),
+        _subscribe<Event, CustomEvent>(
             e.on['ionActionSheetWillDismiss'], ionActionSheetWillDismiss),
-        _subscribe(e.on['ionActionSheetWillPresent'], ionActionSheetWillPresent)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionActionSheetWillPresent'], ionActionSheetWillPresent)
       ].where((s) => s != null);
 }
 
@@ -297,10 +300,14 @@ abstract class AlertEventProps implements BuiltSimple {
   /// Emitted before the alert has presented.
   DartHandler<CustomEvent> get ionAlertWillPresent;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionAlertDidDismiss'], ionAlertDidDismiss),
-        _subscribe(e.on['ionAlertDidPresent'], ionAlertDidPresent),
-        _subscribe(e.on['ionAlertWillDismiss'], ionAlertWillDismiss),
-        _subscribe(e.on['ionAlertWillPresent'], ionAlertWillPresent)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionAlertDidDismiss'], ionAlertDidDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionAlertDidPresent'], ionAlertDidPresent),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionAlertWillDismiss'], ionAlertWillDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionAlertWillPresent'], ionAlertWillPresent)
       ].where((s) => s != null);
 }
 
@@ -449,9 +456,11 @@ abstract class ButtonEventProps implements BuiltSimple {
 
   /// Emitted when the button has focus.
   DartHandler<CustomEvent> get ionFocus;
+  DartHandler<MouseEvent> get click;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionFocus'], ionFocus)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus),
+        _subscribe<MouseEvent, MouseEvent>(e.onClick, click)
       ].where((s) => s != null);
 }
 
@@ -715,9 +724,9 @@ abstract class CheckboxEventProps implements BuiltSimple {
   /// Emitted when the toggle has focus.
   DartHandler<CustomEvent> get ionFocus;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionFocus'], ionFocus)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus)
       ].where((s) => s != null);
 }
 
@@ -835,9 +844,9 @@ abstract class ContentEventProps implements BuiltSimple {
   /// Emitted when the scroll has started.
   DartHandler<CustomEvent> get ionScrollStart;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionScroll'], ionScroll),
-        _subscribe(e.on['ionScrollEnd'], ionScrollEnd),
-        _subscribe(e.on['ionScrollStart'], ionScrollStart)
+        _subscribe<Event, CustomEvent>(e.on['ionScroll'], ionScroll),
+        _subscribe<Event, CustomEvent>(e.on['ionScrollEnd'], ionScrollEnd),
+        _subscribe<Event, CustomEvent>(e.on['ionScrollStart'], ionScrollStart)
       ].where((s) => s != null);
 }
 
@@ -999,10 +1008,10 @@ abstract class DatetimeEventProps implements BuiltSimple {
   /// Emitted when the datetime has focus.
   DartHandler<CustomEvent> get ionFocus;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionCancel'], ionCancel),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionFocus'], ionFocus)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionCancel'], ionCancel),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus)
       ].where((s) => s != null);
 }
 
@@ -1080,10 +1089,14 @@ abstract class PickerEventProps implements BuiltSimple {
   /// Emitted before the picker has presented.
   DartHandler<CustomEvent> get ionPickerWillPresent;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionPickerDidDismiss'], ionPickerDidDismiss),
-        _subscribe(e.on['ionPickerDidPresent'], ionPickerDidPresent),
-        _subscribe(e.on['ionPickerWillDismiss'], ionPickerWillDismiss),
-        _subscribe(e.on['ionPickerWillPresent'], ionPickerWillPresent)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPickerDidDismiss'], ionPickerDidDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPickerDidPresent'], ionPickerDidPresent),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPickerWillDismiss'], ionPickerWillDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPickerWillPresent'], ionPickerWillPresent)
       ].where((s) => s != null);
 }
 
@@ -1216,8 +1229,8 @@ abstract class FabButtonEventProps implements BuiltSimple {
   /// Emitted when the button has focus.
   DartHandler<CustomEvent> get ionFocus;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionFocus'], ionFocus)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus)
       ].where((s) => s != null);
 }
 
@@ -1469,7 +1482,7 @@ abstract class InfiniteScrollEventProps implements BuiltSimple {
   /// your async operation has completed.
   DartHandler<CustomEvent> get ionInfinite;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionInfinite'], ionInfinite)
+        _subscribe<Event, CustomEvent>(e.on['ionInfinite'], ionInfinite)
       ].where((s) => s != null);
 }
 
@@ -1636,10 +1649,10 @@ abstract class InputEventProps implements BuiltSimple {
   /// Emitted when a keyboard input ocurred.
   DartHandler<CustomEvent> get ionInput;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionFocus'], ionFocus),
-        _subscribe(e.on['ionInput'], ionInput)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus),
+        _subscribe<Event, CustomEvent>(e.on['ionInput'], ionInput)
       ].where((s) => s != null);
 }
 
@@ -1746,14 +1759,14 @@ abstract class TextareaEventProps implements BuiltSimple {
   /// Emitted when a keyboard input ocurred.
   DartHandler<CustomEvent> get ionInput;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionFocus'], ionFocus),
-        _subscribe(e.on['ionInput'], ionInput)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus),
+        _subscribe<Event, CustomEvent>(e.on['ionInput'], ionInput)
       ].where((s) => s != null);
 }
 
-abstract class ItemProps implements IonProps, BuiltSimple {
+abstract class ItemProps implements IonProps, BuiltSimple, Subscribable {
   factory ItemProps([BuilderFunc<ItemPropsBuilder> updates]) =>
       _ItemProps(updates);
 
@@ -1795,6 +1808,9 @@ abstract class ItemProps implements IonProps, BuiltSimple {
   /// <p>The type of the button. Only used when an <code>onclick</code> or <code>button</code> property is present.</p>
   @BuiltSimpleField(json: 'json[name]=_enumToString(value)')
   ButtonPropsTypeValue get type;
+  @BuiltSimpleField(json: '')
+  ItemEventProps get on;
+  Iterable<StreamSubscription> subscribeAll(Element e) => on?.subscribeAll(e);
 }
 
 /// Items are elements that can contain text, icons, avatars, images, inputs, and any other native or custom elements. Generally they are placed in a list with other items. Items can be swiped, deleted, reordered, edited, and more.
@@ -1809,6 +1825,16 @@ class IonItem extends HtmlElementBase {
   static final factory = ReactDomComponentFactoryProxy('ion-item');
 
   ItemProps get props => super.props;
+}
+
+abstract class ItemEventProps implements BuiltSimple {
+  factory ItemEventProps([BuilderFunc<ItemEventPropsBuilder> updates]) =>
+      _ItemEventProps(updates);
+
+  DartHandler<MouseEvent> get click;
+  Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
+        _subscribe<MouseEvent, MouseEvent>(e.onClick, click)
+      ].where((s) => s != null);
 }
 
 abstract class ItemDividerProps implements IonProps, BuiltSimple {
@@ -1900,7 +1926,7 @@ abstract class ItemSlidingEventProps implements BuiltSimple {
   /// Emitted when the sliding position changes.
   DartHandler<CustomEvent> get ionDrag;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionDrag'], ionDrag)
+        _subscribe<Event, CustomEvent>(e.on['ionDrag'], ionDrag)
       ].where((s) => s != null);
 }
 
@@ -1940,7 +1966,7 @@ abstract class ItemOptionsEventProps implements BuiltSimple {
   /// Emitted when the item has been fully swiped.
   DartHandler<CustomEvent> get ionSwipe;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionSwipe'], ionSwipe)
+        _subscribe<Event, CustomEvent>(e.on['ionSwipe'], ionSwipe)
       ].where((s) => s != null);
 }
 
@@ -2273,9 +2299,9 @@ abstract class ImgEventProps implements BuiltSimple {
   /// Emitted when the img src has been set
   DartHandler<CustomEvent> get ionImgWillLoad;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionError'], ionError),
-        _subscribe(e.on['ionImgDidLoad'], ionImgDidLoad),
-        _subscribe(e.on['ionImgWillLoad'], ionImgWillLoad)
+        _subscribe<Event, CustomEvent>(e.on['ionError'], ionError),
+        _subscribe<Event, CustomEvent>(e.on['ionImgDidLoad'], ionImgDidLoad),
+        _subscribe<Event, CustomEvent>(e.on['ionImgWillLoad'], ionImgWillLoad)
       ].where((s) => s != null);
 }
 
@@ -2368,10 +2394,10 @@ abstract class MenuEventProps implements BuiltSimple {
   /// Emitted when the menu is about to be opened.
   DartHandler<CustomEvent> get ionWillOpen;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionDidClose'], ionDidClose),
-        _subscribe(e.on['ionDidOpen'], ionDidOpen),
-        _subscribe(e.on['ionWillClose'], ionWillClose),
-        _subscribe(e.on['ionWillOpen'], ionWillOpen)
+        _subscribe<Event, CustomEvent>(e.on['ionDidClose'], ionDidClose),
+        _subscribe<Event, CustomEvent>(e.on['ionDidOpen'], ionDidOpen),
+        _subscribe<Event, CustomEvent>(e.on['ionWillClose'], ionWillClose),
+        _subscribe<Event, CustomEvent>(e.on['ionWillOpen'], ionWillOpen)
       ].where((s) => s != null);
 }
 
@@ -2515,7 +2541,8 @@ abstract class SplitPaneEventProps implements BuiltSimple {
   /// Expression to be called when the split-pane visibility has changed
   DartHandler<CustomEvent> get ionSplitPaneVisible;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionSplitPaneVisible'], ionSplitPaneVisible)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSplitPaneVisible'], ionSplitPaneVisible)
       ].where((s) => s != null);
 }
 
@@ -2590,10 +2617,14 @@ abstract class ModalEventProps implements BuiltSimple {
   /// Emitted before the modal has presented.
   DartHandler<CustomEvent> get ionModalWillPresent;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionModalDidDismiss'], ionModalDidDismiss),
-        _subscribe(e.on['ionModalDidPresent'], ionModalDidPresent),
-        _subscribe(e.on['ionModalWillDismiss'], ionModalWillDismiss),
-        _subscribe(e.on['ionModalWillPresent'], ionModalWillPresent)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionModalDidDismiss'], ionModalDidDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionModalDidPresent'], ionModalDidPresent),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionModalWillDismiss'], ionModalWillDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionModalWillPresent'], ionModalWillPresent)
       ].where((s) => s != null);
 }
 
@@ -2658,7 +2689,7 @@ abstract class BackdropEventProps implements BuiltSimple {
   /// Emitted when the backdrop is tapped.
   DartHandler<CustomEvent> get ionBackdropTap;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBackdropTap'], ionBackdropTap)
+        _subscribe<Event, CustomEvent>(e.on['ionBackdropTap'], ionBackdropTap)
       ].where((s) => s != null);
 }
 
@@ -2711,8 +2742,10 @@ abstract class NavEventProps implements BuiltSimple {
   /// Event fired when the nav will change components
   DartHandler<CustomEvent> get ionNavWillChange;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionNavDidChange'], ionNavDidChange),
-        _subscribe(e.on['ionNavWillChange'], ionNavWillChange)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionNavDidChange'], ionNavDidChange),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionNavWillChange'], ionNavWillChange)
       ].where((s) => s != null);
 }
 
@@ -2867,10 +2900,14 @@ abstract class PopoverEventProps implements BuiltSimple {
   /// Emitted before the popover has presented.
   DartHandler<CustomEvent> get ionPopoverWillPresent;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionPopoverDidDismiss'], ionPopoverDidDismiss),
-        _subscribe(e.on['ionPopoverDidPresent'], ionPopoverDidPresent),
-        _subscribe(e.on['ionPopoverWillDismiss'], ionPopoverWillDismiss),
-        _subscribe(e.on['ionPopoverWillPresent'], ionPopoverWillPresent)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPopoverDidDismiss'], ionPopoverDidDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPopoverDidPresent'], ionPopoverDidPresent),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPopoverWillDismiss'], ionPopoverWillDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionPopoverWillPresent'], ionPopoverWillPresent)
       ].where((s) => s != null);
 }
 
@@ -2974,10 +3011,14 @@ abstract class LoadingEventProps implements BuiltSimple {
   /// Emitted before the loading has presented.
   DartHandler<CustomEvent> get ionLoadingWillPresent;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionLoadingDidDismiss'], ionLoadingDidDismiss),
-        _subscribe(e.on['ionLoadingDidPresent'], ionLoadingDidPresent),
-        _subscribe(e.on['ionLoadingWillDismiss'], ionLoadingWillDismiss),
-        _subscribe(e.on['ionLoadingWillPresent'], ionLoadingWillPresent)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionLoadingDidDismiss'], ionLoadingDidDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionLoadingDidPresent'], ionLoadingDidPresent),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionLoadingWillDismiss'], ionLoadingWillDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionLoadingWillPresent'], ionLoadingWillPresent)
       ].where((s) => s != null);
 }
 
@@ -3168,9 +3209,9 @@ abstract class RadioEventProps implements BuiltSimple {
   /// Emitted when the radio button is selected.
   DartHandler<CustomEvent> get ionSelect;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionFocus'], ionFocus),
-        _subscribe(e.on['ionSelect'], ionSelect)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus),
+        _subscribe<Event, CustomEvent>(e.on['ionSelect'], ionSelect)
       ].where((s) => s != null);
 }
 
@@ -3217,7 +3258,7 @@ abstract class RadioGroupEventProps implements BuiltSimple {
   /// Emitted when the value has changed.
   DartHandler<CustomEvent> get ionChange;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionChange'], ionChange)
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange)
       ].where((s) => s != null);
 }
 
@@ -3305,9 +3346,9 @@ abstract class RangeEventProps implements BuiltSimple {
   /// Emitted when the range has focus.
   DartHandler<CustomEvent> get ionFocus;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionFocus'], ionFocus)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus)
       ].where((s) => s != null);
 }
 
@@ -3384,9 +3425,9 @@ abstract class RefresherEventProps implements BuiltSimple {
   /// Emitted when the user begins to start pulling down.
   DartHandler<CustomEvent> get ionStart;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionPull'], ionPull),
-        _subscribe(e.on['ionRefresh'], ionRefresh),
-        _subscribe(e.on['ionStart'], ionStart)
+        _subscribe<Event, CustomEvent>(e.on['ionPull'], ionPull),
+        _subscribe<Event, CustomEvent>(e.on['ionRefresh'], ionRefresh),
+        _subscribe<Event, CustomEvent>(e.on['ionStart'], ionStart)
       ].where((s) => s != null);
 }
 
@@ -3494,7 +3535,7 @@ abstract class ReorderGroupEventProps implements BuiltSimple {
   /// to be called in order to finalize the reorder action.
   DartHandler<CustomEvent> get ionItemReorder;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionItemReorder'], ionItemReorder)
+        _subscribe<Event, CustomEvent>(e.on['ionItemReorder'], ionItemReorder)
       ].where((s) => s != null);
 }
 
@@ -3553,8 +3594,10 @@ abstract class RouterEventProps implements BuiltSimple {
   /// Event emitted when the route is about to change
   DartHandler<CustomEvent> get ionRouteWillChange;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionRouteDidChange'], ionRouteDidChange),
-        _subscribe(e.on['ionRouteWillChange'], ionRouteWillChange)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionRouteDidChange'], ionRouteDidChange),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionRouteWillChange'], ionRouteWillChange)
       ].where((s) => s != null);
 }
 
@@ -3634,7 +3677,8 @@ abstract class RouteEventProps implements BuiltSimple {
   /// Used internally by `ion-router` to know when this route did change.
   DartHandler<CustomEvent> get ionRouteDataChanged;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionRouteDataChanged'], ionRouteDataChanged)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionRouteDataChanged'], ionRouteDataChanged)
       ].where((s) => s != null);
 }
 
@@ -3696,7 +3740,8 @@ abstract class RouteRedirectEventProps implements BuiltSimple {
   /// `ion-router` captures this event in order to update his internal registry of router rules.
   DartHandler<CustomEvent> get ionRouteRedirectChanged;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionRouteRedirectChanged'], ionRouteRedirectChanged)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionRouteRedirectChanged'], ionRouteRedirectChanged)
       ].where((s) => s != null);
 }
 
@@ -3806,12 +3851,12 @@ abstract class SearchbarEventProps implements BuiltSimple {
   /// Emitted when a keyboard input ocurred.
   DartHandler<CustomEvent> get ionInput;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionCancel'], ionCancel),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionClear'], ionClear),
-        _subscribe(e.on['ionFocus'], ionFocus),
-        _subscribe(e.on['ionInput'], ionInput)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionCancel'], ionCancel),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionClear'], ionClear),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus),
+        _subscribe<Event, CustomEvent>(e.on['ionInput'], ionInput)
       ].where((s) => s != null);
 }
 
@@ -3867,8 +3912,8 @@ abstract class SegmentEventProps implements BuiltSimple {
   /// Emitted when the styles change.
   DartHandler<CustomEvent> get ionStyle;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionStyle'], ionStyle)
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionStyle'], ionStyle)
       ].where((s) => s != null);
 }
 
@@ -3922,7 +3967,7 @@ abstract class SegmentButtonEventProps implements BuiltSimple {
   /// Emitted when the segment button is clicked.
   DartHandler<CustomEvent> get ionSelect;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionSelect'], ionSelect)
+        _subscribe<Event, CustomEvent>(e.on['ionSelect'], ionSelect)
       ].where((s) => s != null);
 }
 
@@ -4009,10 +4054,10 @@ abstract class SelectEventProps implements BuiltSimple {
   /// Emitted when the select has focus.
   DartHandler<CustomEvent> get ionFocus;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionCancel'], ionCancel),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionFocus'], ionFocus)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionCancel'], ionCancel),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus)
       ].where((s) => s != null);
 }
 
@@ -4142,22 +4187,36 @@ abstract class SlidesEventProps implements BuiltSimple {
   /// Emitted before the active slide has changed.
   DartHandler<CustomEvent> get ionSlideWillChange;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionSlideDidChange'], ionSlideDidChange),
-        _subscribe(e.on['ionSlideDoubleTap'], ionSlideDoubleTap),
-        _subscribe(e.on['ionSlideDrag'], ionSlideDrag),
-        _subscribe(e.on['ionSlideNextEnd'], ionSlideNextEnd),
-        _subscribe(e.on['ionSlideNextStart'], ionSlideNextStart),
-        _subscribe(e.on['ionSlidePrevEnd'], ionSlidePrevEnd),
-        _subscribe(e.on['ionSlidePrevStart'], ionSlidePrevStart),
-        _subscribe(e.on['ionSlideReachEnd'], ionSlideReachEnd),
-        _subscribe(e.on['ionSlideReachStart'], ionSlideReachStart),
-        _subscribe(e.on['ionSlidesDidLoad'], ionSlidesDidLoad),
-        _subscribe(e.on['ionSlideTap'], ionSlideTap),
-        _subscribe(e.on['ionSlideTouchEnd'], ionSlideTouchEnd),
-        _subscribe(e.on['ionSlideTouchStart'], ionSlideTouchStart),
-        _subscribe(e.on['ionSlideTransitionEnd'], ionSlideTransitionEnd),
-        _subscribe(e.on['ionSlideTransitionStart'], ionSlideTransitionStart),
-        _subscribe(e.on['ionSlideWillChange'], ionSlideWillChange)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideDidChange'], ionSlideDidChange),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideDoubleTap'], ionSlideDoubleTap),
+        _subscribe<Event, CustomEvent>(e.on['ionSlideDrag'], ionSlideDrag),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideNextEnd'], ionSlideNextEnd),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideNextStart'], ionSlideNextStart),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlidePrevEnd'], ionSlidePrevEnd),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlidePrevStart'], ionSlidePrevStart),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideReachEnd'], ionSlideReachEnd),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideReachStart'], ionSlideReachStart),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlidesDidLoad'], ionSlidesDidLoad),
+        _subscribe<Event, CustomEvent>(e.on['ionSlideTap'], ionSlideTap),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideTouchEnd'], ionSlideTouchEnd),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideTouchStart'], ionSlideTouchStart),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideTransitionEnd'], ionSlideTransitionEnd),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideTransitionStart'], ionSlideTransitionStart),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionSlideWillChange'], ionSlideWillChange)
       ].where((s) => s != null);
 }
 
@@ -4240,8 +4299,10 @@ abstract class TabsEventProps implements BuiltSimple {
   /// Emitted when the navigation is about to transition to a new component.
   DartHandler<CustomEvent> get ionTabsWillChange;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionTabsDidChange'], ionTabsDidChange),
-        _subscribe(e.on['ionTabsWillChange'], ionTabsWillChange)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionTabsDidChange'], ionTabsDidChange),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionTabsWillChange'], ionTabsWillChange)
       ].where((s) => s != null);
 }
 
@@ -4440,10 +4501,14 @@ abstract class ToastEventProps implements BuiltSimple {
   /// Emitted before the toast has presented.
   DartHandler<CustomEvent> get ionToastWillPresent;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionToastDidDismiss'], ionToastDidDismiss),
-        _subscribe(e.on['ionToastDidPresent'], ionToastDidPresent),
-        _subscribe(e.on['ionToastWillDismiss'], ionToastWillDismiss),
-        _subscribe(e.on['ionToastWillPresent'], ionToastWillPresent)
+        _subscribe<Event, CustomEvent>(
+            e.on['ionToastDidDismiss'], ionToastDidDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionToastDidPresent'], ionToastDidPresent),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionToastWillDismiss'], ionToastWillDismiss),
+        _subscribe<Event, CustomEvent>(
+            e.on['ionToastWillPresent'], ionToastWillPresent)
       ].where((s) => s != null);
 }
 
@@ -4528,9 +4593,9 @@ abstract class ToggleEventProps implements BuiltSimple {
   /// Emitted when the toggle has focus.
   DartHandler<CustomEvent> get ionFocus;
   Iterable<StreamSubscription> subscribeAll(Element e) => <StreamSubscription>[
-        _subscribe(e.on['ionBlur'], ionBlur),
-        _subscribe(e.on['ionChange'], ionChange),
-        _subscribe(e.on['ionFocus'], ionFocus)
+        _subscribe<Event, CustomEvent>(e.on['ionBlur'], ionBlur),
+        _subscribe<Event, CustomEvent>(e.on['ionChange'], ionChange),
+        _subscribe<Event, CustomEvent>(e.on['ionFocus'], ionFocus)
       ].where((s) => s != null);
 }
 

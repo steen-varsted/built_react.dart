@@ -401,7 +401,8 @@ part 'ionic.built.g.dart';
     
 String _enumToString(dynamic e) => e != null ? e.toString().split('.').last.replaceAll('default_value', 'default').replaceAll('_', '-') : null;
 
-StreamSubscription<CustomEvent> _subscribe(ElementStream<CustomEvent> stream, DartHandler<CustomEvent> handler) => 
+StreamSubscription<T1> _subscribe<T1 extends Event, T2 extends T1>(
+        ElementStream<T1> stream, DartHandler<T2> handler) =>
     handler == null ? null : stream.listen((e) => handler(e));
     
 abstract class IonProps implements BuiltSimple, Props {
@@ -434,9 +435,7 @@ _classNameJson(Map<String, dynamic> json, BuiltList<String> value) {
     
 ''';
 
-var _slots = <String, String>{
-  'ion-buttons': '"secondary" | "primary" | "start" | "end"'
-};
+var _slots = <String, String>{'ion-buttons': '"secondary" | "primary" | "start" | "end"'};
 
 class IonicGenerator extends Generator {
   List<Class> generatedClasses = [];
@@ -459,14 +458,10 @@ class IonicGenerator extends Generator {
       'docs': '',
       'events': []
     };
-    json['ion-page'] = <String, dynamic>{
-      'title': 'ion-page',
-      'tag': 'ion-page',
-      'props': [],
-      'docs': '',
-      'events': []
-    };
-    json['ion-buttons']['props'].add({ 'name': 'slot', 'type': '"secondary" | "primary" | "start" | "end"', 'docs': ''});
+    json['ion-page'] = <String, dynamic>{'title': 'ion-page', 'tag': 'ion-page', 'props': [], 'docs': '', 'events': []};
+    json['ion-buttons']['props'].add({'name': 'slot', 'type': '"secondary" | "primary" | "start" | "end"', 'docs': ''});
+    json['ion-item']['events'].add({'event': 'click', 'type': 'MouseEvent', 'docs': ''});
+    json['ion-button']['events'].add({'event': 'click', 'type': 'MouseEvent', 'docs': ''});
     await generateClasses(json);
     var emitter = DartEmitter();
     var typedefs = lines.map((c) => c.accept(emitter).toString()).join('\n');
@@ -643,14 +638,14 @@ class IonicGenerator extends Generator {
       ..name = name
       ..implements.add(Reference('BuiltSimple'))
       ..abstract = true
-      ..methods.addAll(events
-          .where((p) => p != null)
-          .map<Method>((event) => Method((m) => m
-            ..name = event['event']
-            ..type = MethodType.getter
-            ..docs.addAll(docs(event['docs']))
-            ..returns = Reference('DartHandler<CustomEvent>')))
-          .toList())
+      ..methods.addAll(events.where((p) => p != null).map<Method>((event) {
+        String type = event['type'] ?? 'CustomEvent';
+        return Method((m) => m
+          ..name = event['event']
+          ..type = MethodType.getter
+          ..docs.addAll(docs(event['docs']))
+          ..returns = Reference('DartHandler<$type>'));
+      }).toList())
       ..methods.add(Method((m) => m
         ..name = 'subscribeAll'
         ..returns = Reference('Iterable<StreamSubscription>')
@@ -659,7 +654,14 @@ class IonicGenerator extends Generator {
           ..name = 'e'
           ..type = Reference('Element')))
         ..body = Code('<StreamSubscription>[' +
-            events.map((event) => '_subscribe(e.on[\'${event['event']}\'], ${event['event']})').join(',') +
+            events.map((event) {
+              String type = event['type'];
+              if (type != null) {
+                return '_subscribe<$type, $type>(e.on${ReCase(event['event']).pascalCase}, ${event['event']})';
+              } else {
+                return '_subscribe<Event, CustomEvent>(e.on[\'${event['event']}\'], ${event['event']})';
+              }
+            }).join(',') +
             '].where((s) => s != null)')))
       ..constructors.add(Constructor((c) => c
         ..factory = true
@@ -714,8 +716,11 @@ class BuiltSimpleGenerator extends Generator {
   bool isBuiltValue(Element e) =>
       e is ClassElement && (isBuiltValueClass(e) || e.interfaces.any((i) => isBuiltValue(i.element)));
 
-  bool isBuiltSimpleField(ClassElement e) =>
+  bool isBuiltSimpleFieldAnnotation(ClassElement e) =>
       e.name == 'BuiltSimpleField' && e.library.name == ''; // e.source.fullName.startsWith('built_value|lib/');
+
+  bool isBuiltSimpleClassAnnotation(ClassElement e) =>
+      e.name == 'BuiltSimpleClass' && e.library.name == ''; // e.source.fullName.startsWith('built_value|lib/');
 
   bool isEnum(DartType type) => type.element is ClassElement && (type.element as ClassElement).isEnum == true;
 
@@ -728,6 +733,11 @@ class BuiltSimpleGenerator extends Generator {
     }
     throw InvalidGenerationSourceError(
         'Class ' + e.name + ' implements several other classes that implements BuiltSimple - only one allowed');
+  }
+
+  ClassElement builtSimpleBaseClassInterface(ClassElement e) {
+    var builtSimpleInterface = e.interfaces.where((i) => i.interfaces.any((i2) => isBuiltSimpleClass(i2.element)));
+    return builtSimpleInterface.first.element;
   }
 
   generateBuiltSimpleImpl(ClassElement e, List<Class> generatedClasses) {
@@ -802,6 +812,20 @@ class BuiltSimpleGenerator extends Generator {
     return ret;
   }
 
+  Iterable<Method> fromJsonMethod(ClassElement e, Iterable<FieldElement> getters) {
+    var ret = <Method>[];
+    if (hasFromJson(e)) {
+      ret.add(Method((m) => m
+        ..name = 'json'
+        ..type = MethodType.setter
+        ..requiredParameters.add(Parameter((p) => p
+          ..name = 'json'
+          ..type = Reference('Map<String, dynamic>')))
+        ..body = Block((bb) => bb..statements.addAll(fromJsonStatements(e, getters)))));
+    }
+    return ret;
+  }
+
   fillJsonStatements(ClassElement e, Iterable<FieldElement> getters) {
     List<Code> ret = [];
     if (builtSimpleBaseClass(e) != 'BuiltSimple') {
@@ -810,7 +834,7 @@ class BuiltSimpleGenerator extends Generator {
     ret.addAll(getters.map((f) {
       DartObject builtSimpleField = null;
       f.getter.metadata.forEach((m) {
-        if (m.element is ConstructorElement && isBuiltSimpleField(m.element.enclosingElement)) {
+        if (m.element is ConstructorElement && isBuiltSimpleFieldAnnotation(m.element.enclosingElement)) {
           builtSimpleField = m.computeConstantValue();
         }
       });
@@ -821,6 +845,38 @@ class BuiltSimpleGenerator extends Generator {
       return jsonExpr.isNotEmpty ? Code('$jsonExpr;') : null;
     }).where((c) => c != null));
     return ret;
+  }
+
+  fromJsonStatements(ClassElement e, Iterable<FieldElement> getters) {
+    List<Code> ret = [];
+    if (builtSimpleBaseClass(e) != 'BuiltSimple') {
+      ret.add(Code('super.json = json;'));
+    }
+    ret.addAll(getters.map((f) {
+      DartObject builtSimpleField = null;
+      f.getter.metadata.forEach((m) {
+        if (m.element is ConstructorElement && isBuiltSimpleFieldAnnotation(m.element.enclosingElement)) {
+          builtSimpleField = m.computeConstantValue();
+        }
+      });
+      var name = propName(f.name);
+      var value = f.name;
+      var jsonExpr = builtSimpleField?.getField('fromJson')?.toStringValue() ?? 'value=json[name]';
+      jsonExpr = jsonExpr.replaceAll('name', '"' + name + '"').replaceAll('value', value);
+      return jsonExpr.isNotEmpty ? Code('$jsonExpr;') : null;
+    }).where((c) => c != null));
+    return ret;
+  }
+
+  bool hasFromJson(ClassElement e) {
+    DartObject builtSimpleClass = null;
+    e.metadata.forEach((m) {
+      if (m.element is ConstructorElement && isBuiltSimpleClassAnnotation(m.element.enclosingElement)) {
+        builtSimpleClass = m.computeConstantValue();
+      }
+    });
+    var value = builtSimpleClass?.getField('buildFromJson')?.toBoolValue();
+    return value==true;
   }
 
   List<FieldElement> findGettersToImplement(ClassElement e) {
@@ -869,6 +925,7 @@ class BuiltSimpleGenerator extends Generator {
         ..body = Block((b) => b..statements.addAll(builderConstructorStatements(e, getters)))))
       ..fields.addAll(builderFields(e, getters))
       ..methods.addAll(builderMethods(e, getters))
+      ..methods.addAll(fromJsonMethod(e, getters))
       ..methods.add(Method((m) => m
         ..name = 'build'
         ..returns = Reference(e.name)

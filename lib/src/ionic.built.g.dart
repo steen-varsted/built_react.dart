@@ -863,9 +863,12 @@ class _ButtonEventProps extends BuiltSimpleImpl
 
   DartHandler<CustomEvent> ionFocus;
 
+  DartHandler<MouseEvent> click;
+
   fillJson(Map<String, dynamic> json) {
     json["ionBlur"] = ionBlur;
     json["ionFocus"] = ionFocus;
+    json["click"] = click;
   }
 
   ButtonEventProps rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -886,6 +889,7 @@ class ButtonEventPropsBuilder extends BuiltSimpleBuilder<ButtonEventProps> {
     if (b != null) {
       v.ionBlur = b.ionBlur;
       v.ionFocus = b.ionFocus;
+      v.click = b.click;
     }
     return ButtonEventPropsBuilder._(v);
   }
@@ -897,6 +901,9 @@ class ButtonEventPropsBuilder extends BuiltSimpleBuilder<ButtonEventProps> {
 
   /// Emitted when the button has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
+
+  ///
+  set click(DartHandler<MouseEvent> value) => v.click = value;
   ButtonEventProps build() {
     return v;
   }
@@ -3881,6 +3888,8 @@ class _ItemProps extends _IonProps with ItemProps implements ItemProps {
 
   ButtonPropsTypeValue type;
 
+  ItemEventProps on;
+
   fillJson(Map<String, dynamic> json) {
     super.fillJson(json);
     json["button"] = button;
@@ -3921,9 +3930,12 @@ class ItemPropsBuilder extends IonPropsBuilder {
       v.mode = b.mode;
       v.routerDirection = b.routerDirection;
       v.type = b.type;
+      v.on = b.on;
     }
     return ItemPropsBuilder._(v);
   }
+
+  ItemEventPropsBuilder _on;
 
   /// <p>If <code>true</code>, a button tag will be rendered and the item will be tappable.</p>
   set button(bool value) => v.button = value;
@@ -3959,14 +3971,75 @@ class ItemPropsBuilder extends IonPropsBuilder {
 
   /// <p>The type of the button. Only used when an <code>onclick</code> or <code>button</code> property is present.</p>
   set type(ButtonPropsTypeValue value) => v.type = value;
+
+  ///
+  ItemEventPropsBuilder get on {
+    if (_on == null) {
+      _on = ItemEventPropsBuilder(v.on);
+    }
+    return _on;
+  }
+
   _ItemProps get v => super.v;
   ItemProps build() {
     super.build();
+    v.on = _on?.build();
     return v;
   }
 
   static _ItemProps create(BuilderFunc<ItemPropsBuilder> builderFunc) {
     var builder = new ItemPropsBuilder._(_ItemProps._());
+    if (builderFunc != null) builderFunc(builder);
+    return builder.build();
+  }
+}
+
+class _ItemEventProps extends BuiltSimpleImpl
+    with ItemEventProps
+    implements ItemEventProps {
+  _ItemEventProps._() : super();
+
+  factory _ItemEventProps(BuilderFunc<ItemEventPropsBuilder> builder) =>
+      ItemEventPropsBuilder.create(builder);
+
+  DartHandler<MouseEvent> click;
+
+  fillJson(Map<String, dynamic> json) {
+    json["click"] = click;
+  }
+
+  ItemEventProps rebuild<T>(BuilderFunc<T> builderFuncT) {
+    var builderFunc = builderFuncT as BuilderFunc<ItemEventPropsBuilder>;
+    var builder = toBuilder();
+    builderFunc(builder);
+    return builder.build();
+  }
+
+  ItemEventPropsBuilder toBuilder() => ItemEventPropsBuilder(this);
+}
+
+class ItemEventPropsBuilder extends BuiltSimpleBuilder<ItemEventProps> {
+  ItemEventPropsBuilder._(_ItemEventProps b) : v = b;
+
+  factory ItemEventPropsBuilder([_ItemEventProps b]) {
+    var v = _ItemEventProps._();
+    if (b != null) {
+      v.click = b.click;
+    }
+    return ItemEventPropsBuilder._(v);
+  }
+
+  _ItemEventProps v;
+
+  ///
+  set click(DartHandler<MouseEvent> value) => v.click = value;
+  ItemEventProps build() {
+    return v;
+  }
+
+  static _ItemEventProps create(
+      BuilderFunc<ItemEventPropsBuilder> builderFunc) {
+    var builder = new ItemEventPropsBuilder._(_ItemEventProps._());
     if (builderFunc != null) builderFunc(builder);
     return builder.build();
   }
