@@ -36,7 +36,7 @@ class _RouteContextImplBuilder extends BuiltSimpleBuilder<_RouteContextImpl> {
   factory _RouteContextImplBuilder([__RouteContextImpl b]) {
     var ret = _RouteContextImplBuilder._(__RouteContextImpl._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -45,7 +45,7 @@ class _RouteContextImplBuilder extends BuiltSimpleBuilder<_RouteContextImpl> {
 
   ///
   set path(String value) => v.path = value;
-  set value$(_RouteContextImpl v2) {
+  replace(_RouteContextImpl v2) {
     var v3 = v2 as _RouteContextImpl;
     v.path = v3.path;
   }
@@ -92,7 +92,7 @@ class RouterPropsBuilder extends BuiltSimpleBuilder<RouterProps> {
   factory RouterPropsBuilder([_RouterProps b]) {
     var ret = RouterPropsBuilder._(_RouterProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -101,7 +101,7 @@ class RouterPropsBuilder extends BuiltSimpleBuilder<RouterProps> {
 
   ///
   set key(String value) => v.key = value;
-  set value$(RouterProps v2) {
+  replace(RouterProps v2) {
     var v3 = v2 as RouterProps;
     v.key = v3.key;
   }
@@ -147,7 +147,7 @@ class RouterStateBuilder extends BuiltSimpleBuilder<RouterState> {
   factory RouterStateBuilder([_RouterState b]) {
     var ret = RouterStateBuilder._(_RouterState._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -156,7 +156,7 @@ class RouterStateBuilder extends BuiltSimpleBuilder<RouterState> {
 
   ///
   set path(String value) => v.path = value;
-  set value$(RouterState v2) {
+  replace(RouterState v2) {
     var v3 = v2 as RouterState;
     v.path = v3.path;
   }
@@ -203,7 +203,7 @@ class RouteBuilder extends BuiltSimpleBuilder<Route> {
   factory RouteBuilder([_Route b]) {
     var ret = RouteBuilder._(_Route._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -215,7 +215,7 @@ class RouteBuilder extends BuiltSimpleBuilder<Route> {
 
   ///
   set pattern(RegExp value) => v.pattern = value;
-  set value$(Route v2) {
+  replace(Route v2) {
     var v3 = v2 as Route;
     v.component = v3.component;
     v.pattern = v3.pattern;
@@ -265,7 +265,7 @@ class SwitchPropsBuilder extends BuiltSimpleBuilder<SwitchProps> {
   factory SwitchPropsBuilder([_SwitchProps b]) {
     var ret = SwitchPropsBuilder._(_SwitchProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -284,9 +284,12 @@ class SwitchPropsBuilder extends BuiltSimpleBuilder<SwitchProps> {
 
   ///
   set key(String value) => v.key = value;
-  set value$(SwitchProps v2) {
+  replace(SwitchProps v2) {
     var v3 = v2 as SwitchProps;
-    v.routes = v3.routes;
+    if (v3.routes != null)
+      routes.replace(v3.routes);
+    else
+      _routes = null;
     v.key = v3.key;
   }
 

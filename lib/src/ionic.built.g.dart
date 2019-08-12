@@ -40,7 +40,7 @@ class IonPropsBuilder extends BuiltSimpleBuilder<IonProps> {
   factory IonPropsBuilder([_IonProps b]) {
     var ret = IonPropsBuilder._(_IonProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -70,10 +70,16 @@ class IonPropsBuilder extends BuiltSimpleBuilder<IonProps> {
 
   ///
   set key(String value) => v.key = value;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as IonProps;
-    v.className = v3.className;
-    v.custom = v3.custom;
+    if (v3.className != null)
+      className.replace(v3.className);
+    else
+      _className = null;
+    if (v3.custom != null)
+      custom.replace(v3.custom);
+    else
+      _custom = null;
     v.key = v3.key;
   }
 
@@ -153,7 +159,7 @@ class ActionSheetPropsBuilder extends IonPropsBuilder {
   factory ActionSheetPropsBuilder([_ActionSheetProps b]) {
     var ret = ActionSheetPropsBuilder._(_ActionSheetProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -210,12 +216,15 @@ class ActionSheetPropsBuilder extends IonPropsBuilder {
   }
 
   _ActionSheetProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ActionSheetProps;
     v.animated = v3.animated;
     v.backdropDismiss = v3.backdropDismiss;
     v.buttons = v3.buttons;
-    v.cssClass = v3.cssClass;
+    if (v3.cssClass != null)
+      cssClass.replace(v3.cssClass);
+    else
+      _cssClass = null;
     v.enterAnimation = v3.enterAnimation;
     v.header = v3.header;
     v.keyboardClose = v3.keyboardClose;
@@ -223,7 +232,10 @@ class ActionSheetPropsBuilder extends IonPropsBuilder {
     v.mode = v3.mode;
     v.subHeader = v3.subHeader;
     v.translucent = v3.translucent;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ActionSheetProps build() {
@@ -283,7 +295,7 @@ class ActionSheetEventPropsBuilder
   factory ActionSheetEventPropsBuilder([_ActionSheetEventProps b]) {
     var ret = ActionSheetEventPropsBuilder._(_ActionSheetEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -305,7 +317,7 @@ class ActionSheetEventPropsBuilder
   /// Emitted before the alert has presented.
   set ionActionSheetWillPresent(DartHandler<CustomEvent> value) =>
       v.ionActionSheetWillPresent = value;
-  set value$(ActionSheetEventProps v2) {
+  replace(ActionSheetEventProps v2) {
     var v3 = v2 as ActionSheetEventProps;
     v.ionActionSheetDidDismiss = v3.ionActionSheetDidDismiss;
     v.ionActionSheetDidPresent = v3.ionActionSheetDidPresent;
@@ -359,13 +371,13 @@ class ActionSheetControllerPropsBuilder extends IonPropsBuilder {
     var ret =
         ActionSheetControllerPropsBuilder._(_ActionSheetControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _ActionSheetControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ActionSheetControllerProps;
   }
 
@@ -450,7 +462,7 @@ class AlertPropsBuilder extends IonPropsBuilder {
   factory AlertPropsBuilder([_AlertProps b]) {
     var ret = AlertPropsBuilder._(_AlertProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -518,12 +530,15 @@ class AlertPropsBuilder extends IonPropsBuilder {
   }
 
   _AlertProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as AlertProps;
     v.animated = v3.animated;
     v.backdropDismiss = v3.backdropDismiss;
     v.buttons = v3.buttons;
-    v.cssClass = v3.cssClass;
+    if (v3.cssClass != null)
+      cssClass.replace(v3.cssClass);
+    else
+      _cssClass = null;
     v.enterAnimation = v3.enterAnimation;
     v.header = v3.header;
     v.inputs = v3.inputs;
@@ -533,7 +548,10 @@ class AlertPropsBuilder extends IonPropsBuilder {
     v.mode = v3.mode;
     v.subHeader = v3.subHeader;
     v.translucent = v3.translucent;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   AlertProps build() {
@@ -589,7 +607,7 @@ class AlertEventPropsBuilder extends BuiltSimpleBuilder<AlertEventProps> {
   factory AlertEventPropsBuilder([_AlertEventProps b]) {
     var ret = AlertEventPropsBuilder._(_AlertEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -611,7 +629,7 @@ class AlertEventPropsBuilder extends BuiltSimpleBuilder<AlertEventProps> {
   /// Emitted before the alert has presented.
   set ionAlertWillPresent(DartHandler<CustomEvent> value) =>
       v.ionAlertWillPresent = value;
-  set value$(AlertEventProps v2) {
+  replace(AlertEventProps v2) {
     var v3 = v2 as AlertEventProps;
     v.ionAlertDidDismiss = v3.ionAlertDidDismiss;
     v.ionAlertDidPresent = v3.ionAlertDidPresent;
@@ -660,13 +678,13 @@ class AlertControllerPropsBuilder extends IonPropsBuilder {
   factory AlertControllerPropsBuilder([_AlertControllerProps b]) {
     var ret = AlertControllerPropsBuilder._(_AlertControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _AlertControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as AlertControllerProps;
   }
 
@@ -715,7 +733,7 @@ class BadgePropsBuilder extends IonPropsBuilder {
   factory BadgePropsBuilder([_BadgeProps b]) {
     var ret = BadgePropsBuilder._(_BadgeProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -728,7 +746,7 @@ class BadgePropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _BadgeProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as BadgeProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -810,7 +828,7 @@ class ButtonPropsBuilder extends IonPropsBuilder {
   factory ButtonPropsBuilder([_ButtonProps b]) {
     var ret = ButtonPropsBuilder._(_ButtonProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -869,7 +887,7 @@ class ButtonPropsBuilder extends IonPropsBuilder {
   }
 
   _ButtonProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ButtonProps;
     v.buttonType = v3.buttonType;
     v.color = v3.color;
@@ -883,7 +901,10 @@ class ButtonPropsBuilder extends IonPropsBuilder {
     v.size = v3.size;
     v.strong = v3.strong;
     v.type = v3.type;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ButtonProps build() {
@@ -935,7 +956,7 @@ class ButtonEventPropsBuilder extends BuiltSimpleBuilder<ButtonEventProps> {
   factory ButtonEventPropsBuilder([_ButtonEventProps b]) {
     var ret = ButtonEventPropsBuilder._(_ButtonEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -950,7 +971,7 @@ class ButtonEventPropsBuilder extends BuiltSimpleBuilder<ButtonEventProps> {
 
   ///
   set click(DartHandler<MouseEvent> value) => v.click = value;
-  set value$(ButtonEventProps v2) {
+  replace(ButtonEventProps v2) {
     var v3 = v2 as ButtonEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionFocus = v3.ionFocus;
@@ -1000,7 +1021,7 @@ class RippleEffectPropsBuilder extends IonPropsBuilder {
   factory RippleEffectPropsBuilder([_RippleEffectProps b]) {
     var ret = RippleEffectPropsBuilder._(_RippleEffectProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1014,7 +1035,7 @@ class RippleEffectPropsBuilder extends IonPropsBuilder {
   /// while surfaces for unbounded ripples should have it set to visible.</p>
   set type(RippleEffectPropsTypeValue value) => v.type = value;
   _RippleEffectProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RippleEffectProps;
     v.type = v3.type;
   }
@@ -1079,7 +1100,7 @@ class CardPropsBuilder extends IonPropsBuilder {
   factory CardPropsBuilder([_CardProps b]) {
     var ret = CardPropsBuilder._(_CardProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1109,7 +1130,7 @@ class CardPropsBuilder extends IonPropsBuilder {
   /// <p>The type of the button. Only used when an <code>onclick</code> or <code>button</code> property is present.</p>
   set type(ButtonPropsTypeValue value) => v.type = value;
   _CardProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as CardProps;
     v.button = v3.button;
     v.color = v3.color;
@@ -1163,7 +1184,7 @@ class CardContentPropsBuilder extends IonPropsBuilder {
   factory CardContentPropsBuilder([_CardContentProps b]) {
     var ret = CardContentPropsBuilder._(_CardContentProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1171,7 +1192,7 @@ class CardContentPropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _CardContentProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as CardContentProps;
     v.mode = v3.mode;
   }
@@ -1226,7 +1247,7 @@ class CardHeaderPropsBuilder extends IonPropsBuilder {
   factory CardHeaderPropsBuilder([_CardHeaderProps b]) {
     var ret = CardHeaderPropsBuilder._(_CardHeaderProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1242,7 +1263,7 @@ class CardHeaderPropsBuilder extends IonPropsBuilder {
   /// <p>If <code>true</code>, the card header will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
   _CardHeaderProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as CardHeaderProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -1296,7 +1317,7 @@ class CardSubtitlePropsBuilder extends IonPropsBuilder {
   factory CardSubtitlePropsBuilder([_CardSubtitleProps b]) {
     var ret = CardSubtitlePropsBuilder._(_CardSubtitleProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1309,7 +1330,7 @@ class CardSubtitlePropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _CardSubtitleProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as CardSubtitleProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -1362,7 +1383,7 @@ class CardTitlePropsBuilder extends IonPropsBuilder {
   factory CardTitlePropsBuilder([_CardTitleProps b]) {
     var ret = CardTitlePropsBuilder._(_CardTitleProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1375,7 +1396,7 @@ class CardTitlePropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _CardTitleProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as CardTitleProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -1445,7 +1466,7 @@ class CheckboxPropsBuilder extends IonPropsBuilder {
   factory CheckboxPropsBuilder([_CheckboxProps b]) {
     var ret = CheckboxPropsBuilder._(_CheckboxProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1487,7 +1508,7 @@ class CheckboxPropsBuilder extends IonPropsBuilder {
   }
 
   _CheckboxProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as CheckboxProps;
     v.checked = v3.checked;
     v.color = v3.color;
@@ -1496,7 +1517,10 @@ class CheckboxPropsBuilder extends IonPropsBuilder {
     v.mode = v3.mode;
     v.name = v3.name;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   CheckboxProps build() {
@@ -1548,7 +1572,7 @@ class CheckboxEventPropsBuilder extends BuiltSimpleBuilder<CheckboxEventProps> {
   factory CheckboxEventPropsBuilder([_CheckboxEventProps b]) {
     var ret = CheckboxEventPropsBuilder._(_CheckboxEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1563,7 +1587,7 @@ class CheckboxEventPropsBuilder extends BuiltSimpleBuilder<CheckboxEventProps> {
 
   /// Emitted when the toggle has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
-  set value$(CheckboxEventProps v2) {
+  replace(CheckboxEventProps v2) {
     var v3 = v2 as CheckboxEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionChange = v3.ionChange;
@@ -1617,7 +1641,7 @@ class ChipPropsBuilder extends IonPropsBuilder {
   factory ChipPropsBuilder([_ChipProps b]) {
     var ret = ChipPropsBuilder._(_ChipProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1633,7 +1657,7 @@ class ChipPropsBuilder extends IonPropsBuilder {
   /// <p>Display an outline style button.</p>
   set outline(bool value) => v.outline = value;
   _ChipProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ChipProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -1678,13 +1702,13 @@ class AppPropsBuilder extends IonPropsBuilder {
   factory AppPropsBuilder([_AppProps b]) {
     var ret = AppPropsBuilder._(_AppProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _AppProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as AppProps;
   }
 
@@ -1748,7 +1772,7 @@ class ContentPropsBuilder extends IonPropsBuilder {
   factory ContentPropsBuilder([_ContentProps b]) {
     var ret = ContentPropsBuilder._(_ContentProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1789,7 +1813,7 @@ class ContentPropsBuilder extends IonPropsBuilder {
   }
 
   _ContentProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ContentProps;
     v.color = v3.color;
     v.forceOverscroll = v3.forceOverscroll;
@@ -1797,7 +1821,10 @@ class ContentPropsBuilder extends IonPropsBuilder {
     v.scrollEvents = v3.scrollEvents;
     v.scrollX = v3.scrollX;
     v.scrollY = v3.scrollY;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ContentProps build() {
@@ -1849,7 +1876,7 @@ class ContentEventPropsBuilder extends BuiltSimpleBuilder<ContentEventProps> {
   factory ContentEventPropsBuilder([_ContentEventProps b]) {
     var ret = ContentEventPropsBuilder._(_ContentEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -1866,7 +1893,7 @@ class ContentEventPropsBuilder extends BuiltSimpleBuilder<ContentEventProps> {
   /// Emitted when the scroll has started.
   set ionScrollStart(DartHandler<CustomEvent> value) =>
       v.ionScrollStart = value;
-  set value$(ContentEventProps v2) {
+  replace(ContentEventProps v2) {
     var v3 = v2 as ContentEventProps;
     v.ionScroll = v3.ionScroll;
     v.ionScrollEnd = v3.ionScrollEnd;
@@ -1981,7 +2008,7 @@ class DatetimePropsBuilder extends IonPropsBuilder {
   factory DatetimePropsBuilder([_DatetimeProps b]) {
     var ret = DatetimePropsBuilder._(_DatetimeProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2138,11 +2165,17 @@ class DatetimePropsBuilder extends IonPropsBuilder {
   }
 
   _DatetimeProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as DatetimeProps;
     v.cancelText = v3.cancelText;
-    v.dayNames = v3.dayNames;
-    v.dayShortNames = v3.dayShortNames;
+    if (v3.dayNames != null)
+      dayNames.replace(v3.dayNames);
+    else
+      _dayNames = null;
+    if (v3.dayShortNames != null)
+      dayShortNames.replace(v3.dayShortNames);
+    else
+      _dayShortNames = null;
     v.dayValues = v3.dayValues;
     v.disabled = v3.disabled;
     v.displayFormat = v3.displayFormat;
@@ -2152,8 +2185,14 @@ class DatetimePropsBuilder extends IonPropsBuilder {
     v.min = v3.min;
     v.minuteValues = v3.minuteValues;
     v.mode = v3.mode;
-    v.monthNames = v3.monthNames;
-    v.monthShortNames = v3.monthShortNames;
+    if (v3.monthNames != null)
+      monthNames.replace(v3.monthNames);
+    else
+      _monthNames = null;
+    if (v3.monthShortNames != null)
+      monthShortNames.replace(v3.monthShortNames);
+    else
+      _monthShortNames = null;
     v.monthValues = v3.monthValues;
     v.name = v3.name;
     v.pickerFormat = v3.pickerFormat;
@@ -2162,7 +2201,10 @@ class DatetimePropsBuilder extends IonPropsBuilder {
     v.readonly = v3.readonly;
     v.value = v3.value;
     v.yearValues = v3.yearValues;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   DatetimeProps build() {
@@ -2221,7 +2263,7 @@ class DatetimeEventPropsBuilder extends BuiltSimpleBuilder<DatetimeEventProps> {
   factory DatetimeEventPropsBuilder([_DatetimeEventProps b]) {
     var ret = DatetimeEventPropsBuilder._(_DatetimeEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2239,7 +2281,7 @@ class DatetimeEventPropsBuilder extends BuiltSimpleBuilder<DatetimeEventProps> {
 
   /// Emitted when the datetime has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
-  set value$(DatetimeEventProps v2) {
+  replace(DatetimeEventProps v2) {
     var v3 = v2 as DatetimeEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionCancel = v3.ionCancel;
@@ -2320,7 +2362,7 @@ class PickerPropsBuilder extends IonPropsBuilder {
   factory PickerPropsBuilder([_PickerProps b]) {
     var ret = PickerPropsBuilder._(_PickerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2377,20 +2419,26 @@ class PickerPropsBuilder extends IonPropsBuilder {
   }
 
   _PickerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as PickerProps;
     v.animated = v3.animated;
     v.backdropDismiss = v3.backdropDismiss;
     v.buttons = v3.buttons;
     v.columns = v3.columns;
-    v.cssClass = v3.cssClass;
+    if (v3.cssClass != null)
+      cssClass.replace(v3.cssClass);
+    else
+      _cssClass = null;
     v.duration = v3.duration;
     v.enterAnimation = v3.enterAnimation;
     v.keyboardClose = v3.keyboardClose;
     v.leaveAnimation = v3.leaveAnimation;
     v.mode = v3.mode;
     v.showBackdrop = v3.showBackdrop;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   PickerProps build() {
@@ -2446,7 +2494,7 @@ class PickerEventPropsBuilder extends BuiltSimpleBuilder<PickerEventProps> {
   factory PickerEventPropsBuilder([_PickerEventProps b]) {
     var ret = PickerEventPropsBuilder._(_PickerEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2468,7 +2516,7 @@ class PickerEventPropsBuilder extends BuiltSimpleBuilder<PickerEventProps> {
   /// Emitted before the picker has presented.
   set ionPickerWillPresent(DartHandler<CustomEvent> value) =>
       v.ionPickerWillPresent = value;
-  set value$(PickerEventProps v2) {
+  replace(PickerEventProps v2) {
     var v3 = v2 as PickerEventProps;
     v.ionPickerDidDismiss = v3.ionPickerDidDismiss;
     v.ionPickerDidPresent = v3.ionPickerDidPresent;
@@ -2518,13 +2566,13 @@ class PickerControllerPropsBuilder extends IonPropsBuilder {
   factory PickerControllerPropsBuilder([_PickerControllerProps b]) {
     var ret = PickerControllerPropsBuilder._(_PickerControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _PickerControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as PickerControllerProps;
   }
 
@@ -2580,7 +2628,7 @@ class FabPropsBuilder extends IonPropsBuilder {
   factory FabPropsBuilder([_FabProps b]) {
     var ret = FabPropsBuilder._(_FabProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2600,7 +2648,7 @@ class FabPropsBuilder extends IonPropsBuilder {
   /// <p>Where to align the fab vertically in the viewport.</p>
   set vertical(VerticalValue value) => v.vertical = value;
   _FabProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as FabProps;
     v.activated = v3.activated;
     v.edge = v3.edge;
@@ -2680,7 +2728,7 @@ class FabButtonPropsBuilder extends IonPropsBuilder {
   factory FabButtonPropsBuilder([_FabButtonProps b]) {
     var ret = FabButtonPropsBuilder._(_FabButtonProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2730,7 +2778,7 @@ class FabButtonPropsBuilder extends IonPropsBuilder {
   }
 
   _FabButtonProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as FabButtonProps;
     v.activated = v3.activated;
     v.color = v3.color;
@@ -2742,7 +2790,10 @@ class FabButtonPropsBuilder extends IonPropsBuilder {
     v.size = v3.size;
     v.translucent = v3.translucent;
     v.type = v3.type;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   FabButtonProps build() {
@@ -2794,7 +2845,7 @@ class FabButtonEventPropsBuilder
   factory FabButtonEventPropsBuilder([_FabButtonEventProps b]) {
     var ret = FabButtonEventPropsBuilder._(_FabButtonEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2806,7 +2857,7 @@ class FabButtonEventPropsBuilder
 
   /// Emitted when the button has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
-  set value$(FabButtonEventProps v2) {
+  replace(FabButtonEventProps v2) {
     var v3 = v2 as FabButtonEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionFocus = v3.ionFocus;
@@ -2858,7 +2909,7 @@ class FabListPropsBuilder extends IonPropsBuilder {
   factory FabListPropsBuilder([_FabListProps b]) {
     var ret = FabListPropsBuilder._(_FabListProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2869,7 +2920,7 @@ class FabListPropsBuilder extends IonPropsBuilder {
   /// <p>The side the fab list will show on relative to the main fab button.</p>
   set side(FabListPropsSideValue value) => v.side = value;
   _FabListProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as FabListProps;
     v.activated = v3.activated;
     v.side = v3.side;
@@ -2916,7 +2967,7 @@ class GridPropsBuilder extends IonPropsBuilder {
   factory GridPropsBuilder([_GridProps b]) {
     var ret = GridPropsBuilder._(_GridProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -2924,7 +2975,7 @@ class GridPropsBuilder extends IonPropsBuilder {
   /// <p>If <code>true</code>, the grid will have a fixed width based on the screen size.</p>
   set fixed(bool value) => v.fixed = value;
   _GridProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as GridProps;
     v.fixed = v3.fixed;
   }
@@ -3039,7 +3090,7 @@ class ColPropsBuilder extends IonPropsBuilder {
   factory ColPropsBuilder([_ColProps b]) {
     var ret = ColPropsBuilder._(_ColProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -3140,7 +3191,7 @@ class ColPropsBuilder extends IonPropsBuilder {
   /// of the total available. If <code>&quot;auto&quot;</code> is passed, the column will be the size of its content.</p>
   set sizeXs(String value) => v.sizeXs = value;
   _ColProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ColProps;
     v.offset = v3.offset;
     v.offsetLg = v3.offsetLg;
@@ -3206,13 +3257,13 @@ class RowPropsBuilder extends IonPropsBuilder {
   factory RowPropsBuilder([_RowProps b]) {
     var ret = RowPropsBuilder._(_RowProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _RowProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RowProps;
   }
 
@@ -3268,7 +3319,7 @@ class InfiniteScrollPropsBuilder extends IonPropsBuilder {
   factory InfiniteScrollPropsBuilder([_InfiniteScrollProps b]) {
     var ret = InfiniteScrollPropsBuilder._(_InfiniteScrollProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -3305,12 +3356,15 @@ class InfiniteScrollPropsBuilder extends IonPropsBuilder {
   }
 
   _InfiniteScrollProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as InfiniteScrollProps;
     v.disabled = v3.disabled;
     v.position = v3.position;
     v.threshold = v3.threshold;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   InfiniteScrollProps build() {
@@ -3361,7 +3415,7 @@ class InfiniteScrollEventPropsBuilder
   factory InfiniteScrollEventPropsBuilder([_InfiniteScrollEventProps b]) {
     var ret = InfiniteScrollEventPropsBuilder._(_InfiniteScrollEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -3373,7 +3427,7 @@ class InfiniteScrollEventPropsBuilder
   /// you must call the infinite scroll's `complete()` method when
   /// your async operation has completed.
   set ionInfinite(DartHandler<CustomEvent> value) => v.ionInfinite = value;
-  set value$(InfiniteScrollEventProps v2) {
+  replace(InfiniteScrollEventProps v2) {
     var v3 = v2 as InfiniteScrollEventProps;
     v.ionInfinite = v3.ionInfinite;
   }
@@ -3430,7 +3484,7 @@ class InfiniteScrollContentPropsBuilder extends IonPropsBuilder {
     var ret =
         InfiniteScrollContentPropsBuilder._(_InfiniteScrollContentProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -3446,7 +3500,7 @@ class InfiniteScrollContentPropsBuilder extends IonPropsBuilder {
   /// <p>For more information: <a href=https://ionicframework.com/docs/faq/security >Security Documentation</a></p>
   set loadingText(String value) => v.loadingText = value;
   _InfiniteScrollContentProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as InfiniteScrollContentProps;
     v.loadingSpinner = v3.loadingSpinner;
     v.loadingText = v3.loadingText;
@@ -3575,7 +3629,7 @@ class InputPropsBuilder extends IonPropsBuilder {
   factory InputPropsBuilder([_InputProps b]) {
     var ret = InputPropsBuilder._(_InputProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -3676,7 +3730,7 @@ class InputPropsBuilder extends IonPropsBuilder {
   }
 
   _InputProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as InputProps;
     v.accept = v3.accept;
     v.autocapitalize = v3.autocapitalize;
@@ -3705,7 +3759,10 @@ class InputPropsBuilder extends IonPropsBuilder {
     v.step = v3.step;
     v.type = v3.type;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   InputProps build() {
@@ -3760,7 +3817,7 @@ class InputEventPropsBuilder extends BuiltSimpleBuilder<InputEventProps> {
   factory InputEventPropsBuilder([_InputEventProps b]) {
     var ret = InputEventPropsBuilder._(_InputEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -3778,7 +3835,7 @@ class InputEventPropsBuilder extends BuiltSimpleBuilder<InputEventProps> {
 
   /// Emitted when a keyboard input ocurred.
   set ionInput(DartHandler<CustomEvent> value) => v.ionInput = value;
-  set value$(InputEventProps v2) {
+  replace(InputEventProps v2) {
     var v3 = v2 as InputEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionChange = v3.ionChange;
@@ -3885,7 +3942,7 @@ class TextareaPropsBuilder extends IonPropsBuilder {
   factory TextareaPropsBuilder([_TextareaProps b]) {
     var ret = TextareaPropsBuilder._(_TextareaProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -3960,7 +4017,7 @@ class TextareaPropsBuilder extends IonPropsBuilder {
   }
 
   _TextareaProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as TextareaProps;
     v.autoGrow = v3.autoGrow;
     v.autocapitalize = v3.autocapitalize;
@@ -3981,7 +4038,10 @@ class TextareaPropsBuilder extends IonPropsBuilder {
     v.spellcheck = v3.spellcheck;
     v.value = v3.value;
     v.wrap = v3.wrap;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   TextareaProps build() {
@@ -4036,7 +4096,7 @@ class TextareaEventPropsBuilder extends BuiltSimpleBuilder<TextareaEventProps> {
   factory TextareaEventPropsBuilder([_TextareaEventProps b]) {
     var ret = TextareaEventPropsBuilder._(_TextareaEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4054,7 +4114,7 @@ class TextareaEventPropsBuilder extends BuiltSimpleBuilder<TextareaEventProps> {
 
   /// Emitted when a keyboard input ocurred.
   set ionInput(DartHandler<CustomEvent> value) => v.ionInput = value;
-  set value$(TextareaEventProps v2) {
+  replace(TextareaEventProps v2) {
     var v3 = v2 as TextareaEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionChange = v3.ionChange;
@@ -4132,7 +4192,7 @@ class ItemPropsBuilder extends IonPropsBuilder {
   factory ItemPropsBuilder([_ItemProps b]) {
     var ret = ItemPropsBuilder._(_ItemProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4183,7 +4243,7 @@ class ItemPropsBuilder extends IonPropsBuilder {
   }
 
   _ItemProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ItemProps;
     v.button = v3.button;
     v.color = v3.color;
@@ -4195,7 +4255,10 @@ class ItemPropsBuilder extends IonPropsBuilder {
     v.mode = v3.mode;
     v.routerDirection = v3.routerDirection;
     v.type = v3.type;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ItemProps build() {
@@ -4241,7 +4304,7 @@ class ItemEventPropsBuilder extends BuiltSimpleBuilder<ItemEventProps> {
   factory ItemEventPropsBuilder([_ItemEventProps b]) {
     var ret = ItemEventPropsBuilder._(_ItemEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4250,7 +4313,7 @@ class ItemEventPropsBuilder extends BuiltSimpleBuilder<ItemEventProps> {
 
   ///
   set click(DartHandler<MouseEvent> value) => v.click = value;
-  set value$(ItemEventProps v2) {
+  replace(ItemEventProps v2) {
     var v3 = v2 as ItemEventProps;
     v.click = v3.click;
   }
@@ -4304,7 +4367,7 @@ class ItemDividerPropsBuilder extends IonPropsBuilder {
   factory ItemDividerPropsBuilder([_ItemDividerProps b]) {
     var ret = ItemDividerPropsBuilder._(_ItemDividerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4323,7 +4386,7 @@ class ItemDividerPropsBuilder extends IonPropsBuilder {
   /// <a href=https://caniuse.com/#feat=css-sticky >https://caniuse.com/#feat=css-sticky</a></p>
   set sticky(bool value) => v.sticky = value;
   _ItemDividerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ItemDividerProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -4371,13 +4434,13 @@ class ItemGroupPropsBuilder extends IonPropsBuilder {
   factory ItemGroupPropsBuilder([_ItemGroupProps b]) {
     var ret = ItemGroupPropsBuilder._(_ItemGroupProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _ItemGroupProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ItemGroupProps;
   }
 
@@ -4427,7 +4490,7 @@ class ItemSlidingPropsBuilder extends IonPropsBuilder {
   factory ItemSlidingPropsBuilder([_ItemSlidingProps b]) {
     var ret = ItemSlidingPropsBuilder._(_ItemSlidingProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4446,10 +4509,13 @@ class ItemSlidingPropsBuilder extends IonPropsBuilder {
   }
 
   _ItemSlidingProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ItemSlidingProps;
     v.disabled = v3.disabled;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ItemSlidingProps build() {
@@ -4499,7 +4565,7 @@ class ItemSlidingEventPropsBuilder
   factory ItemSlidingEventPropsBuilder([_ItemSlidingEventProps b]) {
     var ret = ItemSlidingEventPropsBuilder._(_ItemSlidingEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4508,7 +4574,7 @@ class ItemSlidingEventPropsBuilder
 
   /// Emitted when the sliding position changes.
   set ionDrag(DartHandler<CustomEvent> value) => v.ionDrag = value;
-  set value$(ItemSlidingEventProps v2) {
+  replace(ItemSlidingEventProps v2) {
     var v3 = v2 as ItemSlidingEventProps;
     v.ionDrag = v3.ionDrag;
   }
@@ -4559,7 +4625,7 @@ class ItemOptionsPropsBuilder extends IonPropsBuilder {
   factory ItemOptionsPropsBuilder([_ItemOptionsProps b]) {
     var ret = ItemOptionsPropsBuilder._(_ItemOptionsProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4578,10 +4644,13 @@ class ItemOptionsPropsBuilder extends IonPropsBuilder {
   }
 
   _ItemOptionsProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ItemOptionsProps;
     v.side = v3.side;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ItemOptionsProps build() {
@@ -4631,7 +4700,7 @@ class ItemOptionsEventPropsBuilder
   factory ItemOptionsEventPropsBuilder([_ItemOptionsEventProps b]) {
     var ret = ItemOptionsEventPropsBuilder._(_ItemOptionsEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4640,7 +4709,7 @@ class ItemOptionsEventPropsBuilder
 
   /// Emitted when the item has been fully swiped.
   set ionSwipe(DartHandler<CustomEvent> value) => v.ionSwipe = value;
-  set value$(ItemOptionsEventProps v2) {
+  replace(ItemOptionsEventProps v2) {
     var v3 = v2 as ItemOptionsEventProps;
     v.ionSwipe = v3.ionSwipe;
   }
@@ -4701,7 +4770,7 @@ class ItemOptionPropsBuilder extends IonPropsBuilder {
   factory ItemOptionPropsBuilder([_ItemOptionProps b]) {
     var ret = ItemOptionPropsBuilder._(_ItemOptionProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4724,7 +4793,7 @@ class ItemOptionPropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _ItemOptionProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ItemOptionProps;
     v.color = v3.color;
     v.disabled = v3.disabled;
@@ -4781,7 +4850,7 @@ class LabelPropsBuilder extends IonPropsBuilder {
   factory LabelPropsBuilder([_LabelProps b]) {
     var ret = LabelPropsBuilder._(_LabelProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4797,7 +4866,7 @@ class LabelPropsBuilder extends IonPropsBuilder {
   /// <p>The position determines where and how the label behaves inside an item.</p>
   set position(LabelPropsPositionValue value) => v.position = value;
   _LabelProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as LabelProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -4848,7 +4917,7 @@ class NotePropsBuilder extends IonPropsBuilder {
   factory NotePropsBuilder([_NoteProps b]) {
     var ret = NotePropsBuilder._(_NoteProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4861,7 +4930,7 @@ class NotePropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _NoteProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as NoteProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -4914,7 +4983,7 @@ class ListPropsBuilder extends IonPropsBuilder {
   factory ListPropsBuilder([_ListProps b]) {
     var ret = ListPropsBuilder._(_ListProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4928,7 +4997,7 @@ class ListPropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _ListProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ListProps;
     v.inset = v3.inset;
     v.lines = v3.lines;
@@ -4981,7 +5050,7 @@ class ListHeaderPropsBuilder extends IonPropsBuilder {
   factory ListHeaderPropsBuilder([_ListHeaderProps b]) {
     var ret = ListHeaderPropsBuilder._(_ListHeaderProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -4994,7 +5063,7 @@ class ListHeaderPropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _ListHeaderProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ListHeaderProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -5074,7 +5143,7 @@ class VirtualScrollPropsBuilder extends IonPropsBuilder {
   factory VirtualScrollPropsBuilder([_VirtualScrollProps b]) {
     var ret = VirtualScrollPropsBuilder._(_VirtualScrollProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5153,7 +5222,7 @@ class VirtualScrollPropsBuilder extends IonPropsBuilder {
   /// <p>Provide a render function for the items to be rendered. Returns a JSX virtual-dom.</p>
   set renderItem(String value) => v.renderItem = value;
   _VirtualScrollProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as VirtualScrollProps;
     v.approxFooterHeight = v3.approxFooterHeight;
     v.approxHeaderHeight = v3.approxHeaderHeight;
@@ -5207,13 +5276,13 @@ class AvatarPropsBuilder extends IonPropsBuilder {
   factory AvatarPropsBuilder([_AvatarProps b]) {
     var ret = AvatarPropsBuilder._(_AvatarProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _AvatarProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as AvatarProps;
   }
 
@@ -5263,7 +5332,7 @@ class ImgPropsBuilder extends IonPropsBuilder {
   factory ImgPropsBuilder([_ImgProps b]) {
     var ret = ImgPropsBuilder._(_ImgProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5287,11 +5356,14 @@ class ImgPropsBuilder extends IonPropsBuilder {
   }
 
   _ImgProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ImgProps;
     v.alt = v3.alt;
     v.src = v3.src;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ImgProps build() {
@@ -5343,7 +5415,7 @@ class ImgEventPropsBuilder extends BuiltSimpleBuilder<ImgEventProps> {
   factory ImgEventPropsBuilder([_ImgEventProps b]) {
     var ret = ImgEventPropsBuilder._(_ImgEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5359,7 +5431,7 @@ class ImgEventPropsBuilder extends BuiltSimpleBuilder<ImgEventProps> {
   /// Emitted when the img src has been set
   set ionImgWillLoad(DartHandler<CustomEvent> value) =>
       v.ionImgWillLoad = value;
-  set value$(ImgEventProps v2) {
+  replace(ImgEventProps v2) {
     var v3 = v2 as ImgEventProps;
     v.ionError = v3.ionError;
     v.ionImgDidLoad = v3.ionImgDidLoad;
@@ -5405,13 +5477,13 @@ class ThumbnailPropsBuilder extends IonPropsBuilder {
   factory ThumbnailPropsBuilder([_ThumbnailProps b]) {
     var ret = ThumbnailPropsBuilder._(_ThumbnailProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _ThumbnailProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ThumbnailProps;
   }
 
@@ -5477,7 +5549,7 @@ class MenuPropsBuilder extends IonPropsBuilder {
   factory MenuPropsBuilder([_MenuProps b]) {
     var ret = MenuPropsBuilder._(_MenuProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5517,7 +5589,7 @@ class MenuPropsBuilder extends IonPropsBuilder {
   }
 
   _MenuProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as MenuProps;
     v.contentId = v3.contentId;
     v.disabled = v3.disabled;
@@ -5526,7 +5598,10 @@ class MenuPropsBuilder extends IonPropsBuilder {
     v.side = v3.side;
     v.swipeGesture = v3.swipeGesture;
     v.type = v3.type;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   MenuProps build() {
@@ -5581,7 +5656,7 @@ class MenuEventPropsBuilder extends BuiltSimpleBuilder<MenuEventProps> {
   factory MenuEventPropsBuilder([_MenuEventProps b]) {
     var ret = MenuEventPropsBuilder._(_MenuEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5599,7 +5674,7 @@ class MenuEventPropsBuilder extends BuiltSimpleBuilder<MenuEventProps> {
 
   /// Emitted when the menu is about to be opened.
   set ionWillOpen(DartHandler<CustomEvent> value) => v.ionWillOpen = value;
-  set value$(MenuEventProps v2) {
+  replace(MenuEventProps v2) {
     var v3 = v2 as MenuEventProps;
     v.ionDidClose = v3.ionDidClose;
     v.ionDidOpen = v3.ionDidOpen;
@@ -5659,7 +5734,7 @@ class MenuButtonPropsBuilder extends IonPropsBuilder {
   factory MenuButtonPropsBuilder([_MenuButtonProps b]) {
     var ret = MenuButtonPropsBuilder._(_MenuButtonProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5678,7 +5753,7 @@ class MenuButtonPropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _MenuButtonProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as MenuButtonProps;
     v.autoHide = v3.autoHide;
     v.color = v3.color;
@@ -5728,13 +5803,13 @@ class MenuControllerPropsBuilder extends IonPropsBuilder {
   factory MenuControllerPropsBuilder([_MenuControllerProps b]) {
     var ret = MenuControllerPropsBuilder._(_MenuControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _MenuControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as MenuControllerProps;
   }
 
@@ -5785,7 +5860,7 @@ class MenuTogglePropsBuilder extends IonPropsBuilder {
   factory MenuTogglePropsBuilder([_MenuToggleProps b]) {
     var ret = MenuTogglePropsBuilder._(_MenuToggleProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5802,7 +5877,7 @@ class MenuTogglePropsBuilder extends IonPropsBuilder {
   /// first menu that is active.</p>
   set menu(String value) => v.menu = value;
   _MenuToggleProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as MenuToggleProps;
     v.autoHide = v3.autoHide;
     v.menu = v3.menu;
@@ -5860,7 +5935,7 @@ class SplitPanePropsBuilder extends IonPropsBuilder {
   factory SplitPanePropsBuilder([_SplitPaneProps b]) {
     var ret = SplitPanePropsBuilder._(_SplitPaneProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5889,12 +5964,15 @@ class SplitPanePropsBuilder extends IonPropsBuilder {
   }
 
   _SplitPaneProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SplitPaneProps;
     v.contentId = v3.contentId;
     v.disabled = v3.disabled;
     v.when = v3.when;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   SplitPaneProps build() {
@@ -5943,7 +6021,7 @@ class SplitPaneEventPropsBuilder
   factory SplitPaneEventPropsBuilder([_SplitPaneEventProps b]) {
     var ret = SplitPaneEventPropsBuilder._(_SplitPaneEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -5953,7 +6031,7 @@ class SplitPaneEventPropsBuilder
   /// Expression to be called when the split-pane visibility has changed
   set ionSplitPaneVisible(DartHandler<CustomEvent> value) =>
       v.ionSplitPaneVisible = value;
-  set value$(SplitPaneEventProps v2) {
+  replace(SplitPaneEventProps v2) {
     var v3 = v2 as SplitPaneEventProps;
     v.ionSplitPaneVisible = v3.ionSplitPaneVisible;
   }
@@ -6028,7 +6106,7 @@ class ModalPropsBuilder extends IonPropsBuilder {
   factory ModalPropsBuilder([_ModalProps b]) {
     var ret = ModalPropsBuilder._(_ModalProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6082,19 +6160,25 @@ class ModalPropsBuilder extends IonPropsBuilder {
   }
 
   _ModalProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ModalProps;
     v.animated = v3.animated;
     v.backdropDismiss = v3.backdropDismiss;
     v.component = v3.component;
     v.componentProps = v3.componentProps;
-    v.cssClass = v3.cssClass;
+    if (v3.cssClass != null)
+      cssClass.replace(v3.cssClass);
+    else
+      _cssClass = null;
     v.enterAnimation = v3.enterAnimation;
     v.keyboardClose = v3.keyboardClose;
     v.leaveAnimation = v3.leaveAnimation;
     v.mode = v3.mode;
     v.showBackdrop = v3.showBackdrop;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ModalProps build() {
@@ -6150,7 +6234,7 @@ class ModalEventPropsBuilder extends BuiltSimpleBuilder<ModalEventProps> {
   factory ModalEventPropsBuilder([_ModalEventProps b]) {
     var ret = ModalEventPropsBuilder._(_ModalEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6172,7 +6256,7 @@ class ModalEventPropsBuilder extends BuiltSimpleBuilder<ModalEventProps> {
   /// Emitted before the modal has presented.
   set ionModalWillPresent(DartHandler<CustomEvent> value) =>
       v.ionModalWillPresent = value;
-  set value$(ModalEventProps v2) {
+  replace(ModalEventProps v2) {
     var v3 = v2 as ModalEventProps;
     v.ionModalDidDismiss = v3.ionModalDidDismiss;
     v.ionModalDidPresent = v3.ionModalDidPresent;
@@ -6221,13 +6305,13 @@ class ModalControllerPropsBuilder extends IonPropsBuilder {
   factory ModalControllerPropsBuilder([_ModalControllerProps b]) {
     var ret = ModalControllerPropsBuilder._(_ModalControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _ModalControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ModalControllerProps;
   }
 
@@ -6283,7 +6367,7 @@ class BackdropPropsBuilder extends IonPropsBuilder {
   factory BackdropPropsBuilder([_BackdropProps b]) {
     var ret = BackdropPropsBuilder._(_BackdropProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6308,12 +6392,15 @@ class BackdropPropsBuilder extends IonPropsBuilder {
   }
 
   _BackdropProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as BackdropProps;
     v.stopPropagation = v3.stopPropagation;
     v.tappable = v3.tappable;
     v.visible = v3.visible;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   BackdropProps build() {
@@ -6359,7 +6446,7 @@ class BackdropEventPropsBuilder extends BuiltSimpleBuilder<BackdropEventProps> {
   factory BackdropEventPropsBuilder([_BackdropEventProps b]) {
     var ret = BackdropEventPropsBuilder._(_BackdropEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6369,7 +6456,7 @@ class BackdropEventPropsBuilder extends BuiltSimpleBuilder<BackdropEventProps> {
   /// Emitted when the backdrop is tapped.
   set ionBackdropTap(DartHandler<CustomEvent> value) =>
       v.ionBackdropTap = value;
-  set value$(BackdropEventProps v2) {
+  replace(BackdropEventProps v2) {
     var v3 = v2 as BackdropEventProps;
     v.ionBackdropTap = v3.ionBackdropTap;
   }
@@ -6429,7 +6516,7 @@ class NavPropsBuilder extends IonPropsBuilder {
   factory NavPropsBuilder([_NavProps b]) {
     var ret = NavPropsBuilder._(_NavProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6461,14 +6548,17 @@ class NavPropsBuilder extends IonPropsBuilder {
   }
 
   _NavProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as NavProps;
     v.animated = v3.animated;
     v.animation = v3.animation;
     v.root = v3.root;
     v.rootParams = v3.rootParams;
     v.swipeGesture = v3.swipeGesture;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   NavProps build() {
@@ -6517,7 +6607,7 @@ class NavEventPropsBuilder extends BuiltSimpleBuilder<NavEventProps> {
   factory NavEventPropsBuilder([_NavEventProps b]) {
     var ret = NavEventPropsBuilder._(_NavEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6531,7 +6621,7 @@ class NavEventPropsBuilder extends BuiltSimpleBuilder<NavEventProps> {
   /// Event fired when the nav will change components
   set ionNavWillChange(DartHandler<CustomEvent> value) =>
       v.ionNavWillChange = value;
-  set value$(NavEventProps v2) {
+  replace(NavEventProps v2) {
     var v3 = v2 as NavEventProps;
     v.ionNavDidChange = v3.ionNavDidChange;
     v.ionNavWillChange = v3.ionNavWillChange;
@@ -6574,13 +6664,13 @@ class NavPopPropsBuilder extends IonPropsBuilder {
   factory NavPopPropsBuilder([_NavPopProps b]) {
     var ret = NavPopPropsBuilder._(_NavPopProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _NavPopProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as NavPopProps;
   }
 
@@ -6630,7 +6720,7 @@ class NavPushPropsBuilder extends IonPropsBuilder {
   factory NavPushPropsBuilder([_NavPushProps b]) {
     var ret = NavPushPropsBuilder._(_NavPushProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6641,7 +6731,7 @@ class NavPushPropsBuilder extends IonPropsBuilder {
   /// <p>Data you want to pass to the component as props</p>
   set componentProps(String value) => v.componentProps = value;
   _NavPushProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as NavPushProps;
     v.component = v3.component;
     v.componentProps = v3.componentProps;
@@ -6693,7 +6783,7 @@ class NavSetRootPropsBuilder extends IonPropsBuilder {
   factory NavSetRootPropsBuilder([_NavSetRootProps b]) {
     var ret = NavSetRootPropsBuilder._(_NavSetRootProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6704,7 +6794,7 @@ class NavSetRootPropsBuilder extends IonPropsBuilder {
   /// <p>Data you want to pass to the component as props</p>
   set componentProps(String value) => v.componentProps = value;
   _NavSetRootProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as NavSetRootProps;
     v.component = v3.component;
     v.componentProps = v3.componentProps;
@@ -6789,7 +6879,7 @@ class PopoverPropsBuilder extends IonPropsBuilder {
   factory PopoverPropsBuilder([_PopoverProps b]) {
     var ret = PopoverPropsBuilder._(_PopoverProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6849,13 +6939,16 @@ class PopoverPropsBuilder extends IonPropsBuilder {
   }
 
   _PopoverProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as PopoverProps;
     v.animated = v3.animated;
     v.backdropDismiss = v3.backdropDismiss;
     v.component = v3.component;
     v.componentProps = v3.componentProps;
-    v.cssClass = v3.cssClass;
+    if (v3.cssClass != null)
+      cssClass.replace(v3.cssClass);
+    else
+      _cssClass = null;
     v.enterAnimation = v3.enterAnimation;
     v.event = v3.event;
     v.keyboardClose = v3.keyboardClose;
@@ -6863,7 +6956,10 @@ class PopoverPropsBuilder extends IonPropsBuilder {
     v.mode = v3.mode;
     v.showBackdrop = v3.showBackdrop;
     v.translucent = v3.translucent;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   PopoverProps build() {
@@ -6919,7 +7015,7 @@ class PopoverEventPropsBuilder extends BuiltSimpleBuilder<PopoverEventProps> {
   factory PopoverEventPropsBuilder([_PopoverEventProps b]) {
     var ret = PopoverEventPropsBuilder._(_PopoverEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -6941,7 +7037,7 @@ class PopoverEventPropsBuilder extends BuiltSimpleBuilder<PopoverEventProps> {
   /// Emitted before the popover has presented.
   set ionPopoverWillPresent(DartHandler<CustomEvent> value) =>
       v.ionPopoverWillPresent = value;
-  set value$(PopoverEventProps v2) {
+  replace(PopoverEventProps v2) {
     var v3 = v2 as PopoverEventProps;
     v.ionPopoverDidDismiss = v3.ionPopoverDidDismiss;
     v.ionPopoverDidPresent = v3.ionPopoverDidPresent;
@@ -6992,13 +7088,13 @@ class PopoverControllerPropsBuilder extends IonPropsBuilder {
   factory PopoverControllerPropsBuilder([_PopoverControllerProps b]) {
     var ret = PopoverControllerPropsBuilder._(_PopoverControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _PopoverControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as PopoverControllerProps;
   }
 
@@ -7082,7 +7178,7 @@ class LoadingPropsBuilder extends IonPropsBuilder {
   factory LoadingPropsBuilder([_LoadingProps b]) {
     var ret = LoadingPropsBuilder._(_LoadingProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7142,11 +7238,14 @@ class LoadingPropsBuilder extends IonPropsBuilder {
   }
 
   _LoadingProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as LoadingProps;
     v.animated = v3.animated;
     v.backdropDismiss = v3.backdropDismiss;
-    v.cssClass = v3.cssClass;
+    if (v3.cssClass != null)
+      cssClass.replace(v3.cssClass);
+    else
+      _cssClass = null;
     v.duration = v3.duration;
     v.enterAnimation = v3.enterAnimation;
     v.keyboardClose = v3.keyboardClose;
@@ -7156,7 +7255,10 @@ class LoadingPropsBuilder extends IonPropsBuilder {
     v.showBackdrop = v3.showBackdrop;
     v.spinner = v3.spinner;
     v.translucent = v3.translucent;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   LoadingProps build() {
@@ -7212,7 +7314,7 @@ class LoadingEventPropsBuilder extends BuiltSimpleBuilder<LoadingEventProps> {
   factory LoadingEventPropsBuilder([_LoadingEventProps b]) {
     var ret = LoadingEventPropsBuilder._(_LoadingEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7234,7 +7336,7 @@ class LoadingEventPropsBuilder extends BuiltSimpleBuilder<LoadingEventProps> {
   /// Emitted before the loading has presented.
   set ionLoadingWillPresent(DartHandler<CustomEvent> value) =>
       v.ionLoadingWillPresent = value;
-  set value$(LoadingEventProps v2) {
+  replace(LoadingEventProps v2) {
     var v3 = v2 as LoadingEventProps;
     v.ionLoadingDidDismiss = v3.ionLoadingDidDismiss;
     v.ionLoadingDidPresent = v3.ionLoadingDidPresent;
@@ -7285,13 +7387,13 @@ class LoadingControllerPropsBuilder extends IonPropsBuilder {
   factory LoadingControllerPropsBuilder([_LoadingControllerProps b]) {
     var ret = LoadingControllerPropsBuilder._(_LoadingControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _LoadingControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as LoadingControllerProps;
   }
 
@@ -7355,7 +7457,7 @@ class ProgressBarPropsBuilder extends IonPropsBuilder {
   factory ProgressBarPropsBuilder([_ProgressBarProps b]) {
     var ret = ProgressBarPropsBuilder._(_ProgressBarProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7384,7 +7486,7 @@ class ProgressBarPropsBuilder extends IonPropsBuilder {
   /// The value should be between [0, 1].</p>
   set value(num value) => v.value = value;
   _ProgressBarProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ProgressBarProps;
     v.buffer = v3.buffer;
     v.color = v3.color;
@@ -7441,7 +7543,7 @@ class SkeletonTextPropsBuilder extends IonPropsBuilder {
   factory SkeletonTextPropsBuilder([_SkeletonTextProps b]) {
     var ret = SkeletonTextPropsBuilder._(_SkeletonTextProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7452,7 +7554,7 @@ class SkeletonTextPropsBuilder extends IonPropsBuilder {
   ///
   set width(String value) => v.width = value;
   _SkeletonTextProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SkeletonTextProps;
     v.animated = v3.animated;
     v.width = v3.width;
@@ -7511,7 +7613,7 @@ class SpinnerPropsBuilder extends IonPropsBuilder {
   factory SpinnerPropsBuilder([_SpinnerProps b]) {
     var ret = SpinnerPropsBuilder._(_SpinnerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7531,7 +7633,7 @@ class SpinnerPropsBuilder extends IonPropsBuilder {
   /// <p>If <code>true</code>, the spinner&#39;s animation will be paused.</p>
   set paused(bool value) => v.paused = value;
   _SpinnerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SpinnerProps;
     v.color = v3.color;
     v.duration = v3.duration;
@@ -7597,7 +7699,7 @@ class RadioPropsBuilder extends IonPropsBuilder {
   factory RadioPropsBuilder([_RadioProps b]) {
     var ret = RadioPropsBuilder._(_RadioProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7633,7 +7735,7 @@ class RadioPropsBuilder extends IonPropsBuilder {
   }
 
   _RadioProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RadioProps;
     v.checked = v3.checked;
     v.color = v3.color;
@@ -7641,7 +7743,10 @@ class RadioPropsBuilder extends IonPropsBuilder {
     v.mode = v3.mode;
     v.name = v3.name;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   RadioProps build() {
@@ -7693,7 +7798,7 @@ class RadioEventPropsBuilder extends BuiltSimpleBuilder<RadioEventProps> {
   factory RadioEventPropsBuilder([_RadioEventProps b]) {
     var ret = RadioEventPropsBuilder._(_RadioEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7708,7 +7813,7 @@ class RadioEventPropsBuilder extends BuiltSimpleBuilder<RadioEventProps> {
 
   /// Emitted when the radio button is selected.
   set ionSelect(DartHandler<CustomEvent> value) => v.ionSelect = value;
-  set value$(RadioEventProps v2) {
+  replace(RadioEventProps v2) {
     var v3 = v2 as RadioEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionFocus = v3.ionFocus;
@@ -7766,7 +7871,7 @@ class RadioGroupPropsBuilder extends IonPropsBuilder {
   factory RadioGroupPropsBuilder([_RadioGroupProps b]) {
     var ret = RadioGroupPropsBuilder._(_RadioGroupProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7791,12 +7896,15 @@ class RadioGroupPropsBuilder extends IonPropsBuilder {
   }
 
   _RadioGroupProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RadioGroupProps;
     v.allowEmptySelection = v3.allowEmptySelection;
     v.name = v3.name;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   RadioGroupProps build() {
@@ -7845,7 +7953,7 @@ class RadioGroupEventPropsBuilder
   factory RadioGroupEventPropsBuilder([_RadioGroupEventProps b]) {
     var ret = RadioGroupEventPropsBuilder._(_RadioGroupEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7854,7 +7962,7 @@ class RadioGroupEventPropsBuilder
 
   /// Emitted when the value has changed.
   set ionChange(DartHandler<CustomEvent> value) => v.ionChange = value;
-  set value$(RadioGroupEventProps v2) {
+  replace(RadioGroupEventProps v2) {
     var v3 = v2 as RadioGroupEventProps;
     v.ionChange = v3.ionChange;
   }
@@ -7938,7 +8046,7 @@ class RangePropsBuilder extends IonPropsBuilder {
   factory RangePropsBuilder([_RangeProps b]) {
     var ret = RangePropsBuilder._(_RangeProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -7999,7 +8107,7 @@ class RangePropsBuilder extends IonPropsBuilder {
   }
 
   _RangeProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RangeProps;
     v.color = v3.color;
     v.debounce = v3.debounce;
@@ -8014,7 +8122,10 @@ class RangePropsBuilder extends IonPropsBuilder {
     v.step = v3.step;
     v.ticks = v3.ticks;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   RangeProps build() {
@@ -8066,7 +8177,7 @@ class RangeEventPropsBuilder extends BuiltSimpleBuilder<RangeEventProps> {
   factory RangeEventPropsBuilder([_RangeEventProps b]) {
     var ret = RangeEventPropsBuilder._(_RangeEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8081,7 +8192,7 @@ class RangeEventPropsBuilder extends BuiltSimpleBuilder<RangeEventProps> {
 
   /// Emitted when the range has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
-  set value$(RangeEventProps v2) {
+  replace(RangeEventProps v2) {
     var v3 = v2 as RangeEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionChange = v3.ionChange;
@@ -8148,7 +8259,7 @@ class RefresherPropsBuilder extends IonPropsBuilder {
   factory RefresherPropsBuilder([_RefresherProps b]) {
     var ret = RefresherPropsBuilder._(_RefresherProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8192,7 +8303,7 @@ class RefresherPropsBuilder extends IonPropsBuilder {
   }
 
   _RefresherProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RefresherProps;
     v.closeDuration = v3.closeDuration;
     v.disabled = v3.disabled;
@@ -8200,7 +8311,10 @@ class RefresherPropsBuilder extends IonPropsBuilder {
     v.pullMax = v3.pullMax;
     v.pullMin = v3.pullMin;
     v.snapbackDuration = v3.snapbackDuration;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   RefresherProps build() {
@@ -8255,7 +8369,7 @@ class RefresherEventPropsBuilder
   factory RefresherEventPropsBuilder([_RefresherEventProps b]) {
     var ret = RefresherEventPropsBuilder._(_RefresherEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8273,7 +8387,7 @@ class RefresherEventPropsBuilder
 
   /// Emitted when the user begins to start pulling down.
   set ionStart(DartHandler<CustomEvent> value) => v.ionStart = value;
-  set value$(RefresherEventProps v2) {
+  replace(RefresherEventProps v2) {
     var v3 = v2 as RefresherEventProps;
     v.ionPull = v3.ionPull;
     v.ionRefresh = v3.ionRefresh;
@@ -8334,7 +8448,7 @@ class RefresherContentPropsBuilder extends IonPropsBuilder {
   factory RefresherContentPropsBuilder([_RefresherContentProps b]) {
     var ret = RefresherContentPropsBuilder._(_RefresherContentProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8362,7 +8476,7 @@ class RefresherContentPropsBuilder extends IonPropsBuilder {
   /// <p>For more information: <a href=https://ionicframework.com/docs/faq/security >Security Documentation</a></p>
   set refreshingText(String value) => v.refreshingText = value;
   _RefresherContentProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RefresherContentProps;
     v.pullingIcon = v3.pullingIcon;
     v.pullingText = v3.pullingText;
@@ -8412,13 +8526,13 @@ class ReorderPropsBuilder extends IonPropsBuilder {
   factory ReorderPropsBuilder([_ReorderProps b]) {
     var ret = ReorderPropsBuilder._(_ReorderProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _ReorderProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ReorderProps;
   }
 
@@ -8467,7 +8581,7 @@ class ReorderGroupPropsBuilder extends IonPropsBuilder {
   factory ReorderGroupPropsBuilder([_ReorderGroupProps b]) {
     var ret = ReorderGroupPropsBuilder._(_ReorderGroupProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8486,10 +8600,13 @@ class ReorderGroupPropsBuilder extends IonPropsBuilder {
   }
 
   _ReorderGroupProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ReorderGroupProps;
     v.disabled = v3.disabled;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ReorderGroupProps build() {
@@ -8540,7 +8657,7 @@ class ReorderGroupEventPropsBuilder
   factory ReorderGroupEventPropsBuilder([_ReorderGroupEventProps b]) {
     var ret = ReorderGroupEventPropsBuilder._(_ReorderGroupEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8552,7 +8669,7 @@ class ReorderGroupEventPropsBuilder
   /// to be called in order to finalize the reorder action.
   set ionItemReorder(DartHandler<CustomEvent> value) =>
       v.ionItemReorder = value;
-  set value$(ReorderGroupEventProps v2) {
+  replace(ReorderGroupEventProps v2) {
     var v3 = v2 as ReorderGroupEventProps;
     v.ionItemReorder = v3.ionItemReorder;
   }
@@ -8604,7 +8721,7 @@ class RouterPropsBuilder extends IonPropsBuilder {
   factory RouterPropsBuilder([_RouterProps b]) {
     var ret = RouterPropsBuilder._(_RouterProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8636,11 +8753,14 @@ class RouterPropsBuilder extends IonPropsBuilder {
   }
 
   _RouterProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RouterProps;
     v.root = v3.root;
     v.useHash = v3.useHash;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   RouterProps build() {
@@ -8689,7 +8809,7 @@ class RouterEventPropsBuilder extends BuiltSimpleBuilder<RouterEventProps> {
   factory RouterEventPropsBuilder([_RouterEventProps b]) {
     var ret = RouterEventPropsBuilder._(_RouterEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8703,7 +8823,7 @@ class RouterEventPropsBuilder extends BuiltSimpleBuilder<RouterEventProps> {
   /// Event emitted when the route is about to change
   set ionRouteWillChange(DartHandler<CustomEvent> value) =>
       v.ionRouteWillChange = value;
-  set value$(RouterEventProps v2) {
+  replace(RouterEventProps v2) {
     var v3 = v2 as RouterEventProps;
     v.ionRouteDidChange = v3.ionRouteDidChange;
     v.ionRouteWillChange = v3.ionRouteWillChange;
@@ -8755,7 +8875,7 @@ class RouterOutletPropsBuilder extends IonPropsBuilder {
   factory RouterOutletPropsBuilder([_RouterOutletProps b]) {
     var ret = RouterOutletPropsBuilder._(_RouterOutletProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8767,7 +8887,7 @@ class RouterOutletPropsBuilder extends IonPropsBuilder {
   /// However, this property allows to create custom transition using <code>AnimateBuilder</code> functions.</p>
   set animation(String value) => v.animation = value;
   _RouterOutletProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RouterOutletProps;
     v.animated = v3.animated;
     v.animation = v3.animation;
@@ -8823,7 +8943,7 @@ class RoutePropsBuilder extends IonPropsBuilder {
   factory RoutePropsBuilder([_RouteProps b]) {
     var ret = RoutePropsBuilder._(_RouteProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8854,12 +8974,15 @@ class RoutePropsBuilder extends IonPropsBuilder {
   }
 
   _RouteProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RouteProps;
     v.component = v3.component;
     v.componentProps = v3.componentProps;
     v.url = v3.url;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   RouteProps build() {
@@ -8905,7 +9028,7 @@ class RouteEventPropsBuilder extends BuiltSimpleBuilder<RouteEventProps> {
   factory RouteEventPropsBuilder([_RouteEventProps b]) {
     var ret = RouteEventPropsBuilder._(_RouteEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -8915,7 +9038,7 @@ class RouteEventPropsBuilder extends BuiltSimpleBuilder<RouteEventProps> {
   /// Used internally by `ion-router` to know when this route did change.
   set ionRouteDataChanged(DartHandler<CustomEvent> value) =>
       v.ionRouteDataChanged = value;
-  set value$(RouteEventProps v2) {
+  replace(RouteEventProps v2) {
     var v3 = v2 as RouteEventProps;
     v.ionRouteDataChanged = v3.ionRouteDataChanged;
   }
@@ -8968,7 +9091,7 @@ class RouteRedirectPropsBuilder extends IonPropsBuilder {
   factory RouteRedirectPropsBuilder([_RouteRedirectProps b]) {
     var ret = RouteRedirectPropsBuilder._(_RouteRedirectProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9001,11 +9124,14 @@ class RouteRedirectPropsBuilder extends IonPropsBuilder {
   }
 
   _RouteRedirectProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as RouteRedirectProps;
     v.from = v3.from;
     v.to = v3.to;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   RouteRedirectProps build() {
@@ -9056,7 +9182,7 @@ class RouteRedirectEventPropsBuilder
   factory RouteRedirectEventPropsBuilder([_RouteRedirectEventProps b]) {
     var ret = RouteRedirectEventPropsBuilder._(_RouteRedirectEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9068,7 +9194,7 @@ class RouteRedirectEventPropsBuilder
   /// `ion-router` captures this event in order to update his internal registry of router rules.
   set ionRouteRedirectChanged(DartHandler<CustomEvent> value) =>
       v.ionRouteRedirectChanged = value;
-  set value$(RouteRedirectEventProps v2) {
+  replace(RouteRedirectEventProps v2) {
     var v3 = v2 as RouteRedirectEventProps;
     v.ionRouteRedirectChanged = v3.ionRouteRedirectChanged;
   }
@@ -9164,7 +9290,7 @@ class SearchbarPropsBuilder extends IonPropsBuilder {
   factory SearchbarPropsBuilder([_SearchbarProps b]) {
     var ret = SearchbarPropsBuilder._(_SearchbarProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9235,7 +9361,7 @@ class SearchbarPropsBuilder extends IonPropsBuilder {
   }
 
   _SearchbarProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SearchbarProps;
     v.animated = v3.animated;
     v.autocomplete = v3.autocomplete;
@@ -9253,7 +9379,10 @@ class SearchbarPropsBuilder extends IonPropsBuilder {
     v.spellcheck = v3.spellcheck;
     v.type = v3.type;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   SearchbarProps build() {
@@ -9317,7 +9446,7 @@ class SearchbarEventPropsBuilder
   factory SearchbarEventPropsBuilder([_SearchbarEventProps b]) {
     var ret = SearchbarEventPropsBuilder._(_SearchbarEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9341,7 +9470,7 @@ class SearchbarEventPropsBuilder
 
   /// Emitted when a keyboard input ocurred.
   set ionInput(DartHandler<CustomEvent> value) => v.ionInput = value;
-  set value$(SearchbarEventProps v2) {
+  replace(SearchbarEventProps v2) {
     var v3 = v2 as SearchbarEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionCancel = v3.ionCancel;
@@ -9408,7 +9537,7 @@ class SegmentPropsBuilder extends IonPropsBuilder {
   factory SegmentPropsBuilder([_SegmentProps b]) {
     var ret = SegmentPropsBuilder._(_SegmentProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9441,14 +9570,17 @@ class SegmentPropsBuilder extends IonPropsBuilder {
   }
 
   _SegmentProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SegmentProps;
     v.color = v3.color;
     v.disabled = v3.disabled;
     v.mode = v3.mode;
     v.scrollable = v3.scrollable;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   SegmentProps build() {
@@ -9497,7 +9629,7 @@ class SegmentEventPropsBuilder extends BuiltSimpleBuilder<SegmentEventProps> {
   factory SegmentEventPropsBuilder([_SegmentEventProps b]) {
     var ret = SegmentEventPropsBuilder._(_SegmentEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9509,7 +9641,7 @@ class SegmentEventPropsBuilder extends BuiltSimpleBuilder<SegmentEventProps> {
 
   /// Emitted when the styles change.
   set ionStyle(DartHandler<CustomEvent> value) => v.ionStyle = value;
-  set value$(SegmentEventProps v2) {
+  replace(SegmentEventProps v2) {
     var v3 = v2 as SegmentEventProps;
     v.ionChange = v3.ionChange;
     v.ionStyle = v3.ionStyle;
@@ -9572,7 +9704,7 @@ class SegmentButtonPropsBuilder extends IonPropsBuilder {
   factory SegmentButtonPropsBuilder([_SegmentButtonProps b]) {
     var ret = SegmentButtonPropsBuilder._(_SegmentButtonProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9603,14 +9735,17 @@ class SegmentButtonPropsBuilder extends IonPropsBuilder {
   }
 
   _SegmentButtonProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SegmentButtonProps;
     v.checked = v3.checked;
     v.disabled = v3.disabled;
     v.layout = v3.layout;
     v.mode = v3.mode;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   SegmentButtonProps build() {
@@ -9661,7 +9796,7 @@ class SegmentButtonEventPropsBuilder
   factory SegmentButtonEventPropsBuilder([_SegmentButtonEventProps b]) {
     var ret = SegmentButtonEventPropsBuilder._(_SegmentButtonEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9670,7 +9805,7 @@ class SegmentButtonEventPropsBuilder
 
   /// Emitted when the segment button is clicked.
   set ionSelect(DartHandler<CustomEvent> value) => v.ionSelect = value;
-  set value$(SegmentButtonEventProps v2) {
+  replace(SegmentButtonEventProps v2) {
     var v3 = v2 as SegmentButtonEventProps;
     v.ionSelect = v3.ionSelect;
   }
@@ -9752,7 +9887,7 @@ class SelectPropsBuilder extends IonPropsBuilder {
   factory SelectPropsBuilder([_SelectProps b]) {
     var ret = SelectPropsBuilder._(_SelectProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9808,7 +9943,7 @@ class SelectPropsBuilder extends IonPropsBuilder {
   }
 
   _SelectProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SelectProps;
     v.cancelText = v3.cancelText;
     v.compareWith = v3.compareWith;
@@ -9822,7 +9957,10 @@ class SelectPropsBuilder extends IonPropsBuilder {
     v.placeholder = v3.placeholder;
     v.selectedText = v3.selectedText;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   SelectProps build() {
@@ -9877,7 +10015,7 @@ class SelectEventPropsBuilder extends BuiltSimpleBuilder<SelectEventProps> {
   factory SelectEventPropsBuilder([_SelectEventProps b]) {
     var ret = SelectEventPropsBuilder._(_SelectEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9895,7 +10033,7 @@ class SelectEventPropsBuilder extends BuiltSimpleBuilder<SelectEventProps> {
 
   /// Emitted when the select has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
-  set value$(SelectEventProps v2) {
+  replace(SelectEventProps v2) {
     var v3 = v2 as SelectEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionCancel = v3.ionCancel;
@@ -9952,7 +10090,7 @@ class SelectOptionPropsBuilder extends IonPropsBuilder {
   factory SelectOptionPropsBuilder([_SelectOptionProps b]) {
     var ret = SelectOptionPropsBuilder._(_SelectOptionProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -9966,7 +10104,7 @@ class SelectOptionPropsBuilder extends IonPropsBuilder {
   /// <p>The text value of the option.</p>
   set value(String value) => v.value = value;
   _SelectOptionProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SelectOptionProps;
     v.disabled = v3.disabled;
     v.selected = v3.selected;
@@ -10026,7 +10164,7 @@ class SlidesPropsBuilder extends IonPropsBuilder {
   factory SlidesPropsBuilder([_SlidesProps b]) {
     var ret = SlidesPropsBuilder._(_SlidesProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10055,13 +10193,16 @@ class SlidesPropsBuilder extends IonPropsBuilder {
   }
 
   _SlidesProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SlidesProps;
     v.mode = v3.mode;
     v.options = v3.options;
     v.pager = v3.pager;
     v.scrollbar = v3.scrollbar;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   SlidesProps build() {
@@ -10152,7 +10293,7 @@ class SlidesEventPropsBuilder extends BuiltSimpleBuilder<SlidesEventProps> {
   factory SlidesEventPropsBuilder([_SlidesEventProps b]) {
     var ret = SlidesEventPropsBuilder._(_SlidesEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10220,7 +10361,7 @@ class SlidesEventPropsBuilder extends BuiltSimpleBuilder<SlidesEventProps> {
   /// Emitted before the active slide has changed.
   set ionSlideWillChange(DartHandler<CustomEvent> value) =>
       v.ionSlideWillChange = value;
-  set value$(SlidesEventProps v2) {
+  replace(SlidesEventProps v2) {
     var v3 = v2 as SlidesEventProps;
     v.ionSlideDidChange = v3.ionSlideDidChange;
     v.ionSlideDoubleTap = v3.ionSlideDoubleTap;
@@ -10278,13 +10419,13 @@ class SlidePropsBuilder extends IonPropsBuilder {
   factory SlidePropsBuilder([_SlideProps b]) {
     var ret = SlidePropsBuilder._(_SlideProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _SlideProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as SlideProps;
   }
 
@@ -10328,7 +10469,7 @@ class TabsPropsBuilder extends IonPropsBuilder {
   factory TabsPropsBuilder([_TabsProps b]) {
     var ret = TabsPropsBuilder._(_TabsProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10344,9 +10485,12 @@ class TabsPropsBuilder extends IonPropsBuilder {
   }
 
   _TabsProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as TabsProps;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   TabsProps build() {
@@ -10395,7 +10539,7 @@ class TabsEventPropsBuilder extends BuiltSimpleBuilder<TabsEventProps> {
   factory TabsEventPropsBuilder([_TabsEventProps b]) {
     var ret = TabsEventPropsBuilder._(_TabsEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10409,7 +10553,7 @@ class TabsEventPropsBuilder extends BuiltSimpleBuilder<TabsEventProps> {
   /// Emitted when the navigation is about to transition to a new component.
   set ionTabsWillChange(DartHandler<CustomEvent> value) =>
       v.ionTabsWillChange = value;
-  set value$(TabsEventProps v2) {
+  replace(TabsEventProps v2) {
     var v3 = v2 as TabsEventProps;
     v.ionTabsDidChange = v3.ionTabsDidChange;
     v.ionTabsWillChange = v3.ionTabsWillChange;
@@ -10459,7 +10603,7 @@ class TabPropsBuilder extends IonPropsBuilder {
   factory TabPropsBuilder([_TabProps b]) {
     var ret = TabPropsBuilder._(_TabProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10471,7 +10615,7 @@ class TabPropsBuilder extends IonPropsBuilder {
   /// the selected tab or by the router to switch between them.</p>
   set tab(String value) => v.tab = value;
   _TabProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as TabProps;
     v.component = v3.component;
     v.tab = v3.tab;
@@ -10527,7 +10671,7 @@ class TabBarPropsBuilder extends IonPropsBuilder {
   factory TabBarPropsBuilder([_TabBarProps b]) {
     var ret = TabBarPropsBuilder._(_TabBarProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10546,7 +10690,7 @@ class TabBarPropsBuilder extends IonPropsBuilder {
   /// <p>If <code>true</code>, the tab bar will be translucent.</p>
   set translucent(bool value) => v.translucent = value;
   _TabBarProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as TabBarProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -10612,7 +10756,7 @@ class TabButtonPropsBuilder extends IonPropsBuilder {
   factory TabButtonPropsBuilder([_TabButtonProps b]) {
     var ret = TabButtonPropsBuilder._(_TabButtonProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10637,7 +10781,7 @@ class TabButtonPropsBuilder extends IonPropsBuilder {
   /// the selected tab or by the router to switch between them.</p>
   set tab(String value) => v.tab = value;
   _TabButtonProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as TabButtonProps;
     v.disabled = v3.disabled;
     v.href = v3.href;
@@ -10733,7 +10877,7 @@ class ToastPropsBuilder extends IonPropsBuilder {
   factory ToastPropsBuilder([_ToastProps b]) {
     var ret = ToastPropsBuilder._(_ToastProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10805,13 +10949,16 @@ class ToastPropsBuilder extends IonPropsBuilder {
   }
 
   _ToastProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ToastProps;
     v.animated = v3.animated;
     v.buttons = v3.buttons;
     v.closeButtonText = v3.closeButtonText;
     v.color = v3.color;
-    v.cssClass = v3.cssClass;
+    if (v3.cssClass != null)
+      cssClass.replace(v3.cssClass);
+    else
+      _cssClass = null;
     v.duration = v3.duration;
     v.enterAnimation = v3.enterAnimation;
     v.header = v3.header;
@@ -10822,7 +10969,10 @@ class ToastPropsBuilder extends IonPropsBuilder {
     v.position = v3.position;
     v.showCloseButton = v3.showCloseButton;
     v.translucent = v3.translucent;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ToastProps build() {
@@ -10878,7 +11028,7 @@ class ToastEventPropsBuilder extends BuiltSimpleBuilder<ToastEventProps> {
   factory ToastEventPropsBuilder([_ToastEventProps b]) {
     var ret = ToastEventPropsBuilder._(_ToastEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -10900,7 +11050,7 @@ class ToastEventPropsBuilder extends BuiltSimpleBuilder<ToastEventProps> {
   /// Emitted before the toast has presented.
   set ionToastWillPresent(DartHandler<CustomEvent> value) =>
       v.ionToastWillPresent = value;
-  set value$(ToastEventProps v2) {
+  replace(ToastEventProps v2) {
     var v3 = v2 as ToastEventProps;
     v.ionToastDidDismiss = v3.ionToastDidDismiss;
     v.ionToastDidPresent = v3.ionToastDidPresent;
@@ -10949,13 +11099,13 @@ class ToastControllerPropsBuilder extends IonPropsBuilder {
   factory ToastControllerPropsBuilder([_ToastControllerProps b]) {
     var ret = ToastControllerPropsBuilder._(_ToastControllerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _ToastControllerProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ToastControllerProps;
   }
 
@@ -11018,7 +11168,7 @@ class TogglePropsBuilder extends IonPropsBuilder {
   factory TogglePropsBuilder([_ToggleProps b]) {
     var ret = TogglePropsBuilder._(_ToggleProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11057,7 +11207,7 @@ class TogglePropsBuilder extends IonPropsBuilder {
   }
 
   _ToggleProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ToggleProps;
     v.checked = v3.checked;
     v.color = v3.color;
@@ -11065,7 +11215,10 @@ class TogglePropsBuilder extends IonPropsBuilder {
     v.mode = v3.mode;
     v.name = v3.name;
     v.value = v3.value;
-    on.value$ = v3.on;
+    if (v3.on != null)
+      on.replace(v3.on);
+    else
+      _on = null;
   }
 
   ToggleProps build() {
@@ -11117,7 +11270,7 @@ class ToggleEventPropsBuilder extends BuiltSimpleBuilder<ToggleEventProps> {
   factory ToggleEventPropsBuilder([_ToggleEventProps b]) {
     var ret = ToggleEventPropsBuilder._(_ToggleEventProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11132,7 +11285,7 @@ class ToggleEventPropsBuilder extends BuiltSimpleBuilder<ToggleEventProps> {
 
   /// Emitted when the toggle has focus.
   set ionFocus(DartHandler<CustomEvent> value) => v.ionFocus = value;
-  set value$(ToggleEventProps v2) {
+  replace(ToggleEventProps v2) {
     var v3 = v2 as ToggleEventProps;
     v.ionBlur = v3.ionBlur;
     v.ionChange = v3.ionChange;
@@ -11185,7 +11338,7 @@ class ToolbarPropsBuilder extends IonPropsBuilder {
   factory ToolbarPropsBuilder([_ToolbarProps b]) {
     var ret = ToolbarPropsBuilder._(_ToolbarProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11198,7 +11351,7 @@ class ToolbarPropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _ToolbarProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ToolbarProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -11248,7 +11401,7 @@ class HeaderPropsBuilder extends IonPropsBuilder {
   factory HeaderPropsBuilder([_HeaderProps b]) {
     var ret = HeaderPropsBuilder._(_HeaderProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11261,7 +11414,7 @@ class HeaderPropsBuilder extends IonPropsBuilder {
   /// attribute needs to be set on the content.</p>
   set translucent(bool value) => v.translucent = value;
   _HeaderProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as HeaderProps;
     v.mode = v3.mode;
     v.translucent = v3.translucent;
@@ -11311,7 +11464,7 @@ class FooterPropsBuilder extends IonPropsBuilder {
   factory FooterPropsBuilder([_FooterProps b]) {
     var ret = FooterPropsBuilder._(_FooterProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11324,7 +11477,7 @@ class FooterPropsBuilder extends IonPropsBuilder {
   /// attribute needs to be set on the content.</p>
   set translucent(bool value) => v.translucent = value;
   _FooterProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as FooterProps;
     v.mode = v3.mode;
     v.translucent = v3.translucent;
@@ -11371,7 +11524,7 @@ class TitlePropsBuilder extends IonPropsBuilder {
   factory TitlePropsBuilder([_TitleProps b]) {
     var ret = TitlePropsBuilder._(_TitleProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11381,7 +11534,7 @@ class TitlePropsBuilder extends IonPropsBuilder {
   /// For more information on colors, see <stencil-route-link url=/docs/theming/basics >theming</stencil-route-link>.</p>
   set color(String value) => v.color = value;
   _TitleProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as TitleProps;
     v.color = v3.color;
   }
@@ -11429,7 +11582,7 @@ class ButtonsPropsBuilder extends IonPropsBuilder {
   factory ButtonsPropsBuilder([_ButtonsProps b]) {
     var ret = ButtonsPropsBuilder._(_ButtonsProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11437,7 +11590,7 @@ class ButtonsPropsBuilder extends IonPropsBuilder {
   ///
   set slot(ButtonsPropsSlotValue value) => v.slot = value;
   _ButtonsProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as ButtonsProps;
     v.slot = v3.slot;
   }
@@ -11497,7 +11650,7 @@ class BackButtonPropsBuilder extends IonPropsBuilder {
   factory BackButtonPropsBuilder([_BackButtonProps b]) {
     var ret = BackButtonPropsBuilder._(_BackButtonProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11519,7 +11672,7 @@ class BackButtonPropsBuilder extends IonPropsBuilder {
   /// <p>The text to display in the back button.</p>
   set text(String value) => v.text = value;
   _BackButtonProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as BackButtonProps;
     v.color = v3.color;
     v.defaultHref = v3.defaultHref;
@@ -11576,7 +11729,7 @@ class AnchorPropsBuilder extends IonPropsBuilder {
   factory AnchorPropsBuilder([_AnchorProps b]) {
     var ret = AnchorPropsBuilder._(_AnchorProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11594,7 +11747,7 @@ class AnchorPropsBuilder extends IonPropsBuilder {
   /// another page using <code>href</code>.</p>
   set routerDirection(RouterDirectionValue value) => v.routerDirection = value;
   _AnchorProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as AnchorProps;
     v.color = v3.color;
     v.href = v3.href;
@@ -11645,7 +11798,7 @@ class TextPropsBuilder extends IonPropsBuilder {
   factory TextPropsBuilder([_TextProps b]) {
     var ret = TextPropsBuilder._(_TextProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11658,7 +11811,7 @@ class TextPropsBuilder extends IonPropsBuilder {
   /// <p>The mode determines which platform styles to use.</p>
   set mode(ModeValue value) => v.mode = value;
   _TextProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as TextProps;
     v.color = v3.color;
     v.mode = v3.mode;
@@ -11708,7 +11861,7 @@ class IconPropsBuilder extends IonPropsBuilder {
   factory IconPropsBuilder([_IconProps b]) {
     var ret = IconPropsBuilder._(_IconProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -11719,7 +11872,7 @@ class IconPropsBuilder extends IonPropsBuilder {
   ///
   set slot(IconPropsSlotValue value) => v.slot = value;
   _IconProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as IconProps;
     v.name = v3.name;
     v.slot = v3.slot;
@@ -11763,13 +11916,13 @@ class PagePropsBuilder extends IonPropsBuilder {
   factory PagePropsBuilder([_PageProps b]) {
     var ret = PagePropsBuilder._(_PageProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
 
   _PageProps get v => super.v;
-  set value$(IonProps v2) {
+  replace(IonProps v2) {
     var v3 = v2 as PageProps;
   }
 

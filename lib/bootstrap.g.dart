@@ -42,7 +42,7 @@ class DropdownPropsBuilder extends BuiltSimpleBuilder<DropdownProps> {
   factory DropdownPropsBuilder([_DropdownProps b]) {
     var ret = DropdownPropsBuilder._(_DropdownProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -57,7 +57,7 @@ class DropdownPropsBuilder extends BuiltSimpleBuilder<DropdownProps> {
 
   ///
   set key(String value) => v.key = value;
-  set value$(DropdownProps v2) {
+  replace(DropdownProps v2) {
     var v3 = v2 as DropdownProps;
     v.toggleRender = v3.toggleRender;
     v.dropdownRender = v3.dropdownRender;
@@ -105,7 +105,7 @@ class DropdownStateBuilder extends BuiltSimpleBuilder<DropdownState> {
   factory DropdownStateBuilder([_DropdownState b]) {
     var ret = DropdownStateBuilder._(_DropdownState._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -114,7 +114,7 @@ class DropdownStateBuilder extends BuiltSimpleBuilder<DropdownState> {
 
   ///
   set open(bool value) => v.open = value;
-  set value$(DropdownState v2) {
+  replace(DropdownState v2) {
     var v3 = v2 as DropdownState;
     v.open = v3.open;
   }

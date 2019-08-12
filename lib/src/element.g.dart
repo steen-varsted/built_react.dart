@@ -44,7 +44,7 @@ class DartEventsBuilder extends BuiltSimpleBuilder<DartEvents> {
   factory DartEventsBuilder([_DartEvents b]) {
     var ret = DartEventsBuilder._(_DartEvents._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -71,7 +71,7 @@ class DartEventsBuilder extends BuiltSimpleBuilder<DartEvents> {
 
   ///
   set wheel(DartHandler<WheelEvent> value) => v.wheel = value;
-  set value$(DartEvents v2) {
+  replace(DartEvents v2) {
     var v3 = v2 as DartEvents;
     v.click = v3.click;
     v.mouseDown = v3.mouseDown;

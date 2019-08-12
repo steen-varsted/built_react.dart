@@ -816,8 +816,7 @@ class BuiltSimpleGenerator extends Generator {
     var ret = <Method>[];
     if (hasFromJson(e)) {
       ret.add(Method((m) => m
-        ..name = 'json\$'
-        ..type = MethodType.setter
+        ..name = 'replaceFromJson'
         ..requiredParameters.add(Parameter((p) => p
           ..name = 'json'
           ..type = Reference('Map<String, dynamic>')))
@@ -876,7 +875,7 @@ class BuiltSimpleGenerator extends Generator {
       }
     });
     var value = builtSimpleClass?.getField('buildFromJson')?.toBoolValue();
-    return value==true;
+    return value == true;
   }
 
   List<FieldElement> findGettersToImplement(ClassElement e) {
@@ -927,16 +926,11 @@ class BuiltSimpleGenerator extends Generator {
       ..methods.addAll(builderMethods(e, getters))
       ..methods.addAll(fromJsonMethod(e, getters))
       ..methods.add(Method((m) => m
-          ..name='value\$'
-          ..type=MethodType.setter
-          ..requiredParameters.add(Parameter((p) => p
-              ..name='v2'
-              ..type=baseClass == 'BuiltSimple'
-                  ? Reference(e.name)
-                  : Reference(baseClass)
-          ))
-          ..body = Block.of([Code('var v3 = v2 as ${e.name};')].followedBy(valueCodeLines(getters)))
-      ))
+        ..name = 'replace'
+        ..requiredParameters.add(Parameter((p) => p
+          ..name = 'v2'
+          ..type = baseClass == 'BuiltSimple' ? Reference(e.name) : Reference(baseClass)))
+        ..body = Block.of([Code('var v3 = v2 as ${e.name};')].followedBy(valueCodeLines(getters)))))
       ..methods.add(Method((m) => m
         ..name = 'build'
         ..returns = Reference(e.name)
@@ -966,7 +960,7 @@ class BuiltSimpleGenerator extends Generator {
 
   Iterable<Code> builderConstructorStatements(ClassElement e, Iterable<FieldElement> getters) {
     var ret = <Code>[Code('var ret = ${e.name}Builder._(_${e.name}._());'), Code('if(b!=null) {')];
-    ret.add(Code('ret.value\$=b;'));
+    ret.add(Code('ret.replace(b);'));
     ret.add(Code('}'));
     ret.add(Code('return ret;'));
     return ret;
@@ -981,10 +975,10 @@ class BuiltSimpleGenerator extends Generator {
         }
       });
       var noBuilder = builtSimpleField?.getField('noBuilder')?.toBoolValue() ?? false;
-      if(isBuiltSimple(g.getter.returnType.element)  && !noBuilder) {
-        return Code('if(v3.${g.name}!=null) ${g.name}.value\$ = v3.${g.name}; else _${g.name}=null;');
-      } if(isBuiltValue(g.getter.returnType.element) || isBuiltCollection(g.getter.returnType) && !noBuilder) {
-          return Code('if(v3.${g.name}!=null) ${g.name}.replace(v3.${g.name}); else _${g.name}=null;');
+      if (isBuiltSimple(g.getter.returnType.element) ||
+          isBuiltValue(g.getter.returnType.element) ||
+          isBuiltCollection(g.getter.returnType) && !noBuilder) {
+        return Code('if(v3.${g.name}!=null) ${g.name}.replace(v3.${g.name}); else _${g.name}=null;');
       } else {
         return Code('v.${g.name} = v3.${g.name};');
       }
@@ -1004,7 +998,8 @@ class BuiltSimpleGenerator extends Generator {
         return Field((f) => f
           ..name = '_' + g.name
           ..type = Reference(builderType(g.getter.returnType)));
-      } else if (isBuiltSimple(g.getter.returnType.element) || isBuiltValue(g.getter.returnType.element) && !noBuilder) {
+      } else if (isBuiltSimple(g.getter.returnType.element) ||
+          isBuiltValue(g.getter.returnType.element) && !noBuilder) {
         return Field((f) => f
           ..name = '_' + g.name
           ..type = Reference(g.getter.returnType.name + 'Builder'));

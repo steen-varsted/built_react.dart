@@ -40,7 +40,7 @@ class ClickOutsideHandlerPropsBuilder
   factory ClickOutsideHandlerPropsBuilder([_ClickOutsideHandlerProps b]) {
     var ret = ClickOutsideHandlerPropsBuilder._(_ClickOutsideHandlerProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -49,7 +49,7 @@ class ClickOutsideHandlerPropsBuilder
 
   ///
   set key(String value) => v.key = value;
-  set value$(ClickOutsideHandlerProps v2) {
+  replace(ClickOutsideHandlerProps v2) {
     var v3 = v2 as ClickOutsideHandlerProps;
     v.key = v3.key;
   }

@@ -37,7 +37,7 @@ class AppPropsBuilder extends BuiltSimpleBuilder<AppProps> {
   factory AppPropsBuilder([_AppProps b]) {
     var ret = AppPropsBuilder._(_AppProps._());
     if (b != null) {
-      ret.value$ = b;
+      ret.replace(b);
     }
     return ret;
   }
@@ -49,7 +49,7 @@ class AppPropsBuilder extends BuiltSimpleBuilder<AppProps> {
 
   ///
   set key(String value) => v.key = value;
-  set value$(AppProps v2) {
+  replace(AppProps v2) {
     var v3 = v2 as AppProps;
     v.text = v3.text;
     v.key = v3.key;
