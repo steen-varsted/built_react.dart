@@ -6,66 +6,18 @@ part of 'router.dart';
 // BuiltSimpleGenerator
 // **************************************************************************
 
-class _RouteContext extends BuiltSimpleImpl
-    with RouteContext
-    implements RouteContext {
-  _RouteContext._() : super();
+class __RouteContextImpl extends BuiltSimpleImpl
+    with _RouteContextImpl
+    implements _RouteContextImpl {
+  __RouteContextImpl._() : super();
 
-  factory _RouteContext(BuilderFunc<RouteContextBuilder> builder) =>
-      RouteContextBuilder.create(builder);
+  factory __RouteContextImpl(BuilderFunc<_RouteContextImplBuilder> builder) =>
+      _RouteContextImplBuilder.create(builder);
 
   String path;
 
   fillJson(Map<String, dynamic> json) {
     json["path"] = path;
-  }
-
-  RouteContext rebuild<T>(BuilderFunc<T> builderFuncT) {
-    var builderFunc = builderFuncT as BuilderFunc<RouteContextBuilder>;
-    var builder = toBuilder();
-    builderFunc(builder);
-    return builder.build();
-  }
-
-  RouteContextBuilder toBuilder() => RouteContextBuilder(this);
-}
-
-class RouteContextBuilder extends BuiltSimpleBuilder<RouteContext> {
-  RouteContextBuilder._(_RouteContext b) : v = b;
-
-  factory RouteContextBuilder([_RouteContext b]) {
-    var v = _RouteContext._();
-    if (b != null) {
-      v.path = b.path;
-    }
-    return RouteContextBuilder._(v);
-  }
-
-  _RouteContext v;
-
-  ///
-  set path(String value) => v.path = value;
-  RouteContext build() {
-    return v;
-  }
-
-  static _RouteContext create(BuilderFunc<RouteContextBuilder> builderFunc) {
-    var builder = new RouteContextBuilder._(_RouteContext._());
-    if (builderFunc != null) builderFunc(builder);
-    return builder.build();
-  }
-}
-
-class __RouteContextImpl extends _RouteContext
-    with _RouteContextImpl
-    implements _RouteContextImpl {
-  __RouteContextImpl._() : super._();
-
-  factory __RouteContextImpl(BuilderFunc<_RouteContextImplBuilder> builder) =>
-      _RouteContextImplBuilder.create(builder);
-
-  fillJson(Map<String, dynamic> json) {
-    super.fillJson(json);
   }
 
   _RouteContextImpl rebuild<T>(BuilderFunc<T> builderFuncT) {
@@ -78,18 +30,27 @@ class __RouteContextImpl extends _RouteContext
   _RouteContextImplBuilder toBuilder() => _RouteContextImplBuilder(this);
 }
 
-class _RouteContextImplBuilder extends RouteContextBuilder {
-  _RouteContextImplBuilder._(__RouteContextImpl b) : super._(b);
+class _RouteContextImplBuilder extends BuiltSimpleBuilder<_RouteContextImpl> {
+  _RouteContextImplBuilder._(__RouteContextImpl b) : v = b;
 
   factory _RouteContextImplBuilder([__RouteContextImpl b]) {
-    var v = __RouteContextImpl._();
-    if (b != null) {}
-    return _RouteContextImplBuilder._(v);
+    var ret = _RouteContextImplBuilder._(__RouteContextImpl._());
+    if (b != null) {
+      ret.value$ = b;
+    }
+    return ret;
   }
 
-  __RouteContextImpl get v => super.v;
+  __RouteContextImpl v;
+
+  ///
+  set path(String value) => v.path = value;
+  set value$(_RouteContextImpl v2) {
+    var v3 = v2 as _RouteContextImpl;
+    v.path = v3.path;
+  }
+
   _RouteContextImpl build() {
-    super.build();
     return v;
   }
 
@@ -129,17 +90,22 @@ class RouterPropsBuilder extends BuiltSimpleBuilder<RouterProps> {
   RouterPropsBuilder._(_RouterProps b) : v = b;
 
   factory RouterPropsBuilder([_RouterProps b]) {
-    var v = _RouterProps._();
+    var ret = RouterPropsBuilder._(_RouterProps._());
     if (b != null) {
-      v.key = b.key;
+      ret.value$ = b;
     }
-    return RouterPropsBuilder._(v);
+    return ret;
   }
 
   _RouterProps v;
 
   ///
   set key(String value) => v.key = value;
+  set value$(RouterProps v2) {
+    var v3 = v2 as RouterProps;
+    v.key = v3.key;
+  }
+
   RouterProps build() {
     return v;
   }
@@ -179,17 +145,22 @@ class RouterStateBuilder extends BuiltSimpleBuilder<RouterState> {
   RouterStateBuilder._(_RouterState b) : v = b;
 
   factory RouterStateBuilder([_RouterState b]) {
-    var v = _RouterState._();
+    var ret = RouterStateBuilder._(_RouterState._());
     if (b != null) {
-      v.path = b.path;
+      ret.value$ = b;
     }
-    return RouterStateBuilder._(v);
+    return ret;
   }
 
   _RouterState v;
 
   ///
   set path(String value) => v.path = value;
+  set value$(RouterState v2) {
+    var v3 = v2 as RouterState;
+    v.path = v3.path;
+  }
+
   RouterState build() {
     return v;
   }
@@ -230,12 +201,11 @@ class RouteBuilder extends BuiltSimpleBuilder<Route> {
   RouteBuilder._(_Route b) : v = b;
 
   factory RouteBuilder([_Route b]) {
-    var v = _Route._();
+    var ret = RouteBuilder._(_Route._());
     if (b != null) {
-      v.component = b.component;
-      v.pattern = b.pattern;
+      ret.value$ = b;
     }
-    return RouteBuilder._(v);
+    return ret;
   }
 
   _Route v;
@@ -245,6 +215,12 @@ class RouteBuilder extends BuiltSimpleBuilder<Route> {
 
   ///
   set pattern(RegExp value) => v.pattern = value;
+  set value$(Route v2) {
+    var v3 = v2 as Route;
+    v.component = v3.component;
+    v.pattern = v3.pattern;
+  }
+
   Route build() {
     return v;
   }
@@ -287,12 +263,11 @@ class SwitchPropsBuilder extends BuiltSimpleBuilder<SwitchProps> {
   SwitchPropsBuilder._(_SwitchProps b) : v = b;
 
   factory SwitchPropsBuilder([_SwitchProps b]) {
-    var v = _SwitchProps._();
+    var ret = SwitchPropsBuilder._(_SwitchProps._());
     if (b != null) {
-      v.routes = b.routes;
-      v.key = b.key;
+      ret.value$ = b;
     }
-    return SwitchPropsBuilder._(v);
+    return ret;
   }
 
   ListBuilder<Route> _routes;
@@ -309,6 +284,12 @@ class SwitchPropsBuilder extends BuiltSimpleBuilder<SwitchProps> {
 
   ///
   set key(String value) => v.key = value;
+  set value$(SwitchProps v2) {
+    var v3 = v2 as SwitchProps;
+    v.routes = v3.routes;
+    v.key = v3.key;
+  }
+
   SwitchProps build() {
     v.routes = _routes?.build();
     return v;

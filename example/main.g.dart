@@ -35,12 +35,11 @@ class AppPropsBuilder extends BuiltSimpleBuilder<AppProps> {
   AppPropsBuilder._(_AppProps b) : v = b;
 
   factory AppPropsBuilder([_AppProps b]) {
-    var v = _AppProps._();
+    var ret = AppPropsBuilder._(_AppProps._());
     if (b != null) {
-      v.text = b.text;
-      v.key = b.key;
+      ret.value$ = b;
     }
-    return AppPropsBuilder._(v);
+    return ret;
   }
 
   _AppProps v;
@@ -50,6 +49,12 @@ class AppPropsBuilder extends BuiltSimpleBuilder<AppProps> {
 
   ///
   set key(String value) => v.key = value;
+  set value$(AppProps v2) {
+    var v3 = v2 as AppProps;
+    v.text = v3.text;
+    v.key = v3.key;
+  }
+
   AppProps build() {
     return v;
   }

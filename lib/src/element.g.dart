@@ -42,17 +42,11 @@ class DartEventsBuilder extends BuiltSimpleBuilder<DartEvents> {
   DartEventsBuilder._(_DartEvents b) : v = b;
 
   factory DartEventsBuilder([_DartEvents b]) {
-    var v = _DartEvents._();
+    var ret = DartEventsBuilder._(_DartEvents._());
     if (b != null) {
-      v.click = b.click;
-      v.mouseDown = b.mouseDown;
-      v.mouseUp = b.mouseUp;
-      v.mouseEnter = b.mouseEnter;
-      v.mouseLeave = b.mouseLeave;
-      v.mouseMove = b.mouseMove;
-      v.wheel = b.wheel;
+      ret.value$ = b;
     }
-    return DartEventsBuilder._(v);
+    return ret;
   }
 
   _DartEvents v;
@@ -77,6 +71,17 @@ class DartEventsBuilder extends BuiltSimpleBuilder<DartEvents> {
 
   ///
   set wheel(DartHandler<WheelEvent> value) => v.wheel = value;
+  set value$(DartEvents v2) {
+    var v3 = v2 as DartEvents;
+    v.click = v3.click;
+    v.mouseDown = v3.mouseDown;
+    v.mouseUp = v3.mouseUp;
+    v.mouseEnter = v3.mouseEnter;
+    v.mouseLeave = v3.mouseLeave;
+    v.mouseMove = v3.mouseMove;
+    v.wheel = v3.wheel;
+  }
+
   DartEvents build() {
     return v;
   }

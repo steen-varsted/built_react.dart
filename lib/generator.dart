@@ -816,7 +816,7 @@ class BuiltSimpleGenerator extends Generator {
     var ret = <Method>[];
     if (hasFromJson(e)) {
       ret.add(Method((m) => m
-        ..name = 'json'
+        ..name = 'json\$'
         ..type = MethodType.setter
         ..requiredParameters.add(Parameter((p) => p
           ..name = 'json'
@@ -927,6 +927,17 @@ class BuiltSimpleGenerator extends Generator {
       ..methods.addAll(builderMethods(e, getters))
       ..methods.addAll(fromJsonMethod(e, getters))
       ..methods.add(Method((m) => m
+          ..name='value\$'
+          ..type=MethodType.setter
+          ..requiredParameters.add(Parameter((p) => p
+              ..name='v2'
+              ..type=baseClass == 'BuiltSimple'
+                  ? Reference(e.name)
+                  : Reference(baseClass)
+          ))
+          ..body = Block.of([Code('var v3 = v2 as ${e.name};')].followedBy(valueCodeLines(getters)))
+      ))
+      ..methods.add(Method((m) => m
         ..name = 'build'
         ..returns = Reference(e.name)
         ..body = Block((bb) => bb..statements.addAll(buildStatements(e, getters)))))
@@ -954,20 +965,46 @@ class BuiltSimpleGenerator extends Generator {
   String emptyInstance(ParameterizedType d) => 'const ' + typeParameters(d) + (d.name == 'BuiltMap' ? '{}' : '[]');
 
   Iterable<Code> builderConstructorStatements(ClassElement e, Iterable<FieldElement> getters) {
-    var ret = <Code>[Code('var v = _${e.name}._();'), Code('if(b!=null) {')];
-    getters.forEach((g) => ret.add(Code('v.${g.name} = b.${g.name};')));
+    var ret = <Code>[Code('var ret = ${e.name}Builder._(_${e.name}._());'), Code('if(b!=null) {')];
+    ret.add(Code('ret.value\$=b;'));
     ret.add(Code('}'));
-    ret.add(Code('return ${e.name}Builder._(v);'));
+    ret.add(Code('return ret;'));
     return ret;
+  }
+
+  Iterable<Code> valueCodeLines(Iterable<FieldElement> getters) {
+    return getters.map((g) {
+      DartObject builtSimpleField = null;
+      g.getter.metadata.forEach((m) {
+        if (m.element is ConstructorElement && isBuiltSimpleFieldAnnotation(m.element.enclosingElement)) {
+          builtSimpleField = m.computeConstantValue();
+        }
+      });
+      var noBuilder = builtSimpleField?.getField('noBuilder')?.toBoolValue() ?? false;
+      if(isBuiltSimple(g.getter.returnType.element)  && !noBuilder) {
+        return Code('if(v3.${g.name}!=null) ${g.name}.value\$ = v3.${g.name}; else _${g.name}=null;');
+      } if(isBuiltValue(g.getter.returnType.element) || isBuiltCollection(g.getter.returnType) && !noBuilder) {
+          return Code('if(v3.${g.name}!=null) ${g.name}.replace(v3.${g.name}); else _${g.name}=null;');
+      } else {
+        return Code('v.${g.name} = v3.${g.name};');
+      }
+    });
   }
 
   Iterable<Field> builderFields(ClassElement e, Iterable<FieldElement> getters) {
     return getters.map((g) {
+      DartObject builtSimpleField = null;
+      g.getter.metadata.forEach((m) {
+        if (m.element is ConstructorElement && isBuiltSimpleFieldAnnotation(m.element.enclosingElement)) {
+          builtSimpleField = m.computeConstantValue();
+        }
+      });
+      var noBuilder = builtSimpleField?.getField('noBuilder')?.toBoolValue() ?? false;
       if (isBuiltCollection(g.getter.returnType)) {
         return Field((f) => f
           ..name = '_' + g.name
           ..type = Reference(builderType(g.getter.returnType)));
-      } else if (isBuiltSimple(g.getter.returnType.element) || isBuiltValue(g.getter.returnType.element)) {
+      } else if (isBuiltSimple(g.getter.returnType.element) || isBuiltValue(g.getter.returnType.element) && !noBuilder) {
         return Field((f) => f
           ..name = '_' + g.name
           ..type = Reference(g.getter.returnType.name + 'Builder'));
@@ -985,7 +1022,14 @@ class BuiltSimpleGenerator extends Generator {
 
   Iterable<Method> builderMethods(ClassElement e, Iterable<FieldElement> getters) {
     return getters.map((g) {
-      if (isBuiltCollection(g.getter.returnType)) {
+      DartObject builtSimpleField = null;
+      g.getter.metadata.forEach((m) {
+        if (m.element is ConstructorElement && isBuiltSimpleFieldAnnotation(m.element.enclosingElement)) {
+          builtSimpleField = m.computeConstantValue();
+        }
+      });
+      var noBuilder = builtSimpleField?.getField('noBuilder')?.toBoolValue() ?? false;
+      if (isBuiltCollection(g.getter.returnType) && !noBuilder) {
         return Method((f) => f
           ..name = g.name
           ..type = MethodType.getter
@@ -998,7 +1042,7 @@ class BuiltSimpleGenerator extends Generator {
             return _${g.name};
             ''')
           ..docs.add(g.getter.documentationComment != null ? g.getter.documentationComment : '///'));
-      } else if (isBuiltSimple(g.getter.returnType.element)) {
+      } else if (isBuiltSimple(g.getter.returnType.element) && !noBuilder) {
         return Method((m) => m
           ..name = g.name
           ..returns = Reference(g.getter.returnType.name + 'Builder')
@@ -1010,7 +1054,7 @@ class BuiltSimpleGenerator extends Generator {
             return _${g.name};
             ''')
           ..docs.add(g.getter.documentationComment != null ? g.getter.documentationComment : '///'));
-      } else if (isBuiltValue(g.getter.returnType.element)) {
+      } else if (isBuiltValue(g.getter.returnType.element) && !noBuilder) {
         return Method((m) => m
           ..name = g.name
           ..returns = Reference(g.getter.returnType.name + 'Builder')

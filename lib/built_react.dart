@@ -28,4 +28,4 @@ class Text implements RenderResult {
   String toString() => 'Text($text)';
 }
 
-typedef ComponentFactory = Component Function();
+typedef ComponentFactory = RenderResult Function();

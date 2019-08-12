@@ -38,17 +38,22 @@ class ClickOutsideHandlerPropsBuilder
   ClickOutsideHandlerPropsBuilder._(_ClickOutsideHandlerProps b) : v = b;
 
   factory ClickOutsideHandlerPropsBuilder([_ClickOutsideHandlerProps b]) {
-    var v = _ClickOutsideHandlerProps._();
+    var ret = ClickOutsideHandlerPropsBuilder._(_ClickOutsideHandlerProps._());
     if (b != null) {
-      v.key = b.key;
+      ret.value$ = b;
     }
-    return ClickOutsideHandlerPropsBuilder._(v);
+    return ret;
   }
 
   _ClickOutsideHandlerProps v;
 
   ///
   set key(String value) => v.key = value;
+  set value$(ClickOutsideHandlerProps v2) {
+    var v3 = v2 as ClickOutsideHandlerProps;
+    v.key = v3.key;
+  }
+
   ClickOutsideHandlerProps build() {
     return v;
   }

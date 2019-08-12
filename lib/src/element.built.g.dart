@@ -106,35 +106,11 @@ class CommonPropsBuilder extends BuiltSimpleBuilder<CommonProps> {
   CommonPropsBuilder._(_CommonProps b) : v = b;
 
   factory CommonPropsBuilder([_CommonProps b]) {
-    var v = _CommonProps._();
+    var ret = CommonPropsBuilder._(_CommonProps._());
     if (b != null) {
-      v.accesskey = b.accesskey;
-      v.autocapitalize = b.autocapitalize;
-      v.className = b.className;
-      v.contentEditable = b.contentEditable;
-      v.contextmenu = b.contextmenu;
-      v.custom = b.custom;
-      v.dir = b.dir;
-      v.draggable = b.draggable;
-      v.dropzone = b.dropzone;
-      v.hidden = b.hidden;
-      v.id = b.id;
-      v.itemprop = b.itemprop;
-      v.lang = b.lang;
-      v.slot = b.slot;
-      v.spellcheck = b.spellcheck;
-      v.style = b.style;
-      v.tabindex = b.tabindex;
-      v.title = b.title;
-      v.translate = b.translate;
-      v.bs = b.bs;
-      v.on = b.on;
-      v.role = b.role;
-      v.ref = b.ref;
-      v.onDart = b.onDart;
-      v.key = b.key;
+      ret.value$ = b;
     }
-    return CommonPropsBuilder._(v);
+    return ret;
   }
 
   ListBuilder<String> _className;
@@ -256,6 +232,35 @@ class CommonPropsBuilder extends BuiltSimpleBuilder<CommonProps> {
 
   ///
   set key(String value) => v.key = value;
+  set value$(CommonProps v2) {
+    var v3 = v2 as CommonProps;
+    v.accesskey = v3.accesskey;
+    v.autocapitalize = v3.autocapitalize;
+    v.className = v3.className;
+    v.contentEditable = v3.contentEditable;
+    v.contextmenu = v3.contextmenu;
+    v.custom = v3.custom;
+    v.dir = v3.dir;
+    v.draggable = v3.draggable;
+    v.dropzone = v3.dropzone;
+    v.hidden = v3.hidden;
+    v.id = v3.id;
+    v.itemprop = v3.itemprop;
+    v.lang = v3.lang;
+    v.slot = v3.slot;
+    v.spellcheck = v3.spellcheck;
+    style.value$ = v3.style;
+    v.tabindex = v3.tabindex;
+    v.title = v3.title;
+    v.translate = v3.translate;
+    bs.value$ = v3.bs;
+    on.value$ = v3.on;
+    v.role = v3.role;
+    v.ref = v3.ref;
+    onDart.value$ = v3.onDart;
+    v.key = v3.key;
+  }
+
   CommonProps build() {
     v.className = _className?.build();
     v.custom = _custom?.build();
@@ -324,19 +329,11 @@ class FormPropsBuilder extends CommonPropsBuilder {
   FormPropsBuilder._(_FormProps b) : super._(b);
 
   factory FormPropsBuilder([_FormProps b]) {
-    var v = _FormProps._();
+    var ret = FormPropsBuilder._(_FormProps._());
     if (b != null) {
-      v.accept = b.accept;
-      v.acceptCharset = b.acceptCharset;
-      v.action = b.action;
-      v.autocomplete = b.autocomplete;
-      v.enctype = b.enctype;
-      v.method = b.method;
-      v.name = b.name;
-      v.novalidate = b.novalidate;
-      v.target = b.target;
+      ret.value$ = b;
     }
-    return FormPropsBuilder._(v);
+    return ret;
   }
 
   /// List of types the server accepts, typically a file type.
@@ -366,6 +363,19 @@ class FormPropsBuilder extends CommonPropsBuilder {
   /// target
   set target(String value) => v.target = value;
   _FormProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as FormProps;
+    v.accept = v3.accept;
+    v.acceptCharset = v3.acceptCharset;
+    v.action = v3.action;
+    v.autocomplete = v3.autocomplete;
+    v.enctype = v3.enctype;
+    v.method = v3.method;
+    v.name = v3.name;
+    v.novalidate = v3.novalidate;
+    v.target = v3.target;
+  }
+
   FormProps build() {
     super.build();
     return v;
@@ -486,38 +496,11 @@ class InputPropsBuilder extends CommonPropsBuilder {
   InputPropsBuilder._(_InputProps b) : super._(b);
 
   factory InputPropsBuilder([_InputProps b]) {
-    var v = _InputProps._();
+    var ret = InputPropsBuilder._(_InputProps._());
     if (b != null) {
-      v.accept = b.accept;
-      v.alt = b.alt;
-      v.autocomplete = b.autocomplete;
-      v.autofocus = b.autofocus;
-      v.checked = b.checked;
-      v.dirname = b.dirname;
-      v.disabled = b.disabled;
-      v.form = b.form;
-      v.formaction = b.formaction;
-      v.height = b.height;
-      v.list = b.list;
-      v.max = b.max;
-      v.maxlength = b.maxlength;
-      v.minlength = b.minlength;
-      v.min = b.min;
-      v.multiple = b.multiple;
-      v.name = b.name;
-      v.pattern = b.pattern;
-      v.placeholder = b.placeholder;
-      v.readonly = b.readonly;
-      v.required = b.required;
-      v.size = b.size;
-      v.src = b.src;
-      v.step = b.step;
-      v.type = b.type;
-      v.usemap = b.usemap;
-      v.value = b.value;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return InputPropsBuilder._(v);
+    return ret;
   }
 
   /// List of types the server accepts, typically a file type.
@@ -604,6 +587,38 @@ class InputPropsBuilder extends CommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _InputProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as InputProps;
+    v.accept = v3.accept;
+    v.alt = v3.alt;
+    v.autocomplete = v3.autocomplete;
+    v.autofocus = v3.autofocus;
+    v.checked = v3.checked;
+    v.dirname = v3.dirname;
+    v.disabled = v3.disabled;
+    v.form = v3.form;
+    v.formaction = v3.formaction;
+    v.height = v3.height;
+    v.list = v3.list;
+    v.max = v3.max;
+    v.maxlength = v3.maxlength;
+    v.minlength = v3.minlength;
+    v.min = v3.min;
+    v.multiple = v3.multiple;
+    v.name = v3.name;
+    v.pattern = v3.pattern;
+    v.placeholder = v3.placeholder;
+    v.readonly = v3.readonly;
+    v.required = v3.required;
+    v.size = v3.size;
+    v.src = v3.src;
+    v.step = v3.step;
+    v.type = v3.type;
+    v.usemap = v3.usemap;
+    v.value = v3.value;
+    v.width = v3.width;
+  }
+
   InputProps build() {
     super.build();
     return v;
@@ -645,16 +660,21 @@ class CaptionPropsBuilder extends CommonPropsBuilder {
   CaptionPropsBuilder._(_CaptionProps b) : super._(b);
 
   factory CaptionPropsBuilder([_CaptionProps b]) {
-    var v = _CaptionProps._();
+    var ret = CaptionPropsBuilder._(_CaptionProps._());
     if (b != null) {
-      v.align = b.align;
+      ret.value$ = b;
     }
-    return CaptionPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
   set align(String value) => v.align = value;
   _CaptionProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as CaptionProps;
+    v.align = v3.align;
+  }
+
   CaptionProps build() {
     super.build();
     return v;
@@ -697,12 +717,11 @@ class ColPropsBuilder extends CommonPropsBuilder {
   ColPropsBuilder._(_ColProps b) : super._(b);
 
   factory ColPropsBuilder([_ColProps b]) {
-    var v = _ColProps._();
+    var ret = ColPropsBuilder._(_ColProps._());
     if (b != null) {
-      v.align = b.align;
-      v.span = b.span;
+      ret.value$ = b;
     }
-    return ColPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
@@ -711,6 +730,12 @@ class ColPropsBuilder extends CommonPropsBuilder {
   /// span
   set span(String value) => v.span = value;
   _ColProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ColProps;
+    v.align = v3.align;
+    v.span = v3.span;
+  }
+
   ColProps build() {
     super.build();
     return v;
@@ -750,16 +775,21 @@ class HrPropsBuilder extends CommonPropsBuilder {
   HrPropsBuilder._(_HrProps b) : super._(b);
 
   factory HrPropsBuilder([_HrProps b]) {
-    var v = _HrProps._();
+    var ret = HrPropsBuilder._(_HrProps._());
     if (b != null) {
-      v.align = b.align;
+      ret.value$ = b;
     }
-    return HrPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
   set align(String value) => v.align = value;
   _HrProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as HrProps;
+    v.align = v3.align;
+  }
+
   HrProps build() {
     super.build();
     return v;
@@ -831,21 +861,11 @@ class IframePropsBuilder extends CommonPropsBuilder {
   IframePropsBuilder._(_IframeProps b) : super._(b);
 
   factory IframePropsBuilder([_IframeProps b]) {
-    var v = _IframeProps._();
+    var ret = IframePropsBuilder._(_IframeProps._());
     if (b != null) {
-      v.align = b.align;
-      v.allow = b.allow;
-      v.csp = b.csp;
-      v.height = b.height;
-      v.importance = b.importance;
-      v.lazyload = b.lazyload;
-      v.name = b.name;
-      v.sandbox = b.sandbox;
-      v.src = b.src;
-      v.srcdoc = b.srcdoc;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return IframePropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
@@ -881,6 +901,21 @@ class IframePropsBuilder extends CommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _IframeProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as IframeProps;
+    v.align = v3.align;
+    v.allow = v3.allow;
+    v.csp = v3.csp;
+    v.height = v3.height;
+    v.importance = v3.importance;
+    v.lazyload = v3.lazyload;
+    v.name = v3.name;
+    v.sandbox = v3.sandbox;
+    v.src = v3.src;
+    v.srcdoc = v3.srcdoc;
+    v.width = v3.width;
+  }
+
   IframeProps build() {
     super.build();
     return v;
@@ -956,23 +991,11 @@ class ImgPropsBuilder extends CommonPropsBuilder {
   ImgPropsBuilder._(_ImgProps b) : super._(b);
 
   factory ImgPropsBuilder([_ImgProps b]) {
-    var v = _ImgProps._();
+    var ret = ImgPropsBuilder._(_ImgProps._());
     if (b != null) {
-      v.align = b.align;
-      v.alt = b.alt;
-      v.crossorigin = b.crossorigin;
-      v.decoding = b.decoding;
-      v.height = b.height;
-      v.importance = b.importance;
-      v.ismap = b.ismap;
-      v.lazyload = b.lazyload;
-      v.sizes = b.sizes;
-      v.src = b.src;
-      v.srcset = b.srcset;
-      v.usemap = b.usemap;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return ImgPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
@@ -1014,6 +1037,23 @@ class ImgPropsBuilder extends CommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _ImgProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ImgProps;
+    v.align = v3.align;
+    v.alt = v3.alt;
+    v.crossorigin = v3.crossorigin;
+    v.decoding = v3.decoding;
+    v.height = v3.height;
+    v.importance = v3.importance;
+    v.ismap = v3.ismap;
+    v.lazyload = v3.lazyload;
+    v.sizes = v3.sizes;
+    v.src = v3.src;
+    v.srcset = v3.srcset;
+    v.usemap = v3.usemap;
+    v.width = v3.width;
+  }
+
   ImgProps build() {
     super.build();
     return v;
@@ -1056,12 +1096,11 @@ class TablePropsBuilder extends CommonPropsBuilder {
   TablePropsBuilder._(_TableProps b) : super._(b);
 
   factory TablePropsBuilder([_TableProps b]) {
-    var v = _TableProps._();
+    var ret = TablePropsBuilder._(_TableProps._());
     if (b != null) {
-      v.align = b.align;
-      v.summary = b.summary;
+      ret.value$ = b;
     }
-    return TablePropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
@@ -1070,6 +1109,12 @@ class TablePropsBuilder extends CommonPropsBuilder {
   /// summary
   set summary(String value) => v.summary = value;
   _TableProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as TableProps;
+    v.align = v3.align;
+    v.summary = v3.summary;
+  }
+
   TableProps build() {
     super.build();
     return v;
@@ -1109,16 +1154,21 @@ class TbodyPropsBuilder extends CommonPropsBuilder {
   TbodyPropsBuilder._(_TbodyProps b) : super._(b);
 
   factory TbodyPropsBuilder([_TbodyProps b]) {
-    var v = _TbodyProps._();
+    var ret = TbodyPropsBuilder._(_TbodyProps._());
     if (b != null) {
-      v.align = b.align;
+      ret.value$ = b;
     }
-    return TbodyPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
   set align(String value) => v.align = value;
   _TbodyProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as TbodyProps;
+    v.align = v3.align;
+  }
+
   TbodyProps build() {
     super.build();
     return v;
@@ -1167,14 +1217,11 @@ class TdPropsBuilder extends CommonPropsBuilder {
   TdPropsBuilder._(_TdProps b) : super._(b);
 
   factory TdPropsBuilder([_TdProps b]) {
-    var v = _TdProps._();
+    var ret = TdPropsBuilder._(_TdProps._());
     if (b != null) {
-      v.align = b.align;
-      v.colspan = b.colspan;
-      v.headers = b.headers;
-      v.rowspan = b.rowspan;
+      ret.value$ = b;
     }
-    return TdPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
@@ -1189,6 +1236,14 @@ class TdPropsBuilder extends CommonPropsBuilder {
   /// Defines the number of rows a table cell should span over.
   set rowspan(String value) => v.rowspan = value;
   _TdProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as TdProps;
+    v.align = v3.align;
+    v.colspan = v3.colspan;
+    v.headers = v3.headers;
+    v.rowspan = v3.rowspan;
+  }
+
   TdProps build() {
     super.build();
     return v;
@@ -1240,15 +1295,11 @@ class ThPropsBuilder extends CommonPropsBuilder {
   ThPropsBuilder._(_ThProps b) : super._(b);
 
   factory ThPropsBuilder([_ThProps b]) {
-    var v = _ThProps._();
+    var ret = ThPropsBuilder._(_ThProps._());
     if (b != null) {
-      v.align = b.align;
-      v.colspan = b.colspan;
-      v.headers = b.headers;
-      v.rowspan = b.rowspan;
-      v.scope = b.scope;
+      ret.value$ = b;
     }
-    return ThPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the horizontal alignment of the element.
@@ -1266,6 +1317,15 @@ class ThPropsBuilder extends CommonPropsBuilder {
   /// Defines the cells that the header test (defined in the th element) relates to.
   set scope(String value) => v.scope = value;
   _ThProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ThProps;
+    v.align = v3.align;
+    v.colspan = v3.colspan;
+    v.headers = v3.headers;
+    v.rowspan = v3.rowspan;
+    v.scope = v3.scope;
+  }
+
   ThProps build() {
     super.build();
     return v;
@@ -1332,20 +1392,11 @@ class AreaPropsBuilder extends CommonPropsBuilder {
   AreaPropsBuilder._(_AreaProps b) : super._(b);
 
   factory AreaPropsBuilder([_AreaProps b]) {
-    var v = _AreaProps._();
+    var ret = AreaPropsBuilder._(_AreaProps._());
     if (b != null) {
-      v.alt = b.alt;
-      v.coords = b.coords;
-      v.download = b.download;
-      v.href = b.href;
-      v.hreflang = b.hreflang;
-      v.media = b.media;
-      v.ping = b.ping;
-      v.rel = b.rel;
-      v.shape = b.shape;
-      v.target = b.target;
+      ret.value$ = b;
     }
-    return AreaPropsBuilder._(v);
+    return ret;
   }
 
   /// Alternative text in case an image can't be displayed.
@@ -1378,6 +1429,20 @@ class AreaPropsBuilder extends CommonPropsBuilder {
   /// target
   set target(String value) => v.target = value;
   _AreaProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as AreaProps;
+    v.alt = v3.alt;
+    v.coords = v3.coords;
+    v.download = v3.download;
+    v.href = v3.href;
+    v.hreflang = v3.hreflang;
+    v.media = v3.media;
+    v.ping = v3.ping;
+    v.rel = v3.rel;
+    v.shape = v3.shape;
+    v.target = v3.target;
+  }
+
   AreaProps build() {
     super.build();
     return v;
@@ -1443,19 +1508,11 @@ class ScriptPropsBuilder extends CommonPropsBuilder {
   ScriptPropsBuilder._(_ScriptProps b) : super._(b);
 
   factory ScriptPropsBuilder([_ScriptProps b]) {
-    var v = _ScriptProps._();
+    var ret = ScriptPropsBuilder._(_ScriptProps._());
     if (b != null) {
-      v.async = b.async;
-      v.charset = b.charset;
-      v.crossorigin = b.crossorigin;
-      v.defer = b.defer;
-      v.importance = b.importance;
-      v.integrity = b.integrity;
-      v.language = b.language;
-      v.src = b.src;
-      v.type = b.type;
+      ret.value$ = b;
     }
-    return ScriptPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates that the script should be executed asynchronously.
@@ -1485,6 +1542,19 @@ class ScriptPropsBuilder extends CommonPropsBuilder {
   /// Defines the type of the element.
   set type(String value) => v.type = value;
   _ScriptProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ScriptProps;
+    v.async = v3.async;
+    v.charset = v3.charset;
+    v.crossorigin = v3.crossorigin;
+    v.defer = v3.defer;
+    v.importance = v3.importance;
+    v.integrity = v3.integrity;
+    v.language = v3.language;
+    v.src = v3.src;
+    v.type = v3.type;
+  }
+
   ScriptProps build() {
     super.build();
     return v;
@@ -1565,24 +1635,11 @@ class TextareaPropsBuilder extends CommonPropsBuilder {
   TextareaPropsBuilder._(_TextareaProps b) : super._(b);
 
   factory TextareaPropsBuilder([_TextareaProps b]) {
-    var v = _TextareaProps._();
+    var ret = TextareaPropsBuilder._(_TextareaProps._());
     if (b != null) {
-      v.autocomplete = b.autocomplete;
-      v.autofocus = b.autofocus;
-      v.cols = b.cols;
-      v.dirname = b.dirname;
-      v.disabled = b.disabled;
-      v.form = b.form;
-      v.maxlength = b.maxlength;
-      v.minlength = b.minlength;
-      v.name = b.name;
-      v.placeholder = b.placeholder;
-      v.readonly = b.readonly;
-      v.required = b.required;
-      v.rows = b.rows;
-      v.wrap = b.wrap;
+      ret.value$ = b;
     }
-    return TextareaPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates whether controls in this form can by default have their values automatically completed by the browser.
@@ -1627,6 +1684,24 @@ class TextareaPropsBuilder extends CommonPropsBuilder {
   /// Indicates whether the text should be wrapped.
   set wrap(String value) => v.wrap = value;
   _TextareaProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as TextareaProps;
+    v.autocomplete = v3.autocomplete;
+    v.autofocus = v3.autofocus;
+    v.cols = v3.cols;
+    v.dirname = v3.dirname;
+    v.disabled = v3.disabled;
+    v.form = v3.form;
+    v.maxlength = v3.maxlength;
+    v.minlength = v3.minlength;
+    v.name = v3.name;
+    v.placeholder = v3.placeholder;
+    v.readonly = v3.readonly;
+    v.required = v3.required;
+    v.rows = v3.rows;
+    v.wrap = v3.wrap;
+  }
+
   TextareaProps build() {
     super.build();
     return v;
@@ -1686,17 +1761,11 @@ class ButtonPropsBuilder extends CommonPropsBuilder {
   ButtonPropsBuilder._(_ButtonProps b) : super._(b);
 
   factory ButtonPropsBuilder([_ButtonProps b]) {
-    var v = _ButtonProps._();
+    var ret = ButtonPropsBuilder._(_ButtonProps._());
     if (b != null) {
-      v.autofocus = b.autofocus;
-      v.disabled = b.disabled;
-      v.form = b.form;
-      v.formaction = b.formaction;
-      v.name = b.name;
-      v.type = b.type;
-      v.value = b.value;
+      ret.value$ = b;
     }
-    return ButtonPropsBuilder._(v);
+    return ret;
   }
 
   /// The element should be automatically focused after the page loaded.
@@ -1720,6 +1789,17 @@ class ButtonPropsBuilder extends CommonPropsBuilder {
   /// Defines a default value which will be displayed in the element on page load.
   set value(String value) => v.value = value;
   _ButtonProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ButtonProps;
+    v.autofocus = v3.autofocus;
+    v.disabled = v3.disabled;
+    v.form = v3.form;
+    v.formaction = v3.formaction;
+    v.name = v3.name;
+    v.type = v3.type;
+    v.value = v3.value;
+  }
+
   ButtonProps build() {
     super.build();
     return v;
@@ -1776,16 +1856,11 @@ class KeygenPropsBuilder extends CommonPropsBuilder {
   KeygenPropsBuilder._(_KeygenProps b) : super._(b);
 
   factory KeygenPropsBuilder([_KeygenProps b]) {
-    var v = _KeygenProps._();
+    var ret = KeygenPropsBuilder._(_KeygenProps._());
     if (b != null) {
-      v.autofocus = b.autofocus;
-      v.challenge = b.challenge;
-      v.disabled = b.disabled;
-      v.form = b.form;
-      v.keytype = b.keytype;
-      v.name = b.name;
+      ret.value$ = b;
     }
-    return KeygenPropsBuilder._(v);
+    return ret;
   }
 
   /// The element should be automatically focused after the page loaded.
@@ -1806,6 +1881,16 @@ class KeygenPropsBuilder extends CommonPropsBuilder {
   /// Name of the element. For example used by the server to identify the fields in form submits.
   set name(String value) => v.name = value;
   _KeygenProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as KeygenProps;
+    v.autofocus = v3.autofocus;
+    v.challenge = v3.challenge;
+    v.disabled = v3.disabled;
+    v.form = v3.form;
+    v.keytype = v3.keytype;
+    v.name = v3.name;
+  }
+
   KeygenProps build() {
     super.build();
     return v;
@@ -1868,18 +1953,11 @@ class SelectPropsBuilder extends CommonPropsBuilder {
   SelectPropsBuilder._(_SelectProps b) : super._(b);
 
   factory SelectPropsBuilder([_SelectProps b]) {
-    var v = _SelectProps._();
+    var ret = SelectPropsBuilder._(_SelectProps._());
     if (b != null) {
-      v.autofocus = b.autofocus;
-      v.disabled = b.disabled;
-      v.form = b.form;
-      v.multiple = b.multiple;
-      v.name = b.name;
-      v.required = b.required;
-      v.size = b.size;
-      v.value = b.value;
+      ret.value$ = b;
     }
-    return SelectPropsBuilder._(v);
+    return ret;
   }
 
   /// The element should be automatically focused after the page loaded.
@@ -1906,6 +1984,18 @@ class SelectPropsBuilder extends CommonPropsBuilder {
   /// Set the selected option
   set value(String value) => v.value = value;
   _SelectProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as SelectProps;
+    v.autofocus = v3.autofocus;
+    v.disabled = v3.disabled;
+    v.form = v3.form;
+    v.multiple = v3.multiple;
+    v.name = v3.name;
+    v.required = v3.required;
+    v.size = v3.size;
+    v.value = v3.value;
+  }
+
   SelectProps build() {
     super.build();
     return v;
@@ -1966,18 +2056,11 @@ class AudioPropsBuilder extends CommonPropsBuilder {
   AudioPropsBuilder._(_AudioProps b) : super._(b);
 
   factory AudioPropsBuilder([_AudioProps b]) {
-    var v = _AudioProps._();
+    var ret = AudioPropsBuilder._(_AudioProps._());
     if (b != null) {
-      v.autoplay = b.autoplay;
-      v.buffered = b.buffered;
-      v.controls = b.controls;
-      v.crossorigin = b.crossorigin;
-      v.loop = b.loop;
-      v.muted = b.muted;
-      v.preload = b.preload;
-      v.src = b.src;
+      ret.value$ = b;
     }
-    return AudioPropsBuilder._(v);
+    return ret;
   }
 
   /// The audio or video should play as soon as possible.
@@ -2004,6 +2087,18 @@ class AudioPropsBuilder extends CommonPropsBuilder {
   /// The URL of the embeddable content.
   set src(String value) => v.src = value;
   _AudioProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as AudioProps;
+    v.autoplay = v3.autoplay;
+    v.buffered = v3.buffered;
+    v.controls = v3.controls;
+    v.crossorigin = v3.crossorigin;
+    v.loop = v3.loop;
+    v.muted = v3.muted;
+    v.preload = v3.preload;
+    v.src = v3.src;
+  }
+
   AudioProps build() {
     super.build();
     return v;
@@ -2073,21 +2168,11 @@ class VideoPropsBuilder extends CommonPropsBuilder {
   VideoPropsBuilder._(_VideoProps b) : super._(b);
 
   factory VideoPropsBuilder([_VideoProps b]) {
-    var v = _VideoProps._();
+    var ret = VideoPropsBuilder._(_VideoProps._());
     if (b != null) {
-      v.autoplay = b.autoplay;
-      v.buffered = b.buffered;
-      v.controls = b.controls;
-      v.crossorigin = b.crossorigin;
-      v.height = b.height;
-      v.loop = b.loop;
-      v.muted = b.muted;
-      v.poster = b.poster;
-      v.preload = b.preload;
-      v.src = b.src;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return VideoPropsBuilder._(v);
+    return ret;
   }
 
   /// The audio or video should play as soon as possible.
@@ -2123,6 +2208,21 @@ class VideoPropsBuilder extends CommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _VideoProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as VideoProps;
+    v.autoplay = v3.autoplay;
+    v.buffered = v3.buffered;
+    v.controls = v3.controls;
+    v.crossorigin = v3.crossorigin;
+    v.height = v3.height;
+    v.loop = v3.loop;
+    v.muted = v3.muted;
+    v.poster = v3.poster;
+    v.preload = v3.preload;
+    v.src = v3.src;
+    v.width = v3.width;
+  }
+
   VideoProps build() {
     super.build();
     return v;
@@ -2159,12 +2259,18 @@ class BodyPropsBuilder extends CommonPropsBuilder {
   BodyPropsBuilder._(_BodyProps b) : super._(b);
 
   factory BodyPropsBuilder([_BodyProps b]) {
-    var v = _BodyProps._();
-    if (b != null) {}
-    return BodyPropsBuilder._(v);
+    var ret = BodyPropsBuilder._(_BodyProps._());
+    if (b != null) {
+      ret.value$ = b;
+    }
+    return ret;
   }
 
   _BodyProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as BodyProps;
+  }
+
   BodyProps build() {
     super.build();
     return v;
@@ -2224,17 +2330,11 @@ class ObjectPropsBuilder extends CommonPropsBuilder {
   ObjectPropsBuilder._(_ObjectProps b) : super._(b);
 
   factory ObjectPropsBuilder([_ObjectProps b]) {
-    var v = _ObjectProps._();
+    var ret = ObjectPropsBuilder._(_ObjectProps._());
     if (b != null) {
-      v.data = b.data;
-      v.form = b.form;
-      v.height = b.height;
-      v.name = b.name;
-      v.type = b.type;
-      v.usemap = b.usemap;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return ObjectPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the URL of the resource.
@@ -2258,6 +2358,17 @@ class ObjectPropsBuilder extends CommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _ObjectProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ObjectProps;
+    v.data = v3.data;
+    v.form = v3.form;
+    v.height = v3.height;
+    v.name = v3.name;
+    v.type = v3.type;
+    v.usemap = v3.usemap;
+    v.width = v3.width;
+  }
+
   ObjectProps build() {
     super.build();
     return v;
@@ -2306,14 +2417,11 @@ class MetaPropsBuilder extends CommonPropsBuilder {
   MetaPropsBuilder._(_MetaProps b) : super._(b);
 
   factory MetaPropsBuilder([_MetaProps b]) {
-    var v = _MetaProps._();
+    var ret = MetaPropsBuilder._(_MetaProps._());
     if (b != null) {
-      v.charset = b.charset;
-      v.content = b.content;
-      v.httpEquiv = b.httpEquiv;
-      v.name = b.name;
+      ret.value$ = b;
     }
-    return MetaPropsBuilder._(v);
+    return ret;
   }
 
   /// Declares the character encoding of the page or script.
@@ -2328,6 +2436,14 @@ class MetaPropsBuilder extends CommonPropsBuilder {
   /// Name of the element. For example used by the server to identify the fields in form submits.
   set name(String value) => v.name = value;
   _MetaProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as MetaProps;
+    v.charset = v3.charset;
+    v.content = v3.content;
+    v.httpEquiv = v3.httpEquiv;
+    v.name = v3.name;
+  }
+
   MetaProps build() {
     super.build();
     return v;
@@ -2369,16 +2485,21 @@ class BlockquotePropsBuilder extends CommonPropsBuilder {
   BlockquotePropsBuilder._(_BlockquoteProps b) : super._(b);
 
   factory BlockquotePropsBuilder([_BlockquoteProps b]) {
-    var v = _BlockquoteProps._();
+    var ret = BlockquotePropsBuilder._(_BlockquoteProps._());
     if (b != null) {
-      v.cite = b.cite;
+      ret.value$ = b;
     }
-    return BlockquotePropsBuilder._(v);
+    return ret;
   }
 
   /// Contains a URI which points to the source of the quote or change.
   set cite(String value) => v.cite = value;
   _BlockquoteProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as BlockquoteProps;
+    v.cite = v3.cite;
+  }
+
   BlockquoteProps build() {
     super.build();
     return v;
@@ -2422,12 +2543,11 @@ class DelPropsBuilder extends CommonPropsBuilder {
   DelPropsBuilder._(_DelProps b) : super._(b);
 
   factory DelPropsBuilder([_DelProps b]) {
-    var v = _DelProps._();
+    var ret = DelPropsBuilder._(_DelProps._());
     if (b != null) {
-      v.cite = b.cite;
-      v.datetime = b.datetime;
+      ret.value$ = b;
     }
-    return DelPropsBuilder._(v);
+    return ret;
   }
 
   /// Contains a URI which points to the source of the quote or change.
@@ -2436,6 +2556,12 @@ class DelPropsBuilder extends CommonPropsBuilder {
   /// Indicates the date and time associated with the element.
   set datetime(String value) => v.datetime = value;
   _DelProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as DelProps;
+    v.cite = v3.cite;
+    v.datetime = v3.datetime;
+  }
+
   DelProps build() {
     super.build();
     return v;
@@ -2472,12 +2598,18 @@ class FontPropsBuilder extends CommonPropsBuilder {
   FontPropsBuilder._(_FontProps b) : super._(b);
 
   factory FontPropsBuilder([_FontProps b]) {
-    var v = _FontProps._();
-    if (b != null) {}
-    return FontPropsBuilder._(v);
+    var ret = FontPropsBuilder._(_FontProps._());
+    if (b != null) {
+      ret.value$ = b;
+    }
+    return ret;
   }
 
   _FontProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as FontProps;
+  }
+
   FontProps build() {
     super.build();
     return v;
@@ -2538,18 +2670,11 @@ class LinkPropsBuilder extends CommonPropsBuilder {
   LinkPropsBuilder._(_LinkProps b) : super._(b);
 
   factory LinkPropsBuilder([_LinkProps b]) {
-    var v = _LinkProps._();
+    var ret = LinkPropsBuilder._(_LinkProps._());
     if (b != null) {
-      v.crossorigin = b.crossorigin;
-      v.href = b.href;
-      v.hreflang = b.hreflang;
-      v.importance = b.importance;
-      v.integrity = b.integrity;
-      v.media = b.media;
-      v.rel = b.rel;
-      v.sizes = b.sizes;
+      ret.value$ = b;
     }
-    return LinkPropsBuilder._(v);
+    return ret;
   }
 
   /// How the element handles cross-origin requests
@@ -2576,6 +2701,18 @@ class LinkPropsBuilder extends CommonPropsBuilder {
   /// sizes
   set sizes(String value) => v.sizes = value;
   _LinkProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as LinkProps;
+    v.crossorigin = v3.crossorigin;
+    v.href = v3.href;
+    v.hreflang = v3.hreflang;
+    v.importance = v3.importance;
+    v.integrity = v3.integrity;
+    v.media = v3.media;
+    v.rel = v3.rel;
+    v.sizes = v3.sizes;
+  }
+
   LinkProps build() {
     super.build();
     return v;
@@ -2615,16 +2752,21 @@ class TimePropsBuilder extends CommonPropsBuilder {
   TimePropsBuilder._(_TimeProps b) : super._(b);
 
   factory TimePropsBuilder([_TimeProps b]) {
-    var v = _TimeProps._();
+    var ret = TimePropsBuilder._(_TimeProps._());
     if (b != null) {
-      v.datetime = b.datetime;
+      ret.value$ = b;
     }
-    return TimePropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates the date and time associated with the element.
   set datetime(String value) => v.datetime = value;
   _TimeProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as TimeProps;
+    v.datetime = v3.datetime;
+  }
+
   TimeProps build() {
     super.build();
     return v;
@@ -2676,15 +2818,11 @@ class TrackPropsBuilder extends CommonPropsBuilder {
   TrackPropsBuilder._(_TrackProps b) : super._(b);
 
   factory TrackPropsBuilder([_TrackProps b]) {
-    var v = _TrackProps._();
+    var ret = TrackPropsBuilder._(_TrackProps._());
     if (b != null) {
-      v.defaultEnabled = b.defaultEnabled;
-      v.kind = b.kind;
-      v.label = b.label;
-      v.src = b.src;
-      v.srclang = b.srclang;
+      ret.value$ = b;
     }
-    return TrackPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates that the track should be enabled unless the user's preferences indicate something different.
@@ -2702,6 +2840,15 @@ class TrackPropsBuilder extends CommonPropsBuilder {
   /// srclang
   set srclang(String value) => v.srclang = value;
   _TrackProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as TrackProps;
+    v.defaultEnabled = v3.defaultEnabled;
+    v.kind = v3.kind;
+    v.label = v3.label;
+    v.src = v3.src;
+    v.srclang = v3.srclang;
+  }
+
   TrackProps build() {
     super.build();
     return v;
@@ -2749,13 +2896,11 @@ class FieldsetPropsBuilder extends CommonPropsBuilder {
   FieldsetPropsBuilder._(_FieldsetProps b) : super._(b);
 
   factory FieldsetPropsBuilder([_FieldsetProps b]) {
-    var v = _FieldsetProps._();
+    var ret = FieldsetPropsBuilder._(_FieldsetProps._());
     if (b != null) {
-      v.disabled = b.disabled;
-      v.form = b.form;
-      v.name = b.name;
+      ret.value$ = b;
     }
-    return FieldsetPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates whether the user can interact with the element.
@@ -2767,6 +2912,13 @@ class FieldsetPropsBuilder extends CommonPropsBuilder {
   /// Name of the element. For example used by the server to identify the fields in form submits.
   set name(String value) => v.name = value;
   _FieldsetProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as FieldsetProps;
+    v.disabled = v3.disabled;
+    v.form = v3.form;
+    v.name = v3.name;
+  }
+
   FieldsetProps build() {
     super.build();
     return v;
@@ -2808,16 +2960,21 @@ class OptgroupPropsBuilder extends CommonPropsBuilder {
   OptgroupPropsBuilder._(_OptgroupProps b) : super._(b);
 
   factory OptgroupPropsBuilder([_OptgroupProps b]) {
-    var v = _OptgroupProps._();
+    var ret = OptgroupPropsBuilder._(_OptgroupProps._());
     if (b != null) {
-      v.disabled = b.disabled;
+      ret.value$ = b;
     }
-    return OptgroupPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates whether the user can interact with the element.
   set disabled(String value) => v.disabled = value;
   _OptgroupProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as OptgroupProps;
+    v.disabled = v3.disabled;
+  }
+
   OptgroupProps build() {
     super.build();
     return v;
@@ -2862,12 +3019,11 @@ class OptionPropsBuilder extends CommonPropsBuilder {
   OptionPropsBuilder._(_OptionProps b) : super._(b);
 
   factory OptionPropsBuilder([_OptionProps b]) {
-    var v = _OptionProps._();
+    var ret = OptionPropsBuilder._(_OptionProps._());
     if (b != null) {
-      v.disabled = b.disabled;
-      v.value = b.value;
+      ret.value$ = b;
     }
-    return OptionPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates whether the user can interact with the element.
@@ -2876,6 +3032,12 @@ class OptionPropsBuilder extends CommonPropsBuilder {
   /// Defines a default value which will be displayed in the element on page load.
   set value(String value) => v.value = value;
   _OptionProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as OptionProps;
+    v.disabled = v3.disabled;
+    v.value = v3.value;
+  }
+
   OptionProps build() {
     super.build();
     return v;
@@ -2936,18 +3098,11 @@ class APropsBuilder extends CommonPropsBuilder {
   APropsBuilder._(_AProps b) : super._(b);
 
   factory APropsBuilder([_AProps b]) {
-    var v = _AProps._();
+    var ret = APropsBuilder._(_AProps._());
     if (b != null) {
-      v.download = b.download;
-      v.href = b.href;
-      v.hreflang = b.hreflang;
-      v.media = b.media;
-      v.ping = b.ping;
-      v.rel = b.rel;
-      v.shape = b.shape;
-      v.target = b.target;
+      ret.value$ = b;
     }
-    return APropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates that the hyperlink is to be used for downloading a resource.
@@ -2974,6 +3129,18 @@ class APropsBuilder extends CommonPropsBuilder {
   /// target
   set target(String value) => v.target = value;
   _AProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as AProps;
+    v.download = v3.download;
+    v.href = v3.href;
+    v.hreflang = v3.hreflang;
+    v.media = v3.media;
+    v.ping = v3.ping;
+    v.rel = v3.rel;
+    v.shape = v3.shape;
+    v.target = v3.target;
+  }
+
   AProps build() {
     super.build();
     return v;
@@ -3016,12 +3183,11 @@ class LabelPropsBuilder extends CommonPropsBuilder {
   LabelPropsBuilder._(_LabelProps b) : super._(b);
 
   factory LabelPropsBuilder([_LabelProps b]) {
-    var v = _LabelProps._();
+    var ret = LabelPropsBuilder._(_LabelProps._());
     if (b != null) {
-      v.htmlFor = b.htmlFor;
-      v.form = b.form;
+      ret.value$ = b;
     }
-    return LabelPropsBuilder._(v);
+    return ret;
   }
 
   /// Describes elements which belongs to this one.
@@ -3030,6 +3196,12 @@ class LabelPropsBuilder extends CommonPropsBuilder {
   /// Indicates the form that is the owner of the element.
   set form(String value) => v.form = value;
   _LabelProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as LabelProps;
+    v.htmlFor = v3.htmlFor;
+    v.form = v3.form;
+  }
+
   LabelProps build() {
     super.build();
     return v;
@@ -3077,13 +3249,11 @@ class OutputPropsBuilder extends CommonPropsBuilder {
   OutputPropsBuilder._(_OutputProps b) : super._(b);
 
   factory OutputPropsBuilder([_OutputProps b]) {
-    var v = _OutputProps._();
+    var ret = OutputPropsBuilder._(_OutputProps._());
     if (b != null) {
-      v.htmlFor = b.htmlFor;
-      v.form = b.form;
-      v.name = b.name;
+      ret.value$ = b;
     }
-    return OutputPropsBuilder._(v);
+    return ret;
   }
 
   /// Describes elements which belongs to this one.
@@ -3095,6 +3265,13 @@ class OutputPropsBuilder extends CommonPropsBuilder {
   /// Name of the element. For example used by the server to identify the fields in form submits.
   set name(String value) => v.name = value;
   _OutputProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as OutputProps;
+    v.htmlFor = v3.htmlFor;
+    v.form = v3.form;
+    v.name = v3.name;
+  }
+
   OutputProps build() {
     super.build();
     return v;
@@ -3152,17 +3329,11 @@ class MeterPropsBuilder extends CommonPropsBuilder {
   MeterPropsBuilder._(_MeterProps b) : super._(b);
 
   factory MeterPropsBuilder([_MeterProps b]) {
-    var v = _MeterProps._();
+    var ret = MeterPropsBuilder._(_MeterProps._());
     if (b != null) {
-      v.form = b.form;
-      v.high = b.high;
-      v.low = b.low;
-      v.max = b.max;
-      v.min = b.min;
-      v.optimum = b.optimum;
-      v.value = b.value;
+      ret.value$ = b;
     }
-    return MeterPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates the form that is the owner of the element.
@@ -3186,6 +3357,17 @@ class MeterPropsBuilder extends CommonPropsBuilder {
   /// Defines a default value which will be displayed in the element on page load.
   set value(String value) => v.value = value;
   _MeterProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as MeterProps;
+    v.form = v3.form;
+    v.high = v3.high;
+    v.low = v3.low;
+    v.max = v3.max;
+    v.min = v3.min;
+    v.optimum = v3.optimum;
+    v.value = v3.value;
+  }
+
   MeterProps build() {
     super.build();
     return v;
@@ -3233,13 +3415,11 @@ class ProgressPropsBuilder extends CommonPropsBuilder {
   ProgressPropsBuilder._(_ProgressProps b) : super._(b);
 
   factory ProgressPropsBuilder([_ProgressProps b]) {
-    var v = _ProgressProps._();
+    var ret = ProgressPropsBuilder._(_ProgressProps._());
     if (b != null) {
-      v.form = b.form;
-      v.max = b.max;
-      v.value = b.value;
+      ret.value$ = b;
     }
-    return ProgressPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates the form that is the owner of the element.
@@ -3251,6 +3431,13 @@ class ProgressPropsBuilder extends CommonPropsBuilder {
   /// Defines a default value which will be displayed in the element on page load.
   set value(String value) => v.value = value;
   _ProgressProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ProgressProps;
+    v.form = v3.form;
+    v.max = v3.max;
+    v.value = v3.value;
+  }
+
   ProgressProps build() {
     super.build();
     return v;
@@ -3295,12 +3482,11 @@ class CanvasPropsBuilder extends CommonPropsBuilder {
   CanvasPropsBuilder._(_CanvasProps b) : super._(b);
 
   factory CanvasPropsBuilder([_CanvasProps b]) {
-    var v = _CanvasProps._();
+    var ret = CanvasPropsBuilder._(_CanvasProps._());
     if (b != null) {
-      v.height = b.height;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return CanvasPropsBuilder._(v);
+    return ret;
   }
 
   /// Establishes the element's height.
@@ -3309,6 +3495,12 @@ class CanvasPropsBuilder extends CommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _CanvasProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as CanvasProps;
+    v.height = v3.height;
+    v.width = v3.width;
+  }
+
   CanvasProps build() {
     super.build();
     return v;
@@ -3357,14 +3549,11 @@ class EmbedPropsBuilder extends CommonPropsBuilder {
   EmbedPropsBuilder._(_EmbedProps b) : super._(b);
 
   factory EmbedPropsBuilder([_EmbedProps b]) {
-    var v = _EmbedProps._();
+    var ret = EmbedPropsBuilder._(_EmbedProps._());
     if (b != null) {
-      v.height = b.height;
-      v.src = b.src;
-      v.type = b.type;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return EmbedPropsBuilder._(v);
+    return ret;
   }
 
   /// Establishes the element's height.
@@ -3379,6 +3568,14 @@ class EmbedPropsBuilder extends CommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _EmbedProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as EmbedProps;
+    v.height = v3.height;
+    v.src = v3.src;
+    v.type = v3.type;
+    v.width = v3.width;
+  }
+
   EmbedProps build() {
     super.build();
     return v;
@@ -3421,12 +3618,11 @@ class BasePropsBuilder extends CommonPropsBuilder {
   BasePropsBuilder._(_BaseProps b) : super._(b);
 
   factory BasePropsBuilder([_BaseProps b]) {
-    var v = _BaseProps._();
+    var ret = BasePropsBuilder._(_BaseProps._());
     if (b != null) {
-      v.href = b.href;
-      v.target = b.target;
+      ret.value$ = b;
     }
-    return BasePropsBuilder._(v);
+    return ret;
   }
 
   /// The URL of a linked resource.
@@ -3435,6 +3631,12 @@ class BasePropsBuilder extends CommonPropsBuilder {
   /// target
   set target(String value) => v.target = value;
   _BaseProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as BaseProps;
+    v.href = v3.href;
+    v.target = v3.target;
+  }
+
   BaseProps build() {
     super.build();
     return v;
@@ -3474,16 +3676,21 @@ class HtmlPropsBuilder extends CommonPropsBuilder {
   HtmlPropsBuilder._(_HtmlProps b) : super._(b);
 
   factory HtmlPropsBuilder([_HtmlProps b]) {
-    var v = _HtmlProps._();
+    var ret = HtmlPropsBuilder._(_HtmlProps._());
     if (b != null) {
-      v.manifest = b.manifest;
+      ret.value$ = b;
     }
-    return HtmlPropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies the URL of the document's cache manifest.
   set manifest(String value) => v.manifest = value;
   _HtmlProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as HtmlProps;
+    v.manifest = v3.manifest;
+  }
+
   HtmlProps build() {
     super.build();
     return v;
@@ -3537,15 +3744,11 @@ class SourcePropsBuilder extends CommonPropsBuilder {
   SourcePropsBuilder._(_SourceProps b) : super._(b);
 
   factory SourcePropsBuilder([_SourceProps b]) {
-    var v = _SourceProps._();
+    var ret = SourcePropsBuilder._(_SourceProps._());
     if (b != null) {
-      v.media = b.media;
-      v.sizes = b.sizes;
-      v.src = b.src;
-      v.srcset = b.srcset;
-      v.type = b.type;
+      ret.value$ = b;
     }
-    return SourcePropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies a hint of the media for which the linked resource was designed.
@@ -3563,6 +3766,15 @@ class SourcePropsBuilder extends CommonPropsBuilder {
   /// Defines the type of the element.
   set type(String value) => v.type = value;
   _SourceProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as SourceProps;
+    v.media = v3.media;
+    v.sizes = v3.sizes;
+    v.src = v3.src;
+    v.srcset = v3.srcset;
+    v.type = v3.type;
+  }
+
   SourceProps build() {
     super.build();
     return v;
@@ -3608,13 +3820,11 @@ class StylePropsBuilder extends CommonPropsBuilder {
   StylePropsBuilder._(_StyleProps b) : super._(b);
 
   factory StylePropsBuilder([_StyleProps b]) {
-    var v = _StyleProps._();
+    var ret = StylePropsBuilder._(_StyleProps._());
     if (b != null) {
-      v.media = b.media;
-      v.scoped = b.scoped;
-      v.type = b.type;
+      ret.value$ = b;
     }
-    return StylePropsBuilder._(v);
+    return ret;
   }
 
   /// Specifies a hint of the media for which the linked resource was designed.
@@ -3626,6 +3836,13 @@ class StylePropsBuilder extends CommonPropsBuilder {
   /// Defines the type of the element.
   set type(String value) => v.type = value;
   _StyleProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as StyleProps;
+    v.media = v3.media;
+    v.scoped = v3.scoped;
+    v.type = v3.type;
+  }
+
   StyleProps build() {
     super.build();
     return v;
@@ -3665,16 +3882,21 @@ class MapPropsBuilder extends CommonPropsBuilder {
   MapPropsBuilder._(_MapProps b) : super._(b);
 
   factory MapPropsBuilder([_MapProps b]) {
-    var v = _MapProps._();
+    var ret = MapPropsBuilder._(_MapProps._());
     if (b != null) {
-      v.name = b.name;
+      ret.value$ = b;
     }
-    return MapPropsBuilder._(v);
+    return ret;
   }
 
   /// Name of the element. For example used by the server to identify the fields in form submits.
   set name(String value) => v.name = value;
   _MapProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as MapProps;
+    v.name = v3.name;
+  }
+
   MapProps build() {
     super.build();
     return v;
@@ -3717,12 +3939,11 @@ class ParamPropsBuilder extends CommonPropsBuilder {
   ParamPropsBuilder._(_ParamProps b) : super._(b);
 
   factory ParamPropsBuilder([_ParamProps b]) {
-    var v = _ParamProps._();
+    var ret = ParamPropsBuilder._(_ParamProps._());
     if (b != null) {
-      v.name = b.name;
-      v.value = b.value;
+      ret.value$ = b;
     }
-    return ParamPropsBuilder._(v);
+    return ret;
   }
 
   /// Name of the element. For example used by the server to identify the fields in form submits.
@@ -3731,6 +3952,12 @@ class ParamPropsBuilder extends CommonPropsBuilder {
   /// Defines a default value which will be displayed in the element on page load.
   set value(String value) => v.value = value;
   _ParamProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as ParamProps;
+    v.name = v3.name;
+    v.value = v3.value;
+  }
+
   ParamProps build() {
     super.build();
     return v;
@@ -3772,16 +3999,21 @@ class DetailsPropsBuilder extends CommonPropsBuilder {
   DetailsPropsBuilder._(_DetailsProps b) : super._(b);
 
   factory DetailsPropsBuilder([_DetailsProps b]) {
-    var v = _DetailsProps._();
+    var ret = DetailsPropsBuilder._(_DetailsProps._());
     if (b != null) {
-      v.open = b.open;
+      ret.value$ = b;
     }
-    return DetailsPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates whether the details will be shown on page load.
   set open(String value) => v.open = value;
   _DetailsProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as DetailsProps;
+    v.open = v3.open;
+  }
+
   DetailsProps build() {
     super.build();
     return v;
@@ -3824,12 +4056,11 @@ class OlPropsBuilder extends CommonPropsBuilder {
   OlPropsBuilder._(_OlProps b) : super._(b);
 
   factory OlPropsBuilder([_OlProps b]) {
-    var v = _OlProps._();
+    var ret = OlPropsBuilder._(_OlProps._());
     if (b != null) {
-      v.reversed = b.reversed;
-      v.start = b.start;
+      ret.value$ = b;
     }
-    return OlPropsBuilder._(v);
+    return ret;
   }
 
   /// Indicates whether the list should be displayed in a descending order instead of a ascending.
@@ -3838,6 +4069,12 @@ class OlPropsBuilder extends CommonPropsBuilder {
   /// Defines the first number if other than 1.
   set start(String value) => v.start = value;
   _OlProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as OlProps;
+    v.reversed = v3.reversed;
+    v.start = v3.start;
+  }
+
   OlProps build() {
     super.build();
     return v;
@@ -3877,16 +4114,21 @@ class MenuPropsBuilder extends CommonPropsBuilder {
   MenuPropsBuilder._(_MenuProps b) : super._(b);
 
   factory MenuPropsBuilder([_MenuProps b]) {
-    var v = _MenuProps._();
+    var ret = MenuPropsBuilder._(_MenuProps._());
     if (b != null) {
-      v.type = b.type;
+      ret.value$ = b;
     }
-    return MenuPropsBuilder._(v);
+    return ret;
   }
 
   /// Defines the type of the element.
   set type(String value) => v.type = value;
   _MenuProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as MenuProps;
+    v.type = v3.type;
+  }
+
   MenuProps build() {
     super.build();
     return v;
@@ -3926,16 +4168,21 @@ class LiPropsBuilder extends CommonPropsBuilder {
   LiPropsBuilder._(_LiProps b) : super._(b);
 
   factory LiPropsBuilder([_LiProps b]) {
-    var v = _LiProps._();
+    var ret = LiPropsBuilder._(_LiProps._());
     if (b != null) {
-      v.value = b.value;
+      ret.value$ = b;
     }
-    return LiPropsBuilder._(v);
+    return ret;
   }
 
   /// Defines a default value which will be displayed in the element on page load.
   set value(String value) => v.value = value;
   _LiProps get v => super.v;
+  set value$(CommonProps v2) {
+    var v3 = v2 as LiProps;
+    v.value = v3.value;
+  }
+
   LiProps build() {
     super.build();
     return v;
@@ -4000,19 +4247,11 @@ class SvgCommonPropsBuilder extends BuiltSimpleBuilder<SvgCommonProps> {
   SvgCommonPropsBuilder._(_SvgCommonProps b) : v = b;
 
   factory SvgCommonPropsBuilder([_SvgCommonProps b]) {
-    var v = _SvgCommonProps._();
+    var ret = SvgCommonPropsBuilder._(_SvgCommonProps._());
     if (b != null) {
-      v.className = b.className;
-      v.style = b.style;
-      v.id = b.id;
-      v.lang = b.lang;
-      v.custom = b.custom;
-      v.tabindex = b.tabindex;
-      v.on = b.on;
-      v.onDart = b.onDart;
-      v.key = b.key;
+      ret.value$ = b;
     }
-    return SvgCommonPropsBuilder._(v);
+    return ret;
   }
 
   ListBuilder<String> _className;
@@ -4079,6 +4318,19 @@ class SvgCommonPropsBuilder extends BuiltSimpleBuilder<SvgCommonProps> {
 
   ///
   set key(String value) => v.key = value;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as SvgCommonProps;
+    v.className = v3.className;
+    style.value$ = v3.style;
+    v.id = v3.id;
+    v.lang = v3.lang;
+    v.custom = v3.custom;
+    v.tabindex = v3.tabindex;
+    on.value$ = v3.on;
+    onDart.value$ = v3.onDart;
+    v.key = v3.key;
+  }
+
   SvgCommonProps build() {
     v.className = _className?.build();
     v.style = _style?.build();
@@ -4134,14 +4386,11 @@ class CirclePropsBuilder extends SvgCommonPropsBuilder {
   CirclePropsBuilder._(_CircleProps b) : super._(b);
 
   factory CirclePropsBuilder([_CircleProps b]) {
-    var v = _CircleProps._();
+    var ret = CirclePropsBuilder._(_CircleProps._());
     if (b != null) {
-      v.cx = b.cx;
-      v.cy = b.cy;
-      v.r = b.r;
-      v.pathLength = b.pathLength;
+      ret.value$ = b;
     }
-    return CirclePropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the x-axis coordinate of the center of the element.
@@ -4156,6 +4405,14 @@ class CirclePropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets specify the total length for the path, in user units.
   set pathLength(String value) => v.pathLength = value;
   _CircleProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as CircleProps;
+    v.cx = v3.cx;
+    v.cy = v3.cy;
+    v.r = v3.r;
+    v.pathLength = v3.pathLength;
+  }
+
   CircleProps build() {
     super.build();
     return v;
@@ -4197,16 +4454,21 @@ class ClipPathPropsBuilder extends SvgCommonPropsBuilder {
   ClipPathPropsBuilder._(_ClipPathProps b) : super._(b);
 
   factory ClipPathPropsBuilder([_ClipPathProps b]) {
-    var v = _ClipPathProps._();
+    var ret = ClipPathPropsBuilder._(_ClipPathProps._());
     if (b != null) {
-      v.clipPathUnits = b.clipPathUnits;
+      ret.value$ = b;
     }
-    return ClipPathPropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the coordinate system for the contents of the <clipPath> element.
   set clipPathUnits(String value) => v.clipPathUnits = value;
   _ClipPathProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as ClipPathProps;
+    v.clipPathUnits = v3.clipPathUnits;
+  }
+
   ClipPathProps build() {
     super.build();
     return v;
@@ -4260,15 +4522,11 @@ class EllipsePropsBuilder extends SvgCommonPropsBuilder {
   EllipsePropsBuilder._(_EllipseProps b) : super._(b);
 
   factory EllipsePropsBuilder([_EllipseProps b]) {
-    var v = _EllipseProps._();
+    var ret = EllipsePropsBuilder._(_EllipseProps._());
     if (b != null) {
-      v.cx = b.cx;
-      v.cy = b.cy;
-      v.rx = b.rx;
-      v.ry = b.ry;
-      v.pathLength = b.pathLength;
+      ret.value$ = b;
     }
-    return EllipsePropsBuilder._(v);
+    return ret;
   }
 
   /// The x position of the ellipse.
@@ -4286,6 +4544,15 @@ class EllipsePropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets specify the total length for the path, in user units.
   set pathLength(String value) => v.pathLength = value;
   _EllipseProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as EllipseProps;
+    v.cx = v3.cx;
+    v.cy = v3.cy;
+    v.rx = v3.rx;
+    v.ry = v3.ry;
+    v.pathLength = v3.pathLength;
+  }
+
   EllipseProps build() {
     super.build();
     return v;
@@ -4336,14 +4603,11 @@ class ForeignObjectPropsBuilder extends SvgCommonPropsBuilder {
   ForeignObjectPropsBuilder._(_ForeignObjectProps b) : super._(b);
 
   factory ForeignObjectPropsBuilder([_ForeignObjectProps b]) {
-    var v = _ForeignObjectProps._();
+    var ret = ForeignObjectPropsBuilder._(_ForeignObjectProps._());
     if (b != null) {
-      v.height = b.height;
-      v.width = b.width;
-      v.x = b.x;
-      v.y = b.y;
+      ret.value$ = b;
     }
-    return ForeignObjectPropsBuilder._(v);
+    return ret;
   }
 
   /// Establishes the element's height.
@@ -4358,6 +4622,14 @@ class ForeignObjectPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute determines the y coordinate of the svg container. It has no effect on outermost svg elements.
   set y(Size value) => v.y = value;
   _ForeignObjectProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as ForeignObjectProps;
+    v.height = v3.height;
+    v.width = v3.width;
+    v.x = v3.x;
+    v.y = v3.y;
+  }
+
   ForeignObjectProps build() {
     super.build();
     return v;
@@ -4410,15 +4682,11 @@ class LinePropsBuilder extends SvgCommonPropsBuilder {
   LinePropsBuilder._(_LineProps b) : super._(b);
 
   factory LinePropsBuilder([_LineProps b]) {
-    var v = _LineProps._();
+    var ret = LinePropsBuilder._(_LineProps._());
     if (b != null) {
-      v.x1 = b.x1;
-      v.x2 = b.x2;
-      v.y1 = b.y1;
-      v.y2 = b.y2;
-      v.pathLength = b.pathLength;
+      ret.value$ = b;
     }
-    return LinePropsBuilder._(v);
+    return ret;
   }
 
   /// Defines the x-axis coordinate of the line starting point.
@@ -4436,6 +4704,15 @@ class LinePropsBuilder extends SvgCommonPropsBuilder {
   /// Defines the total path length in user units.
   set pathLength(String value) => v.pathLength = value;
   _LineProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as LineProps;
+    v.x1 = v3.x1;
+    v.x2 = v3.x2;
+    v.y1 = v3.y1;
+    v.y2 = v3.y2;
+    v.pathLength = v3.pathLength;
+  }
+
   LineProps build() {
     super.build();
     return v;
@@ -4498,18 +4775,11 @@ class MarkerPropsBuilder extends SvgCommonPropsBuilder {
   MarkerPropsBuilder._(_MarkerProps b) : super._(b);
 
   factory MarkerPropsBuilder([_MarkerProps b]) {
-    var v = _MarkerProps._();
+    var ret = MarkerPropsBuilder._(_MarkerProps._());
     if (b != null) {
-      v.markerHeight = b.markerHeight;
-      v.markerUnits = b.markerUnits;
-      v.markerWidth = b.markerWidth;
-      v.orient = b.orient;
-      v.preserveAspectRatio = b.preserveAspectRatio;
-      v.refX = b.refX;
-      v.refY = b.refY;
-      v.viewBox = b.viewBox;
+      ret.value$ = b;
     }
-    return MarkerPropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the height of the marker viewport.
@@ -4536,6 +4806,18 @@ class MarkerPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute defines the bound of the SVG viewport for the current SVG fragment.
   set viewBox(String value) => v.viewBox = value;
   _MarkerProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as MarkerProps;
+    v.markerHeight = v3.markerHeight;
+    v.markerUnits = v3.markerUnits;
+    v.markerWidth = v3.markerWidth;
+    v.orient = v3.orient;
+    v.preserveAspectRatio = v3.preserveAspectRatio;
+    v.refX = v3.refX;
+    v.refY = v3.refY;
+    v.viewBox = v3.viewBox;
+  }
+
   MarkerProps build() {
     super.build();
     return v;
@@ -4590,16 +4872,11 @@ class MaskPropsBuilder extends SvgCommonPropsBuilder {
   MaskPropsBuilder._(_MaskProps b) : super._(b);
 
   factory MaskPropsBuilder([_MaskProps b]) {
-    var v = _MaskProps._();
+    var ret = MaskPropsBuilder._(_MaskProps._());
     if (b != null) {
-      v.height = b.height;
-      v.maskContentUnits = b.maskContentUnits;
-      v.maskUnits = b.maskUnits;
-      v.x = b.x;
-      v.y = b.y;
-      v.width = b.width;
+      ret.value$ = b;
     }
-    return MaskPropsBuilder._(v);
+    return ret;
   }
 
   /// Establishes the element's height.
@@ -4620,6 +4897,16 @@ class MaskPropsBuilder extends SvgCommonPropsBuilder {
   /// Establishes the element's width.
   set width(Size value) => v.width = value;
   _MaskProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as MaskProps;
+    v.height = v3.height;
+    v.maskContentUnits = v3.maskContentUnits;
+    v.maskUnits = v3.maskUnits;
+    v.x = v3.x;
+    v.y = v3.y;
+    v.width = v3.width;
+  }
+
   MaskProps build() {
     super.build();
     return v;
@@ -4662,12 +4949,11 @@ class PathPropsBuilder extends SvgCommonPropsBuilder {
   PathPropsBuilder._(_PathProps b) : super._(b);
 
   factory PathPropsBuilder([_PathProps b]) {
-    var v = _PathProps._();
+    var ret = PathPropsBuilder._(_PathProps._());
     if (b != null) {
-      v.d = b.d;
-      v.pathLength = b.pathLength;
+      ret.value$ = b;
     }
-    return PathPropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the shape of the path.
@@ -4676,6 +4962,12 @@ class PathPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets authors specify the total length for the path, in user units.
   set pathLength(String value) => v.pathLength = value;
   _PathProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as PathProps;
+    v.d = v3.d;
+    v.pathLength = v3.pathLength;
+  }
+
   PathProps build() {
     super.build();
     return v;
@@ -4744,20 +5036,11 @@ class PatternPropsBuilder extends SvgCommonPropsBuilder {
   PatternPropsBuilder._(_PatternProps b) : super._(b);
 
   factory PatternPropsBuilder([_PatternProps b]) {
-    var v = _PatternProps._();
+    var ret = PatternPropsBuilder._(_PatternProps._());
     if (b != null) {
-      v.height = b.height;
-      v.href = b.href;
-      v.patternContentUnits = b.patternContentUnits;
-      v.patternTransform = b.patternTransform;
-      v.patternUnits = b.patternUnits;
-      v.preserveAspectRatio = b.preserveAspectRatio;
-      v.viewBox = b.viewBox;
-      v.width = b.width;
-      v.x = b.x;
-      v.y = b.y;
+      ret.value$ = b;
     }
-    return PatternPropsBuilder._(v);
+    return ret;
   }
 
   /// Establishes the element's height.
@@ -4790,6 +5073,20 @@ class PatternPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute determines the y coordinate shift of the pattern tile.
   set y(Size value) => v.y = value;
   _PatternProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as PatternProps;
+    v.height = v3.height;
+    v.href = v3.href;
+    v.patternContentUnits = v3.patternContentUnits;
+    v.patternTransform = v3.patternTransform;
+    v.patternUnits = v3.patternUnits;
+    v.preserveAspectRatio = v3.preserveAspectRatio;
+    v.viewBox = v3.viewBox;
+    v.width = v3.width;
+    v.x = v3.x;
+    v.y = v3.y;
+  }
+
   PatternProps build() {
     super.build();
     return v;
@@ -4834,12 +5131,11 @@ class PolygonPropsBuilder extends SvgCommonPropsBuilder {
   PolygonPropsBuilder._(_PolygonProps b) : super._(b);
 
   factory PolygonPropsBuilder([_PolygonProps b]) {
-    var v = _PolygonProps._();
+    var ret = PolygonPropsBuilder._(_PolygonProps._());
     if (b != null) {
-      v.points = b.points;
-      v.pathLength = b.pathLength;
+      ret.value$ = b;
     }
-    return PolygonPropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the list of points (pairs of x,y absolute coordinates) required to draw the polygon.
@@ -4848,6 +5144,12 @@ class PolygonPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets specify the total length for the path, in user units.
   set pathLength(String value) => v.pathLength = value;
   _PolygonProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as PolygonProps;
+    v.points = v3.points;
+    v.pathLength = v3.pathLength;
+  }
+
   PolygonProps build() {
     super.build();
     return v;
@@ -4892,12 +5194,11 @@ class PolylinePropsBuilder extends SvgCommonPropsBuilder {
   PolylinePropsBuilder._(_PolylineProps b) : super._(b);
 
   factory PolylinePropsBuilder([_PolylineProps b]) {
-    var v = _PolylineProps._();
+    var ret = PolylinePropsBuilder._(_PolylineProps._());
     if (b != null) {
-      v.points = b.points;
-      v.pathLength = b.pathLength;
+      ret.value$ = b;
     }
-    return PolylinePropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the list of points (pairs of x,y absolute coordinates) required to draw the polyline
@@ -4906,6 +5207,12 @@ class PolylinePropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets specify the total length for the path, in user units.
   set pathLength(String value) => v.pathLength = value;
   _PolylineProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as PolylineProps;
+    v.points = v3.points;
+    v.pathLength = v3.pathLength;
+  }
+
   PolylineProps build() {
     super.build();
     return v;
@@ -4963,17 +5270,11 @@ class RectPropsBuilder extends SvgCommonPropsBuilder {
   RectPropsBuilder._(_RectProps b) : super._(b);
 
   factory RectPropsBuilder([_RectProps b]) {
-    var v = _RectProps._();
+    var ret = RectPropsBuilder._(_RectProps._());
     if (b != null) {
-      v.x = b.x;
-      v.y = b.y;
-      v.width = b.width;
-      v.height = b.height;
-      v.rx = b.rx;
-      v.ry = b.ry;
-      v.pathLength = b.pathLength;
+      ret.value$ = b;
     }
-    return RectPropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute determines the x coordinate of the rect.
@@ -4997,6 +5298,17 @@ class RectPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets specify the total length for the path, in user units.
   set pathLength(String value) => v.pathLength = value;
   _RectProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as RectProps;
+    v.x = v3.x;
+    v.y = v3.y;
+    v.width = v3.width;
+    v.height = v3.height;
+    v.rx = v3.rx;
+    v.ry = v3.ry;
+    v.pathLength = v3.pathLength;
+  }
+
   RectProps build() {
     super.build();
     return v;
@@ -5051,16 +5363,11 @@ class SvgPropsBuilder extends SvgCommonPropsBuilder {
   SvgPropsBuilder._(_SvgProps b) : super._(b);
 
   factory SvgPropsBuilder([_SvgProps b]) {
-    var v = _SvgProps._();
+    var ret = SvgPropsBuilder._(_SvgProps._());
     if (b != null) {
-      v.height = b.height;
-      v.preserveAspectRatio = b.preserveAspectRatio;
-      v.viewBox = b.viewBox;
-      v.width = b.width;
-      v.x = b.x;
-      v.y = b.y;
+      ret.value$ = b;
     }
-    return SvgPropsBuilder._(v);
+    return ret;
   }
 
   /// Establishes the element's height.
@@ -5081,6 +5388,16 @@ class SvgPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute determines the y coordinate of the svg container. It has no effect on outermost svg elements.
   set y(Size value) => v.y = value;
   _SvgProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as SvgProps;
+    v.height = v3.height;
+    v.preserveAspectRatio = v3.preserveAspectRatio;
+    v.viewBox = v3.viewBox;
+    v.width = v3.width;
+    v.x = v3.x;
+    v.y = v3.y;
+  }
+
   SvgProps build() {
     super.build();
     return v;
@@ -5143,18 +5460,11 @@ class SymbolPropsBuilder extends SvgCommonPropsBuilder {
   SymbolPropsBuilder._(_SymbolProps b) : super._(b);
 
   factory SymbolPropsBuilder([_SymbolProps b]) {
-    var v = _SymbolProps._();
+    var ret = SymbolPropsBuilder._(_SymbolProps._());
     if (b != null) {
-      v.height = b.height;
-      v.preserveAspectRatio = b.preserveAspectRatio;
-      v.refX = b.refX;
-      v.refY = b.refY;
-      v.viewBox = b.viewBox;
-      v.width = b.width;
-      v.x = b.x;
-      v.y = b.y;
+      ret.value$ = b;
     }
-    return SymbolPropsBuilder._(v);
+    return ret;
   }
 
   /// Establishes the element's height.
@@ -5181,6 +5491,18 @@ class SymbolPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute determines the y coordinate of the symbol.
   set y(Size value) => v.y = value;
   _SymbolProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as SymbolProps;
+    v.height = v3.height;
+    v.preserveAspectRatio = v3.preserveAspectRatio;
+    v.refX = v3.refX;
+    v.refY = v3.refY;
+    v.viewBox = v3.viewBox;
+    v.width = v3.width;
+    v.x = v3.x;
+    v.y = v3.y;
+  }
+
   SymbolProps build() {
     super.build();
     return v;
@@ -5238,17 +5560,11 @@ class TextPropsBuilder extends SvgCommonPropsBuilder {
   TextPropsBuilder._(_TextProps b) : super._(b);
 
   factory TextPropsBuilder([_TextProps b]) {
-    var v = _TextProps._();
+    var ret = TextPropsBuilder._(_TextProps._());
     if (b != null) {
-      v.x = b.x;
-      v.y = b.y;
-      v.dx = b.dx;
-      v.dy = b.dy;
-      v.rotate = b.rotate;
-      v.lengthAdjust = b.lengthAdjust;
-      v.textLength = b.textLength;
+      ret.value$ = b;
     }
-    return TextPropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute determines the x coordinate of the starting point of the text baseline.
@@ -5272,6 +5588,17 @@ class TextPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets specify the width into which the text will be drawn.
   set textLength(String value) => v.textLength = value;
   _TextProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as TextProps;
+    v.x = v3.x;
+    v.y = v3.y;
+    v.dx = v3.dx;
+    v.dy = v3.dy;
+    v.rotate = v3.rotate;
+    v.lengthAdjust = v3.lengthAdjust;
+    v.textLength = v3.textLength;
+  }
+
   TextProps build() {
     super.build();
     return v;
@@ -5334,18 +5661,11 @@ class TextPathPropsBuilder extends SvgCommonPropsBuilder {
   TextPathPropsBuilder._(_TextPathProps b) : super._(b);
 
   factory TextPathPropsBuilder([_TextPathProps b]) {
-    var v = _TextPathProps._();
+    var ret = TextPathPropsBuilder._(_TextPathProps._());
     if (b != null) {
-      v.href = b.href;
-      v.lengthAdjust = b.lengthAdjust;
-      v.method = b.method;
-      v.path = b.path;
-      v.side = b.side;
-      v.spacing = b.spacing;
-      v.startOffset = b.startOffset;
-      v.textLength = b.textLength;
+      ret.value$ = b;
     }
-    return TextPathPropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the URL to the path or basic shape on which the text must be rendered. If the path attribute is also set, href as no effect.
@@ -5372,6 +5692,18 @@ class TextPathPropsBuilder extends SvgCommonPropsBuilder {
   /// This attribute lets specify the width of the space into which the text will render.
   set textLength(String value) => v.textLength = value;
   _TextPathProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as TextPathProps;
+    v.href = v3.href;
+    v.lengthAdjust = v3.lengthAdjust;
+    v.method = v3.method;
+    v.path = v3.path;
+    v.side = v3.side;
+    v.spacing = v3.spacing;
+    v.startOffset = v3.startOffset;
+    v.textLength = v3.textLength;
+  }
+
   TextPathProps build() {
     super.build();
     return v;
@@ -5423,15 +5755,11 @@ class UsePropsBuilder extends SvgCommonPropsBuilder {
   UsePropsBuilder._(_UseProps b) : super._(b);
 
   factory UsePropsBuilder([_UseProps b]) {
-    var v = _UseProps._();
+    var ret = UsePropsBuilder._(_UseProps._());
     if (b != null) {
-      v.href = b.href;
-      v.x = b.x;
-      v.y = b.y;
-      v.width = b.width;
-      v.height = b.height;
+      ret.value$ = b;
     }
-    return UsePropsBuilder._(v);
+    return ret;
   }
 
   /// This attribute defines the URL to element/fragment that needs to be duplicated.
@@ -5449,6 +5777,15 @@ class UsePropsBuilder extends SvgCommonPropsBuilder {
   /// Establishes the element's height.
   set height(Size value) => v.height = value;
   _UseProps get v => super.v;
+  set value$(SvgCommonProps v2) {
+    var v3 = v2 as UseProps;
+    v.href = v3.href;
+    v.x = v3.x;
+    v.y = v3.y;
+    v.width = v3.width;
+    v.height = v3.height;
+  }
+
   UseProps build() {
     super.build();
     return v;
@@ -5723,89 +6060,11 @@ class EventPropsBuilder extends BuiltSimpleBuilder<EventProps> {
   EventPropsBuilder._(_EventProps b) : v = b;
 
   factory EventPropsBuilder([_EventProps b]) {
-    var v = _EventProps._();
+    var ret = EventPropsBuilder._(_EventProps._());
     if (b != null) {
-      v.copy = b.copy;
-      v.cut = b.cut;
-      v.paste = b.paste;
-      v.compositionEnd = b.compositionEnd;
-      v.compositionStart = b.compositionStart;
-      v.compositionUpdate = b.compositionUpdate;
-      v.keyDown = b.keyDown;
-      v.keyPress = b.keyPress;
-      v.keyUp = b.keyUp;
-      v.focus = b.focus;
-      v.blur = b.blur;
-      v.change = b.change;
-      v.input = b.input;
-      v.invalid = b.invalid;
-      v.submit = b.submit;
-      v.click = b.click;
-      v.contextMenu = b.contextMenu;
-      v.doubleClick = b.doubleClick;
-      v.drag = b.drag;
-      v.dragEnd = b.dragEnd;
-      v.dragEnter = b.dragEnter;
-      v.dragExit = b.dragExit;
-      v.dragLeave = b.dragLeave;
-      v.dragOver = b.dragOver;
-      v.dragStart = b.dragStart;
-      v.drop = b.drop;
-      v.mouseDown = b.mouseDown;
-      v.mouseEnter = b.mouseEnter;
-      v.mouseLeave = b.mouseLeave;
-      v.mouseMove = b.mouseMove;
-      v.mouseOut = b.mouseOut;
-      v.mouseOver = b.mouseOver;
-      v.mouseUp = b.mouseUp;
-      v.pointerDown = b.pointerDown;
-      v.pointerMove = b.pointerMove;
-      v.pointerUp = b.pointerUp;
-      v.pointerCancel = b.pointerCancel;
-      v.gotPointerCapture = b.gotPointerCapture;
-      v.lostPointerCapture = b.lostPointerCapture;
-      v.pointerEnter = b.pointerEnter;
-      v.pointerLeave = b.pointerLeave;
-      v.pointerOver = b.pointerOver;
-      v.pointerOut = b.pointerOut;
-      v.select = b.select;
-      v.touchCancel = b.touchCancel;
-      v.touchEnd = b.touchEnd;
-      v.touchMove = b.touchMove;
-      v.touchStart = b.touchStart;
-      v.scroll = b.scroll;
-      v.wheel = b.wheel;
-      v.abort = b.abort;
-      v.canPlay = b.canPlay;
-      v.canPlayThrough = b.canPlayThrough;
-      v.durationChange = b.durationChange;
-      v.emptied = b.emptied;
-      v.encrypted = b.encrypted;
-      v.ended = b.ended;
-      v.error = b.error;
-      v.loadedData = b.loadedData;
-      v.loadedMetadata = b.loadedMetadata;
-      v.loadStart = b.loadStart;
-      v.pause = b.pause;
-      v.play = b.play;
-      v.playing = b.playing;
-      v.progress = b.progress;
-      v.rateChange = b.rateChange;
-      v.seeked = b.seeked;
-      v.seeking = b.seeking;
-      v.stalled = b.stalled;
-      v.suspend = b.suspend;
-      v.timeUpdate = b.timeUpdate;
-      v.volumeChange = b.volumeChange;
-      v.waiting = b.waiting;
-      v.load = b.load;
-      v.animationStart = b.animationStart;
-      v.animationEnd = b.animationEnd;
-      v.animationIteration = b.animationIteration;
-      v.transitionEnd = b.transitionEnd;
-      v.toggle = b.toggle;
+      ret.value$ = b;
     }
-    return EventPropsBuilder._(v);
+    return ret;
   }
 
   _EventProps v;
@@ -6046,6 +6305,89 @@ class EventPropsBuilder extends BuiltSimpleBuilder<EventProps> {
 
   ///
   set toggle(EventHandler value) => v.toggle = value;
+  set value$(EventProps v2) {
+    var v3 = v2 as EventProps;
+    v.copy = v3.copy;
+    v.cut = v3.cut;
+    v.paste = v3.paste;
+    v.compositionEnd = v3.compositionEnd;
+    v.compositionStart = v3.compositionStart;
+    v.compositionUpdate = v3.compositionUpdate;
+    v.keyDown = v3.keyDown;
+    v.keyPress = v3.keyPress;
+    v.keyUp = v3.keyUp;
+    v.focus = v3.focus;
+    v.blur = v3.blur;
+    v.change = v3.change;
+    v.input = v3.input;
+    v.invalid = v3.invalid;
+    v.submit = v3.submit;
+    v.click = v3.click;
+    v.contextMenu = v3.contextMenu;
+    v.doubleClick = v3.doubleClick;
+    v.drag = v3.drag;
+    v.dragEnd = v3.dragEnd;
+    v.dragEnter = v3.dragEnter;
+    v.dragExit = v3.dragExit;
+    v.dragLeave = v3.dragLeave;
+    v.dragOver = v3.dragOver;
+    v.dragStart = v3.dragStart;
+    v.drop = v3.drop;
+    v.mouseDown = v3.mouseDown;
+    v.mouseEnter = v3.mouseEnter;
+    v.mouseLeave = v3.mouseLeave;
+    v.mouseMove = v3.mouseMove;
+    v.mouseOut = v3.mouseOut;
+    v.mouseOver = v3.mouseOver;
+    v.mouseUp = v3.mouseUp;
+    v.pointerDown = v3.pointerDown;
+    v.pointerMove = v3.pointerMove;
+    v.pointerUp = v3.pointerUp;
+    v.pointerCancel = v3.pointerCancel;
+    v.gotPointerCapture = v3.gotPointerCapture;
+    v.lostPointerCapture = v3.lostPointerCapture;
+    v.pointerEnter = v3.pointerEnter;
+    v.pointerLeave = v3.pointerLeave;
+    v.pointerOver = v3.pointerOver;
+    v.pointerOut = v3.pointerOut;
+    v.select = v3.select;
+    v.touchCancel = v3.touchCancel;
+    v.touchEnd = v3.touchEnd;
+    v.touchMove = v3.touchMove;
+    v.touchStart = v3.touchStart;
+    v.scroll = v3.scroll;
+    v.wheel = v3.wheel;
+    v.abort = v3.abort;
+    v.canPlay = v3.canPlay;
+    v.canPlayThrough = v3.canPlayThrough;
+    v.durationChange = v3.durationChange;
+    v.emptied = v3.emptied;
+    v.encrypted = v3.encrypted;
+    v.ended = v3.ended;
+    v.error = v3.error;
+    v.loadedData = v3.loadedData;
+    v.loadedMetadata = v3.loadedMetadata;
+    v.loadStart = v3.loadStart;
+    v.pause = v3.pause;
+    v.play = v3.play;
+    v.playing = v3.playing;
+    v.progress = v3.progress;
+    v.rateChange = v3.rateChange;
+    v.seeked = v3.seeked;
+    v.seeking = v3.seeking;
+    v.stalled = v3.stalled;
+    v.suspend = v3.suspend;
+    v.timeUpdate = v3.timeUpdate;
+    v.volumeChange = v3.volumeChange;
+    v.waiting = v3.waiting;
+    v.load = v3.load;
+    v.animationStart = v3.animationStart;
+    v.animationEnd = v3.animationEnd;
+    v.animationIteration = v3.animationIteration;
+    v.transitionEnd = v3.transitionEnd;
+    v.toggle = v3.toggle;
+  }
+
   EventProps build() {
     return v;
   }
@@ -6115,21 +6457,11 @@ class ElementStyleBuilder extends BuiltSimpleBuilder<ElementStyle> {
   ElementStyleBuilder._(_ElementStyle b) : v = b;
 
   factory ElementStyleBuilder([_ElementStyle b]) {
-    var v = _ElementStyle._();
+    var ret = ElementStyleBuilder._(_ElementStyle._());
     if (b != null) {
-      v.custom = b.custom;
-      v.overflow = b.overflow;
-      v.cursor = b.cursor;
-      v.display = b.display;
-      v.position = b.position;
-      v.right = b.right;
-      v.left = b.left;
-      v.top = b.top;
-      v.bottom = b.bottom;
-      v.width = b.width;
-      v.height = b.height;
+      ret.value$ = b;
     }
-    return ElementStyleBuilder._(v);
+    return ret;
   }
 
   MapBuilder<String, CustomValue> _custom;
@@ -6174,6 +6506,21 @@ class ElementStyleBuilder extends BuiltSimpleBuilder<ElementStyle> {
 
   /// Height
   set height(Size value) => v.height = value;
+  set value$(ElementStyle v2) {
+    var v3 = v2 as ElementStyle;
+    v.custom = v3.custom;
+    v.overflow = v3.overflow;
+    v.cursor = v3.cursor;
+    v.display = v3.display;
+    v.position = v3.position;
+    v.right = v3.right;
+    v.left = v3.left;
+    v.top = v3.top;
+    v.bottom = v3.bottom;
+    v.width = v3.width;
+    v.height = v3.height;
+  }
+
   ElementStyle build() {
     v.custom = _custom?.build();
     return v;
@@ -6224,15 +6571,11 @@ class SvgStyleBuilder extends BuiltSimpleBuilder<SvgStyle> {
   SvgStyleBuilder._(_SvgStyle b) : v = b;
 
   factory SvgStyleBuilder([_SvgStyle b]) {
-    var v = _SvgStyle._();
+    var ret = SvgStyleBuilder._(_SvgStyle._());
     if (b != null) {
-      v.custom = b.custom;
-      v.stroke = b.stroke;
-      v.strokeWidth = b.strokeWidth;
-      v.fill = b.fill;
-      v.fillOpacity = b.fillOpacity;
+      ret.value$ = b;
     }
-    return SvgStyleBuilder._(v);
+    return ret;
   }
 
   MapBuilder<String, CustomValue> _custom;
@@ -6259,6 +6602,15 @@ class SvgStyleBuilder extends BuiltSimpleBuilder<SvgStyle> {
 
   /// fill opacity
   set fillOpacity(double value) => v.fillOpacity = value;
+  set value$(SvgStyle v2) {
+    var v3 = v2 as SvgStyle;
+    v.custom = v3.custom;
+    v.stroke = v3.stroke;
+    v.strokeWidth = v3.strokeWidth;
+    v.fill = v3.fill;
+    v.fillOpacity = v3.fillOpacity;
+  }
+
   SvgStyle build() {
     v.custom = _custom?.build();
     return v;
@@ -6299,17 +6651,22 @@ class EmptyPropsBuilder extends BuiltSimpleBuilder<EmptyProps> {
   EmptyPropsBuilder._(_EmptyProps b) : v = b;
 
   factory EmptyPropsBuilder([_EmptyProps b]) {
-    var v = _EmptyProps._();
+    var ret = EmptyPropsBuilder._(_EmptyProps._());
     if (b != null) {
-      v.key = b.key;
+      ret.value$ = b;
     }
-    return EmptyPropsBuilder._(v);
+    return ret;
   }
 
   _EmptyProps v;
 
   ///
   set key(String value) => v.key = value;
+  set value$(EmptyProps v2) {
+    var v3 = v2 as EmptyProps;
+    v.key = v3.key;
+  }
+
   EmptyProps build() {
     return v;
   }
@@ -6353,13 +6710,11 @@ class BorderBuilder extends BuiltSimpleBuilder<Border> {
   BorderBuilder._(_Border b) : v = b;
 
   factory BorderBuilder([_Border b]) {
-    var v = _Border._();
+    var ret = BorderBuilder._(_Border._());
     if (b != null) {
-      v.type = b.type;
-      v.color = b.color;
-      v.rounding = b.rounding;
+      ret.value$ = b;
     }
-    return BorderBuilder._(v);
+    return ret;
   }
 
   _Border v;
@@ -6372,6 +6727,13 @@ class BorderBuilder extends BuiltSimpleBuilder<Border> {
 
   ///
   set rounding(BorderRoundingValue value) => v.rounding = value;
+  set value$(Border v2) {
+    var v3 = v2 as Border;
+    v.type = v3.type;
+    v.color = v3.color;
+    v.rounding = v3.rounding;
+  }
+
   Border build() {
     return v;
   }
@@ -6424,16 +6786,11 @@ class FlexBuilder extends BuiltSimpleBuilder<Flex> {
   FlexBuilder._(_Flex b) : v = b;
 
   factory FlexBuilder([_Flex b]) {
-    var v = _Flex._();
+    var ret = FlexBuilder._(_Flex._());
     if (b != null) {
-      v.type = b.type;
-      v.direction = b.direction;
-      v.justify = b.justify;
-      v.align = b.align;
-      v.wrap = b.wrap;
-      v.alignContent = b.alignContent;
+      ret.value$ = b;
     }
-    return FlexBuilder._(v);
+    return ret;
   }
 
   _Flex v;
@@ -6455,6 +6812,16 @@ class FlexBuilder extends BuiltSimpleBuilder<Flex> {
 
   ///
   set alignContent(FlexAlignContentValue value) => v.alignContent = value;
+  set value$(Flex v2) {
+    var v3 = v2 as Flex;
+    v.type = v3.type;
+    v.direction = v3.direction;
+    v.justify = v3.justify;
+    v.align = v3.align;
+    v.wrap = v3.wrap;
+    v.alignContent = v3.alignContent;
+  }
+
   Flex build() {
     return v;
   }
@@ -6507,16 +6874,11 @@ class FlexItemBuilder extends BuiltSimpleBuilder<FlexItem> {
   FlexItemBuilder._(_FlexItem b) : v = b;
 
   factory FlexItemBuilder([_FlexItem b]) {
-    var v = _FlexItem._();
+    var ret = FlexItemBuilder._(_FlexItem._());
     if (b != null) {
-      v.align = b.align;
-      v.fill = b.fill;
-      v.grow = b.grow;
-      v.shrink = b.shrink;
-      v.autoMargin = b.autoMargin;
-      v.order = b.order;
+      ret.value$ = b;
     }
-    return FlexItemBuilder._(v);
+    return ret;
   }
 
   _FlexItem v;
@@ -6538,6 +6900,16 @@ class FlexItemBuilder extends BuiltSimpleBuilder<FlexItem> {
 
   ///
   set order(int value) => v.order = value;
+  set value$(FlexItem v2) {
+    var v3 = v2 as FlexItem;
+    v.align = v3.align;
+    v.fill = v3.fill;
+    v.grow = v3.grow;
+    v.shrink = v3.shrink;
+    v.autoMargin = v3.autoMargin;
+    v.order = v3.order;
+  }
+
   FlexItem build() {
     return v;
   }
@@ -6593,17 +6965,11 @@ class MarginBuilder extends BuiltSimpleBuilder<Margin> {
   MarginBuilder._(_Margin b) : v = b;
 
   factory MarginBuilder([_Margin b]) {
-    var v = _Margin._();
+    var ret = MarginBuilder._(_Margin._());
     if (b != null) {
-      v.top = b.top;
-      v.bottom = b.bottom;
-      v.left = b.left;
-      v.right = b.right;
-      v.leftRight = b.leftRight;
-      v.topBottom = b.topBottom;
-      v.all = b.all;
+      ret.value$ = b;
     }
-    return MarginBuilder._(v);
+    return ret;
   }
 
   _Margin v;
@@ -6628,6 +6994,17 @@ class MarginBuilder extends BuiltSimpleBuilder<Margin> {
 
   ///
   set all(SpacingValue value) => v.all = value;
+  set value$(Margin v2) {
+    var v3 = v2 as Margin;
+    v.top = v3.top;
+    v.bottom = v3.bottom;
+    v.left = v3.left;
+    v.right = v3.right;
+    v.leftRight = v3.leftRight;
+    v.topBottom = v3.topBottom;
+    v.all = v3.all;
+  }
+
   Margin build() {
     return v;
   }
@@ -6683,17 +7060,11 @@ class PaddingBuilder extends BuiltSimpleBuilder<Padding> {
   PaddingBuilder._(_Padding b) : v = b;
 
   factory PaddingBuilder([_Padding b]) {
-    var v = _Padding._();
+    var ret = PaddingBuilder._(_Padding._());
     if (b != null) {
-      v.top = b.top;
-      v.bottom = b.bottom;
-      v.left = b.left;
-      v.right = b.right;
-      v.leftRight = b.leftRight;
-      v.topBottom = b.topBottom;
-      v.all = b.all;
+      ret.value$ = b;
     }
-    return PaddingBuilder._(v);
+    return ret;
   }
 
   _Padding v;
@@ -6718,6 +7089,17 @@ class PaddingBuilder extends BuiltSimpleBuilder<Padding> {
 
   ///
   set all(SpacingValue value) => v.all = value;
+  set value$(Padding v2) {
+    var v3 = v2 as Padding;
+    v.top = v3.top;
+    v.bottom = v3.bottom;
+    v.left = v3.left;
+    v.right = v3.right;
+    v.leftRight = v3.leftRight;
+    v.topBottom = v3.topBottom;
+    v.all = v3.all;
+  }
+
   Padding build() {
     return v;
   }
@@ -6764,14 +7146,11 @@ class ButtonBuilder extends BuiltSimpleBuilder<Button> {
   ButtonBuilder._(_Button b) : v = b;
 
   factory ButtonBuilder([_Button b]) {
-    var v = _Button._();
+    var ret = ButtonBuilder._(_Button._());
     if (b != null) {
-      v.color = b.color;
-      v.pill = b.pill;
-      v.link = b.link;
-      v.size = b.size;
+      ret.value$ = b;
     }
-    return ButtonBuilder._(v);
+    return ret;
   }
 
   _Button v;
@@ -6787,6 +7166,14 @@ class ButtonBuilder extends BuiltSimpleBuilder<Button> {
 
   ///
   set size(ButtonSizeValue value) => v.size = value;
+  set value$(Button v2) {
+    var v3 = v2 as Button;
+    v.color = v3.color;
+    v.pill = v3.pill;
+    v.link = v3.link;
+    v.size = v3.size;
+  }
+
   Button build() {
     return v;
   }
@@ -6827,12 +7214,11 @@ class BadgeBuilder extends BuiltSimpleBuilder<Badge> {
   BadgeBuilder._(_Badge b) : v = b;
 
   factory BadgeBuilder([_Badge b]) {
-    var v = _Badge._();
+    var ret = BadgeBuilder._(_Badge._());
     if (b != null) {
-      v.color = b.color;
-      v.pill = b.pill;
+      ret.value$ = b;
     }
-    return BadgeBuilder._(v);
+    return ret;
   }
 
   _Badge v;
@@ -6842,6 +7228,12 @@ class BadgeBuilder extends BuiltSimpleBuilder<Badge> {
 
   ///
   set pill(bool value) => v.pill = value;
+  set value$(Badge v2) {
+    var v3 = v2 as Badge;
+    v.color = v3.color;
+    v.pill = v3.pill;
+  }
+
   Badge build() {
     return v;
   }
@@ -6895,21 +7287,11 @@ class BootstrapBuilder extends BuiltSimpleBuilder<Bootstrap> {
   BootstrapBuilder._(_Bootstrap b) : v = b;
 
   factory BootstrapBuilder([_Bootstrap b]) {
-    var v = _Bootstrap._();
+    var ret = BootstrapBuilder._(_Bootstrap._());
     if (b != null) {
-      v.display = b.display;
-      v.printDisplay = b.printDisplay;
-      v.flex = b.flex;
-      v.flexItem = b.flexItem;
-      v.margin = b.margin;
-      v.padding = b.padding;
-      v.border = b.border;
-      v.clearfix = b.clearfix;
-      v.extra = b.extra;
-      v.button = b.button;
-      v.badge = b.badge;
+      ret.value$ = b;
     }
-    return BootstrapBuilder._(v);
+    return ret;
   }
 
   FlexBuilder _flex;
@@ -7001,6 +7383,21 @@ class BootstrapBuilder extends BuiltSimpleBuilder<Bootstrap> {
       _badge = ButtonBuilder(v.badge);
     }
     return _badge;
+  }
+
+  set value$(Bootstrap v2) {
+    var v3 = v2 as Bootstrap;
+    v.display = v3.display;
+    v.printDisplay = v3.printDisplay;
+    flex.value$ = v3.flex;
+    flexItem.value$ = v3.flexItem;
+    margin.value$ = v3.margin;
+    padding.value$ = v3.padding;
+    border.value$ = v3.border;
+    v.clearfix = v3.clearfix;
+    v.extra = v3.extra;
+    button.value$ = v3.button;
+    badge.value$ = v3.badge;
   }
 
   Bootstrap build() {

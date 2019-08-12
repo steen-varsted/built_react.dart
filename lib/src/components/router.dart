@@ -16,7 +16,7 @@ abstract class HistoryContext {
 
 enum LoginState { notLoggedin, loginInProgress, loggedin }
 
-abstract class RouteContext implements BuiltSimple {
+abstract class RouteContext {
   String get path;
 }
 
